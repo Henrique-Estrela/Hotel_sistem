@@ -5,12 +5,16 @@
 package Views;
 
 import Conexao.DB;
+import Models.Cliente;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,6 +27,7 @@ public class JPClientes extends javax.swing.JPanel {
      */
     public JPClientes() {
         initComponents();
+        atualizarTabela();                   
     }
 
     /**
@@ -40,6 +45,8 @@ public class JPClientes extends javax.swing.JPanel {
         jTFNome = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableCliente = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -63,20 +70,37 @@ public class JPClientes extends javax.swing.JPanel {
             }
         });
 
+        jTableCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Nome"
+            }
+        ));
+        jScrollPane1.setViewportView(jTableCliente);
+        if (jTableCliente.getColumnModel().getColumnCount() > 0) {
+            jTableCliente.getColumnModel().getColumn(0).setResizable(false);
+            jTableCliente.getColumnModel().getColumn(1).setResizable(false);
+        }
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(181, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(144, 144, 144))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(15, 15, 15))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,10 +108,11 @@ public class JPClientes extends javax.swing.JPanel {
                 .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(65, 65, 65)
-                .addComponent(jButton1)
-                .addContainerGap(117, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -97,26 +122,57 @@ public class JPClientes extends javax.swing.JPanel {
         try {
             // TODO add your handling code here:
             Connection conn = DB.getConexao();
-            
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from TB_CLIENTE");
-            while (rs.next()) {
-                System.out.println(rs.getString("NOME"));
-            }
+                         
+            PreparedStatement pst = conn.prepareStatement("INSERT INTO TB_CLIENTE(ID, NOME) VALUES (null, ?)");            
+            pst.setString(1, jTFNome.getText());            
+            pst.execute();
+            conn.commit();                    
         } catch (SQLException ex) {
             Logger.getLogger(JPClientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+        } finally {
+            DB.closeConexao();
+        }      
+        //
+        atualizarTabela();                   
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
+    private void atualizarTabela() {
+        try {
+            // TODO add your handling code here:
+            Connection conn = DB.getConexao();
+            
+            DefaultTableModel model = (DefaultTableModel) jTableCliente.getModel();
+            model.setRowCount(0);
+            ArrayList<Cliente> lista = new ArrayList();
+            
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select * from TB_CLIENTE");
+            while (rs.next()) {                                
+                Cliente cliente = new Cliente(rs);                                                
+                lista.add(cliente);                            
+            }
+            
+            for (Cliente c : lista) {
+                Object[] dados = {c.getId(), c.getNome()};
+                model.addRow(dados);  
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(JPClientes.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DB.closeConexao();
+        }            
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFNome;
+    private javax.swing.JTable jTableCliente;
     // End of variables declaration//GEN-END:variables
 }
