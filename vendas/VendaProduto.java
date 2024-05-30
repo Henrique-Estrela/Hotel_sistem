@@ -1,4 +1,0 @@
-package vendas;
-class VendaProduto {
-    
-}
