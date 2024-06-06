@@ -4,16 +4,9 @@
  */
 package Views;
 
-import Conexao.DB;
+import Controller.ClienteController;
 import Models.Cliente;
-import java.sql.Connection;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,9 +18,17 @@ public class JPClientes extends javax.swing.JPanel {
     /**
      * Creates new form JPClientes
      */
+    ClienteController clienteController;
+    FormState formState;
+
     public JPClientes() {
         initComponents();
-        atualizarTabela();                   
+        clienteController = new ClienteController();
+        atualizarTabela();
+
+        jBNovo.setEnabled(true);
+        jBEditar.setEnabled(true);
+        jBGravar.setEnabled(false);
     }
 
     /**
@@ -42,11 +43,19 @@ public class JPClientes extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jTFNome = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCliente = new javax.swing.JTable();
+        jBGravar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jTFTelefone = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTFCPF = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTFNome = new javax.swing.JTextField();
+        jBEditar = new javax.swing.JButton();
+        jBNovo = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jTFCodigo = new javax.swing.JTextField();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -59,120 +68,182 @@ public class JPClientes extends javax.swing.JPanel {
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        jTFNome.setToolTipText("");
-
-        jLabel1.setText("Nome:");
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTableCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome"
+                "Código", "Nome", "CPF", "Telefone"
             }
         ));
         jScrollPane1.setViewportView(jTableCliente);
         if (jTableCliente.getColumnModel().getColumnCount() > 0) {
             jTableCliente.getColumnModel().getColumn(0).setResizable(false);
+            jTableCliente.getColumnModel().getColumn(0).setPreferredWidth(5);
             jTableCliente.getColumnModel().getColumn(1).setResizable(false);
+            jTableCliente.getColumnModel().getColumn(1).setPreferredWidth(50);
+            jTableCliente.getColumnModel().getColumn(2).setResizable(false);
+            jTableCliente.getColumnModel().getColumn(2).setPreferredWidth(30);
+            jTableCliente.getColumnModel().getColumn(3).setResizable(false);
+            jTableCliente.getColumnModel().getColumn(3).setPreferredWidth(40);
         }
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(15, 15, 15))))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 520, 150));
+
+        jBGravar.setText("Gravar");
+        jBGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGravarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jBGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 200, -1));
+
+        jLabel3.setText("Telefone:");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, 20));
+
+        jTFTelefone.setToolTipText("");
+        jPanel2.add(jTFTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 230, 20));
+
+        jLabel2.setText("CPF:");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, 20));
+
+        jTFCPF.setToolTipText("");
+        jPanel2.add(jTFCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 230, 20));
+
+        jLabel1.setText("Nome:");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 40, 20));
+
+        jTFNome.setToolTipText("");
+        jTFNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFNomeActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jTFNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 230, 20));
+
+        jBEditar.setText("Editar");
+        jBEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEditarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jBEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 100, -1));
+
+        jBNovo.setText("Novo");
+        jBNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBNovoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jBNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, -1));
+
+        jLabel5.setText("Código:");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 50, 20));
+
+        jTFCodigo.setEditable(false);
+        jTFCodigo.setToolTipText("");
+        jTFCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFCodigoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jTFCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 230, 20));
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            // TODO add your handling code here:
-            Connection conn = DB.getConexao();
-                         
-            PreparedStatement pst = conn.prepareStatement("INSERT INTO TB_CLIENTE(ID, NOME) VALUES (null, ?)");            
-            pst.setString(1, jTFNome.getText());            
-            pst.execute();
-            conn.commit();                    
-        } catch (SQLException ex) {
-            Logger.getLogger(JPClientes.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            DB.closeConexao();
-        }      
+    private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
+        if (formState == FormState.INSERT) {
+            clienteController.inserirCliente(new Cliente(0, jTFNome.getText(), jTFTelefone.getText(), jTFCPF.getText()));
+        } else if (formState == FormState.EDIT) {
+            clienteController.editarCliente(new Cliente(Integer.valueOf(jTFCodigo.getText()), jTFNome.getText(), jTFTelefone.getText(), jTFCPF.getText()));
+        }
         //
-        atualizarTabela();                   
-    }//GEN-LAST:event_jButton1ActionPerformed
+        atualizarTabela();
+        //
+        jBNovo.setEnabled(true);
+        jBEditar.setEnabled(true);
+        jBGravar.setEnabled(false);
+    }//GEN-LAST:event_jBGravarActionPerformed
 
+    private void jTFNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFNomeActionPerformed
+
+    private void jBEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarActionPerformed
+        // TODO add your handling code here:    
+        jTFNome.setText("");
+        jTFTelefone.setText("");
+        jTFCPF.setText("");
+        //        
+        Object nome = jTableCliente.getValueAt(jTableCliente.getSelectedRow(), 1);
+        Object telefone = jTableCliente.getValueAt(jTableCliente.getSelectedRow(), 2);
+        Object cpf = jTableCliente.getValueAt(jTableCliente.getSelectedRow(), 3);
+        //
+        jTFCodigo.setText(jTableCliente.getValueAt(jTableCliente.getSelectedRow(), 0).toString());
+        if (nome != null) {
+            jTFNome.setText(nome.toString());
+        }
+        if (telefone != null) {
+            jTFTelefone.setText(telefone.toString());
+        }
+        if (cpf != null) {
+            jTFCPF.setText(cpf.toString());
+        }
+
+        //
+        formState = FormState.EDIT;
+
+        jBNovo.setEnabled(false);
+        jBEditar.setEnabled(false);
+        jBGravar.setEnabled(true);
+    }//GEN-LAST:event_jBEditarActionPerformed
+
+    private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
+        jTFNome.setText("");
+        jTFTelefone.setText("");
+        jTFCPF.setText("");
+        //
+        formState = FormState.INSERT;
+        //
+        jBNovo.setEnabled(false);
+        jBEditar.setEnabled(false);
+        jBGravar.setEnabled(true);
+    }//GEN-LAST:event_jBNovoActionPerformed
+
+    private void jTFCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFCodigoActionPerformed
 
     private void atualizarTabela() {
-        try {
-            // TODO add your handling code here:
-            Connection conn = DB.getConexao();
-            
-            DefaultTableModel model = (DefaultTableModel) jTableCliente.getModel();
-            model.setRowCount(0);
-            ArrayList<Cliente> lista = new ArrayList();
-            
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from TB_CLIENTE");
-            while (rs.next()) {                                
-                Cliente cliente = new Cliente(rs);                                                
-                lista.add(cliente);                            
-            }
-            
-            for (Cliente c : lista) {
-                Object[] dados = {c.getId(), c.getNome()};
-                model.addRow(dados);  
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(JPClientes.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            DB.closeConexao();
-        }            
+        DefaultTableModel model = (DefaultTableModel) jTableCliente.getModel();
+        model.setRowCount(0);
+        ArrayList<Cliente> lista = clienteController.conultarCliente();
+
+        for (Cliente c : lista) {
+            Object[] dados = {c.getId(), c.getNome(), c.getCpf(), c.getTelefone()};
+            model.addRow(dados);
+        }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBEditar;
+    private javax.swing.JButton jBGravar;
+    private javax.swing.JButton jBNovo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTFCPF;
+    private javax.swing.JTextField jTFCodigo;
     private javax.swing.JTextField jTFNome;
+    private javax.swing.JTextField jTFTelefone;
     private javax.swing.JTable jTableCliente;
     // End of variables declaration//GEN-END:variables
 }
