@@ -13,7 +13,8 @@ import javax.swing.JInternalFrame;
 public class JFTelaPrincipal extends javax.swing.JFrame {
 
     
-    JPClientes jPClientes;
+    private JPClientes jPClientes;
+    private JPReserva jPReserva;
     /**
      * Creates new form jFTelaPrincipal
      */
@@ -31,7 +32,8 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jBCliente = new javax.swing.JButton();
+        jBCliente1 = new javax.swing.JButton();
         jPnlMain = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -40,11 +42,19 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 153, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(150, 150));
 
-        jButton1.setText("Clientes");
-        jButton1.setBorder(null);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBCliente.setText("Clientes");
+        jBCliente.setBorder(null);
+        jBCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBClienteActionPerformed(evt);
+            }
+        });
+
+        jBCliente1.setText("Reservar");
+        jBCliente1.setBorder(null);
+        jBCliente1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCliente1ActionPerformed(evt);
             }
         });
 
@@ -52,35 +62,50 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+            .addComponent(jBCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+            .addComponent(jBCliente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 422, Short.MAX_VALUE))
+                .addComponent(jBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(316, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);
 
-        jPnlMain.setLayout(new java.awt.GridLayout());
+        jPnlMain.setLayout(new java.awt.GridLayout(1, 0));
         getContentPane().add(jPnlMain, java.awt.BorderLayout.CENTER);
 
         setSize(new java.awt.Dimension(773, 530));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBClienteActionPerformed
         // TODO add your handling code here:           
         if (jPClientes == null) {
             jPClientes = new JPClientes();    
             jPnlMain.add(jPClientes);
         }
-                       
+        //
         jPnlMain.revalidate();
         jPnlMain.repaint();
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBClienteActionPerformed
+
+    private void jBCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCliente1ActionPerformed
+        // TODO add your handling code here:
+        
+      if (jPReserva == null) {
+            jPReserva = new JPReserva();    
+            jPnlMain.add(jPReserva);
+      }
+      //
+      jPnlMain.revalidate();
+      jPnlMain.repaint();        
+    }//GEN-LAST:event_jBCliente1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -119,7 +144,8 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBCliente;
+    private javax.swing.JButton jBCliente1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPnlMain;
     // End of variables declaration//GEN-END:variables

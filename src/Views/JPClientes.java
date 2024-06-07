@@ -18,17 +18,32 @@ public class JPClientes extends javax.swing.JPanel {
     /**
      * Creates new form JPClientes
      */
-    ClienteController clienteController;
-    FormState formState;
+    private final ClienteController clienteController;
+    private FormState formState;
 
     public JPClientes() {
         initComponents();
-        clienteController = new ClienteController();
-        atualizarTabela();
-
-        jBNovo.setEnabled(true);
-        jBEditar.setEnabled(true);
-        jBGravar.setEnabled(false);
+        this.clienteController = new ClienteController();
+        this.formState = FormState.SEARCH;
+        
+        atualizarTabela();        
+        updateButtons();
+    }
+    
+    public void updateButtons() {
+        if (FormState.SEARCH == formState) {
+            jBNovo.setEnabled(true);
+            jBEditar.setEnabled(true);
+            jBGravar.setEnabled(false); 
+        } else if (FormState.INSERT == formState) {
+            jBNovo.setEnabled(false);
+            jBEditar.setEnabled(false);
+            jBGravar.setEnabled(true);
+        } else if (FormState.EDIT == formState) {
+            jBNovo.setEnabled(false);
+            jBEditar.setEnabled(false);
+            jBGravar.setEnabled(true);            
+        }
     }
 
     /**
@@ -56,6 +71,7 @@ public class JPClientes extends javax.swing.JPanel {
         jBNovo = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jTFCodigo = new javax.swing.JTextField();
+        jBCancelar = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -116,11 +132,6 @@ public class JPClientes extends javax.swing.JPanel {
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 40, 20));
 
         jTFNome.setToolTipText("");
-        jTFNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFNomeActionPerformed(evt);
-            }
-        });
         jPanel2.add(jTFNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 230, 20));
 
         jBEditar.setText("Editar");
@@ -144,12 +155,16 @@ public class JPClientes extends javax.swing.JPanel {
 
         jTFCodigo.setEditable(false);
         jTFCodigo.setToolTipText("");
-        jTFCodigo.addActionListener(new java.awt.event.ActionListener() {
+        jPanel2.add(jTFCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 230, 20));
+
+        jBCancelar.setText("Cancelar");
+        jBCancelar.setActionCommand("");
+        jBCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFCodigoActionPerformed(evt);
+                jBCancelarActionPerformed(evt);
             }
         });
-        jPanel2.add(jTFCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 230, 20));
+        jPanel2.add(jBCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 100, -1));
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -163,14 +178,8 @@ public class JPClientes extends javax.swing.JPanel {
         //
         atualizarTabela();
         //
-        jBNovo.setEnabled(true);
-        jBEditar.setEnabled(true);
-        jBGravar.setEnabled(false);
+        updateButtons();
     }//GEN-LAST:event_jBGravarActionPerformed
-
-    private void jTFNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTFNomeActionPerformed
 
     private void jBEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarActionPerformed
         // TODO add your handling code here:    
@@ -192,13 +201,10 @@ public class JPClientes extends javax.swing.JPanel {
         if (cpf != null) {
             jTFCPF.setText(cpf.toString());
         }
-
         //
         formState = FormState.EDIT;
-
-        jBNovo.setEnabled(false);
-        jBEditar.setEnabled(false);
-        jBGravar.setEnabled(true);
+        //
+        updateButtons();
     }//GEN-LAST:event_jBEditarActionPerformed
 
     private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
@@ -208,14 +214,16 @@ public class JPClientes extends javax.swing.JPanel {
         //
         formState = FormState.INSERT;
         //
-        jBNovo.setEnabled(false);
-        jBEditar.setEnabled(false);
-        jBGravar.setEnabled(true);
+        updateButtons();
     }//GEN-LAST:event_jBNovoActionPerformed
 
-    private void jTFCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFCodigoActionPerformed
+    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTFCodigoActionPerformed
+        //
+        formState = FormState.SEARCH;
+        //
+        updateButtons();       
+    }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void atualizarTabela() {
         DefaultTableModel model = (DefaultTableModel) jTableCliente.getModel();
@@ -229,6 +237,7 @@ public class JPClientes extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBEditar;
     private javax.swing.JButton jBGravar;
     private javax.swing.JButton jBNovo;
