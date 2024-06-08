@@ -1,4 +1,4 @@
-package Entidades;
+package Models;
 
 public class FormaPagamento {
     private int id;
@@ -18,8 +18,8 @@ public class FormaPagamento {
 
     // Setters
 
-    public void setNome(String novo_nome){
-        this.nome = novo_nome;
+    public void setNome(String novoNome){
+        this.nome = novoNome;
     }
 
     // Métodos Adicionais

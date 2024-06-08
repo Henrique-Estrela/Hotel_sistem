@@ -45,6 +45,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jBCliente" pref="155" max="32767" attributes="0"/>
               <Component id="jBCliente1" alignment="0" max="32767" attributes="0"/>
+              <Component id="jBCliente2" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -53,7 +54,9 @@
                   <Component id="jBCliente" min="-2" pref="100" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jBCliente1" min="-2" pref="100" max="-2" attributes="0"/>
-                  <EmptySpace pref="316" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jBCliente2" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace pref="210" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -72,13 +75,24 @@
         </Component>
         <Component class="javax.swing.JButton" name="jBCliente1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Reservar"/>
+            <Property name="text" type="java.lang.String" value="Quartos"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBCliente1ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jBCliente2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Reservar"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBCliente2ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

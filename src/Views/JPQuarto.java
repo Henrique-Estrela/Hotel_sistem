@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Vinicius
  */
-public class JPClientes extends javax.swing.JPanel {
+public class JPQuarto extends javax.swing.JPanel {
 
     /**
      * Creates new form JPClientes
@@ -28,7 +28,7 @@ public class JPClientes extends javax.swing.JPanel {
     private final ClienteController clienteController;
     private FormState formState;
 
-    public JPClientes() {
+    public JPQuarto() {
         initComponents();
         this.clienteController = new ClienteController();
         this.formState = FormState.SEARCH;
@@ -111,9 +111,7 @@ public class JPClientes extends javax.swing.JPanel {
         jTableCliente = new javax.swing.JTable();
         jBGravar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jTFTelefone = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTFCPF = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTFNome = new javax.swing.JTextField();
         jBEditar = new javax.swing.JButton();
@@ -121,8 +119,8 @@ public class JPClientes extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jTFCodigo = new javax.swing.JTextField();
         jBCancelar = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jTFDataNasc = new javax.swing.JFormattedTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -130,7 +128,7 @@ public class JPClientes extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Tela Clientes");
+        jLabel4.setText("Tela Quartos");
         jPanel1.add(jLabel4);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
@@ -143,7 +141,7 @@ public class JPClientes extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Código", "Nome", "CPF", "Telefone", "Data Nasc"
+                "Código", "Num. Quarto", "Tamanho", "Reservado"
             }
         ));
         jTableCliente.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -161,25 +159,19 @@ public class JPClientes extends javax.swing.JPanel {
         jPanel2.add(jBGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 290, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Telefone:");
+        jLabel3.setText("Reservado:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, 20));
 
-        jTFTelefone.setToolTipText("");
-        jPanel2.add(jTFTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 230, 30));
-
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("CPF:");
+        jLabel2.setText("Tamanho:");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, 20));
 
-        jTFCPF.setToolTipText("");
-        jPanel2.add(jTFCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 230, 30));
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Nome:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 40, 20));
+        jLabel1.setText("Num: Quarto:");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 90, 20));
 
         jTFNome.setToolTipText("");
-        jPanel2.add(jTFNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 230, 30));
+        jPanel2.add(jTFNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 210, 30));
 
         jBEditar.setText("Editar");
         jBEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -203,7 +195,7 @@ public class JPClientes extends javax.swing.JPanel {
 
         jTFCodigo.setEditable(false);
         jTFCodigo.setToolTipText("");
-        jPanel2.add(jTFCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 230, 30));
+        jPanel2.add(jTFCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 210, 30));
 
         jBCancelar.setText("Cancelar");
         jBCancelar.setActionCommand("");
@@ -214,17 +206,14 @@ public class JPClientes extends javax.swing.JPanel {
         });
         jPanel2.add(jBCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 100, -1));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setText("Data Nasc:");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 20));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "D" }));
+        jComboBox1.setToolTipText("");
+        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, 30));
 
-        try {
-            jTFDataNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jTFDataNasc.setToolTipText("");
-        jPanel2.add(jTFDataNasc, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 90, 30));
+        jComboBox2.setEditable(true);
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "P", "M", "G" }));
+        jComboBox2.setToolTipText("");
+        jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, -1, 30));
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -247,7 +236,7 @@ public class JPClientes extends javax.swing.JPanel {
                                                         df.parse(jTFDataNasc.getText())));
             }        
         } catch (ParseException ex) {
-                Logger.getLogger(JPClientes.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JPQuarto.class.getName()).log(Level.SEVERE, null, ex);
             }
         //
         atualizarTabela();
@@ -299,20 +288,18 @@ public class JPClientes extends javax.swing.JPanel {
     private javax.swing.JButton jBEditar;
     private javax.swing.JButton jBGravar;
     private javax.swing.JButton jBNovo;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTFCPF;
     private javax.swing.JTextField jTFCodigo;
-    private javax.swing.JFormattedTextField jTFDataNasc;
     private javax.swing.JTextField jTFNome;
-    private javax.swing.JTextField jTFTelefone;
     private javax.swing.JTable jTableCliente;
     // End of variables declaration//GEN-END:variables
 }

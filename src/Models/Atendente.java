@@ -1,4 +1,4 @@
-package Entidades;
+package Models;
 
 public class Atendente {
     private int id;
@@ -38,7 +38,7 @@ public class Atendente {
 
     // Métodos Adicionais
 
-    public boolean esta_ativo(){
+    public boolean estaAtivo(){
         return this.ativo;
     }
 

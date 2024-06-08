@@ -15,6 +15,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
     
     private JPClientes jPClientes;
     private JPReserva jPReserva;
+    private JPQuarto jPQuarto;
     /**
      * Creates new form jFTelaPrincipal
      */
@@ -34,6 +35,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jBCliente = new javax.swing.JButton();
         jBCliente1 = new javax.swing.JButton();
+        jBCliente2 = new javax.swing.JButton();
         jPnlMain = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -50,11 +52,19 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jBCliente1.setText("Reservar");
+        jBCliente1.setText("Quartos");
         jBCliente1.setBorder(null);
         jBCliente1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBCliente1ActionPerformed(evt);
+            }
+        });
+
+        jBCliente2.setText("Reservar");
+        jBCliente2.setBorder(null);
+        jBCliente2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCliente2ActionPerformed(evt);
             }
         });
 
@@ -64,6 +74,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jBCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
             .addComponent(jBCliente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBCliente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -71,7 +82,9 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(316, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(210, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);
@@ -99,14 +112,26 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
     private void jBCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCliente1ActionPerformed
         // TODO add your handling code here:
         jPnlMain.removeAll();        
+        if (jPQuarto == null) {
+            jPQuarto = new JPQuarto();                
+        }
+        jPnlMain.add(jPQuarto);
+        //
+        jPnlMain.revalidate();
+        jPnlMain.repaint();        
+    }//GEN-LAST:event_jBCliente1ActionPerformed
+
+    private void jBCliente2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCliente2ActionPerformed
+        // TODO add your handling code here:
+        jPnlMain.removeAll();        
         if (jPReserva == null) {
             jPReserva = new JPReserva();                
         }
         jPnlMain.add(jPReserva);
         //
         jPnlMain.revalidate();
-        jPnlMain.repaint();        
-    }//GEN-LAST:event_jBCliente1ActionPerformed
+        jPnlMain.repaint();                
+    }//GEN-LAST:event_jBCliente2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,6 +172,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCliente;
     private javax.swing.JButton jBCliente1;
+    private javax.swing.JButton jBCliente2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPnlMain;
     // End of variables declaration//GEN-END:variables

@@ -47,7 +47,7 @@ public class ClienteController {
             Connection conn = DB.getConexao();
             //
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from TB_CLIENTE");
+            ResultSet rs = st.executeQuery("SELECT * FROM TB_CLIENTE");
             while (rs.next()) {
                 Cliente cliente = new Cliente(rs);
                 lista.add(cliente);

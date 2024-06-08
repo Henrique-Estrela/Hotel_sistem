@@ -1,17 +1,17 @@
-package Entidades;
+package Models;
 
 import java.time.LocalDateTime;
 
 public class Reserva {
-    private int num;
+    private Integer num;
     private Cliente cliente;
     private Atendente atendente;
     private Quarto quarto;
     private FormaPagamento pagamento;
-    private LocalDateTime data_checkin;
-    private LocalDateTime data_checkout;
-    private int num_hospedes;
-    private float valor_pagamento;
+    private LocalDateTime dataCheckin;
+    private LocalDateTime dataCheckout;
+    private Integer numHospedes;
+    private Double valorPagamento;
     private boolean pago;
 
     // Construtores
@@ -39,38 +39,38 @@ public class Reserva {
     }
 
     public LocalDateTime getDataCheckin(){
-        return this.data_checkin;
+        return this.dataCheckin;
     }
 
     public LocalDateTime getDataCheckout(){
-        return this.data_checkout;
+        return this.dataCheckout;
     }
 
-    public int getNumHospedes(){
-        return this.num_hospedes;
+    public Integer getNumHospedes(){
+        return this.numHospedes;
     }
 
-    public float getValorPagamento(){
-        return this.valor_pagamento;
+    public Double getValorPagamento(){
+        return this.valorPagamento;
     }
 
     // Setters
 
-    public void setNumHospedes(int novo_num){
-        this.num_hospedes = novo_num;
+    public void setNumHospedes(Integer novoNum){
+        this.numHospedes = novoNum;
     }
 
-    public void setValorPagamento(float novo_valor){
-        this.valor_pagamento = novo_valor;
+    public void setValorPagamento(Double novoValor){
+        this.valorPagamento = novoValor;
     }
 
-    public void setStatusPago(boolean novo_status){
-        this.pago = novo_status;
+    public void setStatusPago(boolean novoStatus){
+        this.pago = novoStatus;
     }
 
     // Métodos Adicionais
 
-    public boolean esta_pago(){
+    public boolean estaPago(){
         return this.pago;
     }
 

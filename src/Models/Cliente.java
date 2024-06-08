@@ -6,6 +6,7 @@ package Models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,17 +15,19 @@ import java.util.logging.Logger;
  * @author Vinicius
  */
 public class Cliente {
-    
+
     private Integer id;
     private String nome;
     private String telefone;
     private String cpf;
+    private Date dataNasc;
 
-    public Cliente(Integer id, String nome, String telefone, String cpf) {
+    public Cliente(Integer id, String nome, String telefone, String cpf, Date dataNasc) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.cpf = cpf;
+        this.dataNasc = dataNasc;
     }
 
     public Cliente(ResultSet rs) {
@@ -70,7 +73,12 @@ public class Cliente {
         this.cpf = cpf;
     }
 
+    public Date getDataNasc() {
+        return dataNasc;
+    }
 
-    
-    
+    public void setDataNasc(Date dataNasc) {
+        this.dataNasc = dataNasc;
+    }
+
 }

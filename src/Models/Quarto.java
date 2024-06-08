@@ -1,4 +1,4 @@
-package Entidades;
+package Models;
 
 public class Quarto {
     private int id;
@@ -24,21 +24,21 @@ public class Quarto {
 
     // Setters
 
-    public void setNum(int novo_num){
-        this.num = novo_num;
+    public void setNum(int novoNum){
+        this.num = novoNum;
     }
 
-    public void setStatusReservado(boolean novo_status){
-        this.reservado = novo_status;
+    public void setStatusReservado(boolean novoStatus){
+        this.reservado = novoStatus;
     }
 
-    public void setTamanho(char novo_tamanho){
-        this.tamanho = novo_tamanho;
+    public void setTamanho(char novoTamanho){
+        this.tamanho = novoTamanho;
     }
 
     // Métodos Adicionais
 
-    public boolean esta_reservado(){
+    public boolean estaReservado(){
         return this.reservado;
     }
     
