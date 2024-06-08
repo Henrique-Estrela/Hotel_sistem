@@ -85,10 +85,11 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
 
     private void jBClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBClienteActionPerformed
         // TODO add your handling code here:           
+        jPnlMain.removeAll();
         if (jPClientes == null) {
-            jPClientes = new JPClientes();    
-            jPnlMain.add(jPClientes);
+            jPClientes = new JPClientes();                
         }
+        jPnlMain.add(jPClientes);
         //
         jPnlMain.revalidate();
         jPnlMain.repaint();
@@ -97,14 +98,14 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
 
     private void jBCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCliente1ActionPerformed
         // TODO add your handling code here:
-        
-      if (jPReserva == null) {
-            jPReserva = new JPReserva();    
-            jPnlMain.add(jPReserva);
-      }
-      //
-      jPnlMain.revalidate();
-      jPnlMain.repaint();        
+        jPnlMain.removeAll();        
+        if (jPReserva == null) {
+            jPReserva = new JPReserva();                
+        }
+        jPnlMain.add(jPReserva);
+        //
+        jPnlMain.revalidate();
+        jPnlMain.repaint();        
     }//GEN-LAST:event_jBCliente1ActionPerformed
 
     /**

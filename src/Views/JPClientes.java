@@ -178,6 +178,7 @@ public class JPClientes extends javax.swing.JPanel {
         //
         atualizarTabela();
         //
+        formState = FormState.SEARCH;
         updateButtons();
     }//GEN-LAST:event_jBGravarActionPerformed
 
