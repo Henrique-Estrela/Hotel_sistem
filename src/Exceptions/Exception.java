@@ -2,7 +2,7 @@ package Exceptions;
 
 public class Exception {
     private String msg;
-    
+ 
     Exception(String msg_da_excecao){
         this.msg = msg_da_excecao;
     }

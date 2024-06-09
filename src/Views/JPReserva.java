@@ -4,6 +4,15 @@
  */
 package Views;
 
+import Controller.QuartosController;
+import Models.Quarto;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Vinicius
@@ -11,10 +20,86 @@ package Views;
 public class JPReserva extends javax.swing.JPanel {
 
     /**
-     * Creates new form JPReserva
+     * Creates new form JPClientes
      */
+    private final QuartosController quartoController;
+    private FormState formState;
+
     public JPReserva() {
         initComponents();
+        this.quartoController = new QuartosController();
+        this.formState = FormState.SEARCH;
+        //
+        atualizarTabela();        
+        updateButtons();
+        //
+        addListenerSelectionTable();
+    }
+    
+    public void addListenerSelectionTable() {
+        jTableQuarto.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!jTableQuarto.getSelectionModel().isSelectionEmpty()) {
+                    updateEdits();
+                }
+            }
+        });
+    }
+    
+    public void updateButtons() {
+        if (FormState.SEARCH == formState) {
+            jBNovo.setEnabled(true);
+            jBEditar.setEnabled(true);
+            jBCancelar.setEnabled(false);
+            jBGravar.setEnabled(false); 
+        } else if (FormState.INSERT == formState) {
+            jBNovo.setEnabled(false);
+            jBEditar.setEnabled(false);
+            jBCancelar.setEnabled(true);
+            jBGravar.setEnabled(true);
+        } else if (FormState.EDIT == formState) {
+            jBNovo.setEnabled(false);
+            jBEditar.setEnabled(false);
+            jBCancelar.setEnabled(true);
+            jBGravar.setEnabled(true);            
+        }
+    }
+    
+    public void updateEdits() {        
+        jTFCodigo.setText("");
+        jTFNumQuarto.setText("");
+        /*
+        jCReservado.setText("");
+        jCReservado.setText("");
+        */
+        //        
+        Object numQuarto = jTableQuarto.getValueAt(jTableQuarto.getSelectedRow(), 1);
+        Object tamanho = jTableQuarto.getValueAt(jTableQuarto.getSelectedRow(), 2);
+        Object reservado = jTableQuarto.getValueAt(jTableQuarto.getSelectedRow(), 3);       
+        //
+        jTFCodigo.setText(jTableQuarto.getValueAt(jTableQuarto.getSelectedRow(), 0).toString());
+        if (numQuarto != null) {
+            jTFNumQuarto.setText(numQuarto.toString());
+        }
+        if (tamanho != null) {            
+            if (tamanho.toString().equals("P")) {
+                jCTamanho.setSelectedIndex(0);
+            } else if (tamanho.toString().equals("M")) {
+                jCTamanho.setSelectedIndex(1);
+            } else if (tamanho.toString().equals("G")) {
+                jCTamanho.setSelectedIndex(2);
+            }                                             
+        }
+        if (reservado != null) {
+            if ((boolean) reservado)  {
+                jCReservado.setSelectedIndex(0);
+            } else {
+                jCReservado.setSelectedIndex(1);
+            }
+            
+        }
+        
     }
 
     /**
@@ -26,19 +111,273 @@ public class JPReserva extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jTFDataNasc = new javax.swing.JFormattedTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableQuarto = new javax.swing.JTable();
+        jBGravar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jBEditar = new javax.swing.JButton();
+        jBNovo = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jTFCodigo = new javax.swing.JTextField();
+        jBCancelar = new javax.swing.JButton();
+        jCReservado = new javax.swing.JComboBox<>();
+        jCTamanho = new javax.swing.JComboBox<>();
+        jCReservado1 = new javax.swing.JComboBox<>();
+        jCReservado2 = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jTFDataNasc1 = new javax.swing.JFormattedTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jTFDataNasc2 = new javax.swing.JFormattedTextField();
+        jTFDataNasc3 = new javax.swing.JFormattedTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jCReservado3 = new javax.swing.JComboBox<>();
+
+        try {
+            jTFDataNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jTFDataNasc.setToolTipText("");
+
+        setLayout(new java.awt.BorderLayout());
+
+        jPanel1.setBackground(new java.awt.Color(0, 153, 255));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Tela Reservas");
+        jPanel1.add(jLabel4);
+
+        add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
+        jPanel2.setToolTipText("");
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTableQuarto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Num. Quarto", "Tamanho", "Reservado"
+            }
+        ));
+        jTableQuarto.setMinimumSize(new java.awt.Dimension(0, 0));
+        jTableQuarto.setShowGrid(false);
+        jScrollPane1.setViewportView(jTableQuarto);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 570, 130));
+
+        jBGravar.setText("Gravar");
+        jBGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGravarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jBGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 290, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("Data ChekIn:");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 20));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Atendente:");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, 20));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("Cliente:");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 50, 20));
+
+        jBEditar.setText("Editar");
+        jBEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEditarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jBEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 100, -1));
+
+        jBNovo.setText("Novo");
+        jBNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBNovoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jBNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, -1));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Código:");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 50, 20));
+
+        jTFCodigo.setEditable(false);
+        jTFCodigo.setToolTipText("");
+        jPanel2.add(jTFCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 210, 30));
+
+        jBCancelar.setText("Cancelar");
+        jBCancelar.setActionCommand("");
+        jBCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCancelarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jBCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 100, -1));
+
+        jCReservado.setEditable(true);
+        jCReservado.setToolTipText("");
+        jPanel2.add(jCReservado, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 110, 30));
+
+        jCTamanho.setToolTipText("");
+        jCTamanho.setEnabled(false);
+        jPanel2.add(jCTamanho, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 110, 30));
+
+        jCReservado1.setEditable(true);
+        jCReservado1.setToolTipText("");
+        jPanel2.add(jCReservado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 110, 30));
+
+        jCReservado2.setEditable(true);
+        jCReservado2.setToolTipText("");
+        jPanel2.add(jCReservado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, 110, 30));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setText("Pagamento:");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, -1, 20));
+
+        try {
+            jTFDataNasc1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jTFDataNasc1.setToolTipText("");
+        jPanel2.add(jTFDataNasc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 90, 30));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setText("Quarto:");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, 20));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel8.setText("Data ChekOut:");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, 20));
+
+        try {
+            jTFDataNasc2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jTFDataNasc2.setToolTipText("");
+        jPanel2.add(jTFDataNasc2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 90, 30));
+
+        try {
+            jTFDataNasc3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jTFDataNasc3.setToolTipText("");
+        jPanel2.add(jTFDataNasc3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 90, 30));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel9.setText("Num. Hospedes:");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, -1, 20));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setText("Pago:");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, 20));
+
+        jCReservado3.setEditable(true);
+        jCReservado3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
+        jCReservado3.setToolTipText("");
+        jPanel2.add(jCReservado3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 360, 110, 30));
+
+        add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        if (formState == FormState.INSERT) {
+            quartoController.inserirQuarto(new Quarto(Integer.valueOf(jTFNumQuarto.getText()),
+                    jCTamanho.getItemAt(jCTamanho.getSelectedIndex()).toCharArray()[0]));
+            
+        } else if (formState == FormState.EDIT) {
+            quartoController.editarQuarto(new Quarto(Integer.valueOf(jTFCodigo.getText()),
+                    Integer.valueOf(jTFNumQuarto.getText()),
+                    jCTamanho.getItemAt(jCTamanho.getSelectedIndex()).toCharArray()[0]));
+        }
+        //
+        atualizarTabela();
+        //
+        formState = FormState.SEARCH;
+        updateButtons();
+    }//GEN-LAST:event_jBGravarActionPerformed
+
+    private void jBEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarActionPerformed
+        // TODO add your handling code here:    
+        updateEdits();
+        //
+        formState = FormState.EDIT;
+        //
+        updateButtons();
+    }//GEN-LAST:event_jBEditarActionPerformed
+
+    private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
+        jTFCodigo.setText("");
+        jTFNumQuarto.setText("");        
+        //
+        formState = FormState.INSERT;
+        //
+        updateButtons();
+    }//GEN-LAST:event_jBNovoActionPerformed
+
+    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
+        // TODO add your handling code here:       
+        formState = FormState.SEARCH;
+        //
+        updateButtons();       
+    }//GEN-LAST:event_jBCancelarActionPerformed
+
+    private void atualizarTabela() {
+        DefaultTableModel model = (DefaultTableModel) jTableQuarto.getModel();
+        model.setRowCount(0);
+        ArrayList<Quarto> lista = quartoController.conultarQuartos();
+
+        for (Quarto q : lista) {
+            Object[] dados = {q.getId(), q.getNum(), q.getTamanho(), q.isReservado()};
+            model.addRow(dados);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBCancelar;
+    private javax.swing.JButton jBEditar;
+    private javax.swing.JButton jBGravar;
+    private javax.swing.JButton jBNovo;
+    private javax.swing.JComboBox<String> jCReservado;
+    private javax.swing.JComboBox<String> jCReservado1;
+    private javax.swing.JComboBox<String> jCReservado2;
+    private javax.swing.JComboBox<String> jCReservado3;
+    private javax.swing.JComboBox<String> jCTamanho;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTFCodigo;
+    private javax.swing.JFormattedTextField jTFDataNasc;
+    private javax.swing.JFormattedTextField jTFDataNasc1;
+    private javax.swing.JFormattedTextField jTFDataNasc2;
+    private javax.swing.JFormattedTextField jTFDataNasc3;
+    private javax.swing.JTable jTableQuarto;
     // End of variables declaration//GEN-END:variables
 }
