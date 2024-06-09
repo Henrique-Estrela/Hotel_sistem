@@ -36,7 +36,7 @@ public class ClienteController {
             pst.setString(4, DateFormatterFactory.dateFormatyyyyMMdd().format(cliente.getDataNasc()));
             pst.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(JPClientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DB.closeConexao();
         }
@@ -55,7 +55,7 @@ public class ClienteController {
                 lista.add(cliente);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(JPClientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DB.closeConexao();
         }
@@ -81,7 +81,7 @@ public class ClienteController {
             pst.setInt(5, cliente.getId());
             pst.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(JPClientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DB.closeConexao();
         }

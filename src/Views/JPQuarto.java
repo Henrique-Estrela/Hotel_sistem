@@ -4,14 +4,11 @@
  */
 package Views;
 
-import Controller.ClienteController;
-import Models.Cliente;
+import Controller.QuartosController;
+import Models.Quarto;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -25,12 +22,12 @@ public class JPQuarto extends javax.swing.JPanel {
     /**
      * Creates new form JPClientes
      */
-    private final ClienteController clienteController;
+    private final QuartosController quartoController;
     private FormState formState;
 
     public JPQuarto() {
         initComponents();
-        this.clienteController = new ClienteController();
+        this.quartoController = new QuartosController();
         this.formState = FormState.SEARCH;
         //
         atualizarTabela();        
@@ -40,10 +37,10 @@ public class JPQuarto extends javax.swing.JPanel {
     }
     
     public void addListenerSelectionTable() {
-        jTableCliente.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        jTableQuarto.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (!jTableCliente.getSelectionModel().isSelectionEmpty()) {
+                if (!jTableQuarto.getSelectionModel().isSelectionEmpty()) {
                     updateEdits();
                 }
             }
@@ -70,29 +67,39 @@ public class JPQuarto extends javax.swing.JPanel {
     }
     
     public void updateEdits() {        
-        jTFNome.setText("");
-        jTFTelefone.setText("");
-        jTFCPF.setText("");
-        jTFDataNasc.setText("");
+        jTFCodigo.setText("");
+        jTFNumQuarto.setText("");
+        /*
+        jCReservado.setText("");
+        jCReservado.setText("");
+        */
         //        
-        Object nome = jTableCliente.getValueAt(jTableCliente.getSelectedRow(), 1);
-        Object telefone = jTableCliente.getValueAt(jTableCliente.getSelectedRow(), 2);
-        Object cpf = jTableCliente.getValueAt(jTableCliente.getSelectedRow(), 3);
-        Object dataNasc = jTableCliente.getValueAt(jTableCliente.getSelectedRow(), 4);        
+        Object numQuarto = jTableQuarto.getValueAt(jTableQuarto.getSelectedRow(), 1);
+        Object tamanho = jTableQuarto.getValueAt(jTableQuarto.getSelectedRow(), 2);
+        Object reservado = jTableQuarto.getValueAt(jTableQuarto.getSelectedRow(), 3);       
         //
-        jTFCodigo.setText(jTableCliente.getValueAt(jTableCliente.getSelectedRow(), 0).toString());
-        if (nome != null) {
-            jTFNome.setText(nome.toString());
+        jTFCodigo.setText(jTableQuarto.getValueAt(jTableQuarto.getSelectedRow(), 0).toString());
+        if (numQuarto != null) {
+            jTFNumQuarto.setText(numQuarto.toString());
         }
-        if (telefone != null) {
-            jTFTelefone.setText(telefone.toString());
+        if (tamanho != null) {            
+            if (tamanho.toString().equals("P")) {
+                jCTamanho.setSelectedIndex(0);
+            } else if (tamanho.toString().equals("M")) {
+                jCTamanho.setSelectedIndex(1);
+            } else if (tamanho.toString().equals("G")) {
+                jCTamanho.setSelectedIndex(2);
+            }                                             
         }
-        if (cpf != null) {
-            jTFCPF.setText(cpf.toString());
+        if (reservado != null) {
+            if ((boolean) reservado)  {
+                jCReservado.setSelectedIndex(0);
+            } else {
+                jCReservado.setSelectedIndex(1);
+            }
+            
         }
-        if (dataNasc != null) {
-            jTFTelefone.setText(dataNasc.toString());
-        }
+        
     }
 
     /**
@@ -108,19 +115,19 @@ public class JPQuarto extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableCliente = new javax.swing.JTable();
+        jTableQuarto = new javax.swing.JTable();
         jBGravar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jTFNome = new javax.swing.JTextField();
+        jTFNumQuarto = new javax.swing.JTextField();
         jBEditar = new javax.swing.JButton();
         jBNovo = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jTFCodigo = new javax.swing.JTextField();
         jBCancelar = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jCReservado = new javax.swing.JComboBox<>();
+        jCTamanho = new javax.swing.JComboBox<>();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -136,7 +143,7 @@ public class JPQuarto extends javax.swing.JPanel {
         jPanel2.setToolTipText("");
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTableCliente.setModel(new javax.swing.table.DefaultTableModel(
+        jTableQuarto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -144,9 +151,9 @@ public class JPQuarto extends javax.swing.JPanel {
                 "Código", "Num. Quarto", "Tamanho", "Reservado"
             }
         ));
-        jTableCliente.setMinimumSize(new java.awt.Dimension(0, 0));
-        jTableCliente.setShowGrid(false);
-        jScrollPane1.setViewportView(jTableCliente);
+        jTableQuarto.setMinimumSize(new java.awt.Dimension(0, 0));
+        jTableQuarto.setShowGrid(false);
+        jScrollPane1.setViewportView(jTableQuarto);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 570, 130));
 
@@ -170,8 +177,8 @@ public class JPQuarto extends javax.swing.JPanel {
         jLabel1.setText("Num: Quarto:");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 90, 20));
 
-        jTFNome.setToolTipText("");
-        jPanel2.add(jTFNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 210, 30));
+        jTFNumQuarto.setToolTipText("");
+        jPanel2.add(jTFNumQuarto, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 210, 30));
 
         jBEditar.setText("Editar");
         jBEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -206,38 +213,30 @@ public class JPQuarto extends javax.swing.JPanel {
         });
         jPanel2.add(jBCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 100, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "D" }));
-        jComboBox1.setToolTipText("");
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, 30));
+        jCReservado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "S", "N" }));
+        jCReservado.setToolTipText("");
+        jCReservado.setEnabled(false);
+        jPanel2.add(jCReservado, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 60, 30));
 
-        jComboBox2.setEditable(true);
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "P", "M", "G" }));
-        jComboBox2.setToolTipText("");
-        jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, -1, 30));
+        jCTamanho.setEditable(true);
+        jCTamanho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "P", "M", "G" }));
+        jCTamanho.setToolTipText("");
+        jPanel2.add(jCTamanho, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 60, 30));
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        try {              
-            if (formState == FormState.INSERT) {  
-                clienteController.inserirCliente(new Cliente(0,
-                        jTFNome.getText(),
-                        jTFTelefone.getText(),
-                        jTFCPF.getText(),
-                        df.parse(jTFDataNasc.getText())));
+        if (formState == FormState.INSERT) {
+            quartoController.inserirQuarto(new Quarto(Integer.valueOf(jTFNumQuarto.getText()),
+                    jCTamanho.getItemAt(jCTamanho.getSelectedIndex()).toCharArray()[0]));
             
-            } else if (formState == FormState.EDIT) {
-                clienteController.editarCliente(new Cliente(Integer.valueOf(jTFCodigo.getText()), 
-                                                        jTFNome.getText(), 
-                                                        jTFTelefone.getText(), 
-                                                        jTFCPF.getText(),
-                                                        df.parse(jTFDataNasc.getText())));
-            }        
-        } catch (ParseException ex) {
-                Logger.getLogger(JPQuarto.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } else if (formState == FormState.EDIT) {
+            quartoController.editarQuarto(new Quarto(Integer.valueOf(jTFCodigo.getText()),
+                    Integer.valueOf(jTFNumQuarto.getText()),
+                    jCTamanho.getItemAt(jCTamanho.getSelectedIndex()).toCharArray()[0]));
+        }
         //
         atualizarTabela();
         //
@@ -255,9 +254,8 @@ public class JPQuarto extends javax.swing.JPanel {
     }//GEN-LAST:event_jBEditarActionPerformed
 
     private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
-        jTFNome.setText("");
-        jTFTelefone.setText("");
-        jTFCPF.setText("");
+        jTFCodigo.setText("");
+        jTFNumQuarto.setText("");        
         //
         formState = FormState.INSERT;
         //
@@ -265,20 +263,19 @@ public class JPQuarto extends javax.swing.JPanel {
     }//GEN-LAST:event_jBNovoActionPerformed
 
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
-        // TODO add your handling code here:
-       
+        // TODO add your handling code here:       
         formState = FormState.SEARCH;
         //
         updateButtons();       
     }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void atualizarTabela() {
-        DefaultTableModel model = (DefaultTableModel) jTableCliente.getModel();
+        DefaultTableModel model = (DefaultTableModel) jTableQuarto.getModel();
         model.setRowCount(0);
-        ArrayList<Cliente> lista = clienteController.conultarCliente();
+        ArrayList<Quarto> lista = quartoController.conultarQuartos();
 
-        for (Cliente c : lista) {
-            Object[] dados = {c.getId(), c.getNome(), c.getCpf(), c.getTelefone(), c.getDataNasc()};
+        for (Quarto q : lista) {
+            Object[] dados = {q.getId(), q.getNum(), q.getTamanho(), q.isReservado()};
             model.addRow(dados);
         }
     }
@@ -288,8 +285,8 @@ public class JPQuarto extends javax.swing.JPanel {
     private javax.swing.JButton jBEditar;
     private javax.swing.JButton jBGravar;
     private javax.swing.JButton jBNovo;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jCReservado;
+    private javax.swing.JComboBox<String> jCTamanho;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -299,7 +296,7 @@ public class JPQuarto extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFCodigo;
-    private javax.swing.JTextField jTFNome;
-    private javax.swing.JTable jTableCliente;
+    private javax.swing.JTextField jTFNumQuarto;
+    private javax.swing.JTable jTableQuarto;
     // End of variables declaration//GEN-END:variables
 }
