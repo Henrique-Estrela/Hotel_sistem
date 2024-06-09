@@ -134,11 +134,8 @@ public class JFTelaLogin extends javax.swing.JFrame {
            JFTelaPrincipal jFTelaPrincipal = new JFTelaPrincipal();
            jFTelaPrincipal.setVisible(true);
            
-           dispose();
-           
-        }
-        
- 
+           dispose();           
+        }        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

@@ -3,7 +3,7 @@ package Controller;
 import Models.Cliente;
 import Views.JPClientes;
 import java.sql.Connection;
-// import java.sql.PreparedStatement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,6 +24,23 @@ public class ClienteController {
     * - Não pode deixar um campo em branco
     */
     
+    public static void registrarCliente(String cpf, String nome, String data_nasc, String telefone){
+        String templateComandoSql = "INSERT INTO cliente(cpf, nome, data_nasc, telefone) VALUES (?, ?, ?, ?)";
+        try {
+            Connection dbConectado = DB.getConexao();
+            PreparedStatement comandoSql = dbConectado.prepareStatement(templateComandoSql);
+            comandoSql.setString(1, cpf);
+            comandoSql.setString(2, nome);
+            comandoSql.setString(3, data_nasc);
+            comandoSql.setString(4, telefone);
+            comandoSql.execute();
+        } catch (SQLException excecao) {
+            Logger.getLogger(JPClientes.class.getName()).log(Level.SEVERE, null, excecao);
+        } finally {
+            DB.closeConexao();
+        }
+    }
+        
     /*
     * Função: acessar cliente
     */
@@ -43,44 +60,35 @@ public class ClienteController {
         return clienteAcessado;
     }
     
+    /*
+    * Função: alterar cliente
+    */
+    
+    public static void alterarCliente(Cliente cliente) {
+        String templateComandoSql = "UPDATE cliente  "+
+                                    "   SET NOME = ?,   "+
+                                    "       CPF  = ?,   "+
+                                    "       TELEFONE = ?"+
+                                    " WHERE ID = ?      ";
+        try {
+            Connection dbConectado = DB.getConexao();
+            PreparedStatement comandoSql = dbConectado.prepareStatement(templateComandoSql);
+            comandoSql.setString(1, cliente.getNome());
+            comandoSql.setString(2, cliente.getCpf());
+            comandoSql.setString(3, cliente.getTelefone());
+            comandoSql.setInt(4, cliente.getId());
+            comandoSql.execute();
+        } catch (SQLException ex) {
+             Logger.getLogger(JPClientes.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DB.closeConexao();
+        }        
+    }
+    
     
     
     // ------------------------------------------------------------------- //
-    
-    //public void registrarCliente(String cpf, String nome, String data_nasc, String telefone){
-     //   String template_comando_sql = "INSERT INTO cliente(cpf, nome, data_nasc, telefone) VALUES (?, ?, ?, ?)";
-       // try {
-         //   Connection db_conectado = DB.conectar();
-           // PreparedStatement comando_sql = db_conectado.prepareStatement(template_comando_sql);
-            //comando_sql.setString(0, cpf);
-            //comando_sql.setString(1, nome);
-            //comando_sql.setString(2, data_nasc);
-            
-            
-            
-        // public void registrarCliente(String cpf, String nome, String data_nasc, String telefone){
-    //     String template_comando_sql = "INSERT INTO cliente(cpf, nome, data_nasc, telefone) VALUES (?, ?, ?, ?)";
-    //     try {
-    //         Connection db_conectado = DB.conectar();
-    //         PreparedStatement comando_sql = db_conectado.prepareStatement(template_comando_sql);
-    //         comando_sql.setString(0, cpf);
-    //         comando_sql.setString(1, nome);
-    //         comando_sql.setString(2, data_nasc);
-    //         comando_sql.setString(3, telefone);
-    //         comando_sql.execute();
-    //     } catch (SQLException excecao) {
-    //         Logger.getLogger(JPClientes.class.getName()).log(Level.SEVERE, null, excecao);
-    //     } finally {
-    //         DB.desconectar();
-    //     }
-    // }comando_sql.setString(3, telefone);
-    //         comando_sql.execute();
-    //     } catch (SQLException excecao) {
-    //         Logger.getLogger(JPClientes.class.getName()).log(Level.SEVERE, null, excecao);
-    //     } finally {
-    //         DB.desconectar();
-    //     }
-    // }
+
     
 }
 
@@ -90,13 +98,6 @@ public class ClienteController {
 /*
 public class ClienteController {
 
-    // Função: Registrar novo cliente
-
-    // Requisitos:
-    // Nome deve ter 2 letras
-    // Não pode deixar um campo em branco
-
-    // Posteriormente pode fazer um código onde o cpf não é passado
 
 
     
@@ -123,27 +124,7 @@ public class ClienteController {
     //     return lista;
     // }
 
-    // public void editarCliente(Cliente cliente) {
-    //     try {
-    //         // TODO add your handling code here:
-    //         Connection conn = DB.getConexao();
-    //         //
-    //         PreparedStatement pst = conn.prepareStatement("UPDATE TB_CLIENTE  "+
-    //                                                       "   SET NOME = ?,   "+
-    //                                                       "       CPF  = ?,   "+
-    //                                                       "       TELEFONE = ?"+
-    //                                                       " WHERE ID = ?      ");
-    //         pst.setString(1, cliente.getNome());
-    //         pst.setString(2, cliente.getCpf());
-    //         pst.setString(3, cliente.getTelefone());
-    //         pst.setInt(4, cliente.getId());
-    //         pst.execute();
-    //     } catch (SQLException ex) {
-    //         Logger.getLogger(JPClientes.class.getName()).log(Level.SEVERE, null, ex);
-    //     } finally {
-    //         DB.closeConexao();
-    //     }        
-    // }
+
 }
 }
 
