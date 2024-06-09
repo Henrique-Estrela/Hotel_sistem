@@ -267,9 +267,11 @@ public class JPClientes extends javax.swing.JPanel {
     }//GEN-LAST:event_jBEditarActionPerformed
 
     private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
+        jTFCodigo.setText("");
         jTFNome.setText("");
         jTFTelefone.setText("");
         jTFCPF.setText("");
+        jTFDataNasc.setText("");
         //
         formState = FormState.INSERT;
         //

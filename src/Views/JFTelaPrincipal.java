@@ -4,8 +4,6 @@
  */
 package Views;
 
-import javax.swing.JInternalFrame;
-
 /**
  *
  * @author Vinicius

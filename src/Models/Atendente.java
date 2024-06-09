@@ -8,6 +8,12 @@ public class Atendente {
 
     // Construtores
 
+    public Atendente(int id, String senha) {
+        this.id = id;
+        this.senha = senha;
+    }
+
+    
     // Getters
 
     public int getId(){
