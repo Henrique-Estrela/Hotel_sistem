@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Controller;
 
+import Connection.DB;
 import Models.Cliente;
-import Views.JPClientes;
+import Utils.DateFormatterFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,13 +12,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Connection.DB;
-import Utils.DateFormatterFactory;
-
-/**
- *
- * @author Vinicius
- */
 public class ClienteController {
 
     public void inserirCliente(Cliente cliente) {

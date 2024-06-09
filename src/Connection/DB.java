@@ -23,6 +23,7 @@ public class DB {
     
     public static Connection getConexao() {            
         String url = "jdbc:sqlite:db-hotel";
+        // String url = "jdbc:sqlite:db-hotel";
         
         if (conn == null) {
             try {
