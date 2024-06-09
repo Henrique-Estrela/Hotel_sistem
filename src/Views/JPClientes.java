@@ -290,7 +290,7 @@ public class JPClientes extends javax.swing.JPanel {
     private void atualizarTabela() {
         DefaultTableModel model = (DefaultTableModel) jTableCliente.getModel();
         model.setRowCount(0);
-        ArrayList<Cliente> lista = clienteController.conultarCliente();
+        ArrayList<Cliente> lista = clienteController.consultarCliente();
         
                 
         DateFormat df = DateFormatterFactory.dateFormatddMMyyy();
