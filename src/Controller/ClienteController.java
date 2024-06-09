@@ -4,7 +4,6 @@
  */
 package Controller;
 
-import Conexao.DB;
 import Models.Cliente;
 import Views.JPClientes;
 import java.sql.Connection;
@@ -16,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import Connection.DB;
 
 /**
  *
