@@ -1,5 +1,5 @@
-package FuncoesLogadas;
+package Controller;
 
-public class FuncPagamentos {
+public class PagamentoController {
     
 }

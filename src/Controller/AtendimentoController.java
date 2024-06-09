@@ -1,5 +1,6 @@
-package FuncoesLogadas;
 
-public class FuncAtendimento {
+package Controller;
+
+public class AtendimentoController {
     
 }

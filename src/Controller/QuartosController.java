@@ -1,5 +1,5 @@
-package FuncoesLogadas;
+package Controller;
 
-public class FuncQuartos {
+public class QuartosController {
     
 }
