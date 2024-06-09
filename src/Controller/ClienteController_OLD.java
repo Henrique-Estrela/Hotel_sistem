@@ -13,7 +13,7 @@ import java.util.List;
 // import java.util.logging.Logger;
 
 import Connection.DB;
-
+/*
 public class ClienteController {
 
     // Função: Registrar novo cliente
@@ -114,3 +114,5 @@ public class ClienteController {
     //     }        
     // }
 }
+
+*/
