@@ -4,6 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/D:/Meus%20Arquivos/Documentos/GitHub/mercadinho_sao_jose/src/Exceptions/Exception.java</file>
             <file>file:/D:/Meus%20Arquivos/Documentos/GitHub/mercadinho_sao_jose/src/Linker.java</file>
             <file>file:/D:/Meus%20Arquivos/Documentos/GitHub/mercadinho_sao_jose/src/Controller/ClienteController.java</file>
@@ -23,12 +24,19 @@
             <file>file:/C:/Users/Vinicius/Desktop/Arquivos/Java/EstruturaDeDados/mercadinho_sao_jose/src/Views/JFTelaPrincipal.java</file>
             <file>file:/C:/Users/Vinicius/Desktop/Arquivos/Java/EstruturaDeDados/mercadinho_sao_jose/src/Controller/AtendimentoController.java</file>
 =======
+=======
+>>>>>>> ac8763bc4c7710a911a5ce799595b203cbdfd9dd
             <file>file:/C:/Users/Henri/OneDrive/Documentos/GitHub/mercadinho_sao_jose/src/Views/JFTelaPrincipal.java</file>
             <file>file:/C:/Users/Henri/OneDrive/Documentos/GitHub/mercadinho_sao_jose/src/Views/JPQuarto.java</file>
+            <file>file:/C:/Users/Henri/OneDrive/Documentos/GitHub/mercadinho_sao_jose/src/Views/JPReserva.java</file>
             <file>file:/C:/Users/Henri/OneDrive/Documentos/GitHub/mercadinho_sao_jose/src/Views/JPClientes.java</file>
+            <file>file:/C:/Users/Henri/OneDrive/Documentos/GitHub/mercadinho_sao_jose/src/Views/JPPagamento.java</file>
             <file>file:/C:/Users/Henri/OneDrive/Documentos/GitHub/mercadinho_sao_jose/src/Views/JFTelaLogin.java</file>
+<<<<<<< HEAD
 >>>>>>> 6721b78c896029caa8f00719895bc5d630ff2e34
 >>>>>>> ca444de696f561f5a9eed80ae17f56c88fb25ffe
+=======
+>>>>>>> ac8763bc4c7710a911a5ce799595b203cbdfd9dd
         </group>
     </open-files>
 </project-private>
