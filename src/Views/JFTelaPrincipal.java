@@ -34,6 +34,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         jBCliente = new javax.swing.JButton();
         jBCliente1 = new javax.swing.JButton();
         jBCliente2 = new javax.swing.JButton();
+        jBCliente3 = new javax.swing.JButton();
         jPnlMain = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -66,6 +67,14 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jBCliente3.setText("Pagamentos");
+        jBCliente3.setBorder(null);
+        jBCliente3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCliente3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -73,6 +82,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
             .addComponent(jBCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
             .addComponent(jBCliente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBCliente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBCliente3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,7 +92,9 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jBCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(210, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBCliente3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);
@@ -131,6 +143,10 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         jPnlMain.repaint();                
     }//GEN-LAST:event_jBCliente2ActionPerformed
 
+    private void jBCliente3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCliente3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBCliente3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -171,6 +187,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jBCliente;
     private javax.swing.JButton jBCliente1;
     private javax.swing.JButton jBCliente2;
+    private javax.swing.JButton jBCliente3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPnlMain;
     // End of variables declaration//GEN-END:variables
