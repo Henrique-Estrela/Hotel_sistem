@@ -130,14 +130,14 @@ public class ClienteController {
             
     // ------------------------------------------------------------------- //
     
-     public ArrayList<Cliente> consultarCliente() {;
+     public ArrayList<Cliente> consultarCliente() {
          ArrayList<Cliente> lista = new ArrayList();
          try {
              // TODO add your handling code here:
              Connection conn = DB.getConexao();
              //
              Statement st = conn.createStatement();
-             ResultSet rs = st.executeQuery("SELECT * FROM TB_CLIENTE");
+             ResultSet rs = st.executeQuery("SELECT * FROM CLIENTE");
              while (rs.next()) {
                  Cliente cliente = new Cliente(rs);
                  lista.add(cliente);

@@ -68,7 +68,7 @@ public class JPReserva extends javax.swing.JPanel {
     
     public void updateEdits() {        
         jTFCodigo.setText("");
-        jTFNumQuarto.setText("");
+        //jTFNumQuarto.setText("");
         /*
         jCReservado.setText("");
         jCReservado.setText("");
@@ -80,7 +80,7 @@ public class JPReserva extends javax.swing.JPanel {
         //
         jTFCodigo.setText(jTableQuarto.getValueAt(jTableQuarto.getSelectedRow(), 0).toString());
         if (numQuarto != null) {
-            jTFNumQuarto.setText(numQuarto.toString());
+            //jTFNumQuarto.setText(numQuarto.toString());
         }
         if (tamanho != null) {            
             if (tamanho.toString().equals("P")) {
@@ -111,7 +111,6 @@ public class JPReserva extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-<<<<<<< Updated upstream
         jTFDataNasc = new javax.swing.JFormattedTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -295,55 +294,23 @@ public class JPReserva extends javax.swing.JPanel {
         jPanel2.add(jCReservado3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 360, 110, 30));
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
-=======
-        jPanel1 = new javax.swing.JPanel();
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
->>>>>>> Stashed changes
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+ /*      
         if (formState == FormState.INSERT) {
+ 
             quartoController.inserirQuarto(new Quarto(Integer.valueOf(jTFNumQuarto.getText()),
                     jCTamanho.getItemAt(jCTamanho.getSelectedIndex()).toCharArray()[0]));
-            
+   
         } else if (formState == FormState.EDIT) {
+           
             quartoController.editarQuarto(new Quarto(Integer.valueOf(jTFCodigo.getText()),
                     Integer.valueOf(jTFNumQuarto.getText()),
                     jCTamanho.getItemAt(jCTamanho.getSelectedIndex()).toCharArray()[0]));
         }
         //
+*/         
         atualizarTabela();
         //
         formState = FormState.SEARCH;
@@ -361,7 +328,7 @@ public class JPReserva extends javax.swing.JPanel {
 
     private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
         jTFCodigo.setText("");
-        jTFNumQuarto.setText("");        
+        //jTFNumQuarto.setText("");        
         //
         formState = FormState.INSERT;
         //
@@ -387,7 +354,6 @@ public class JPReserva extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-<<<<<<< Updated upstream
     private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBEditar;
     private javax.swing.JButton jBGravar;
@@ -416,8 +382,5 @@ public class JPReserva extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField jTFDataNasc2;
     private javax.swing.JFormattedTextField jTFDataNasc3;
     private javax.swing.JTable jTableQuarto;
-=======
-    private javax.swing.JPanel jPanel1;
->>>>>>> Stashed changes
     // End of variables declaration//GEN-END:variables
 }
