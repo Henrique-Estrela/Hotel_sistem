@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Conexao;
+package Connections;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,17 +11,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-
 /**
  *
  * @author Vinicius
  */
+
+
 public class DB {
     
     private static Connection conn = null;
     
-    
-    public static Connection getConexao() {            
+    public static Connection conectar() {            
         String url = "jdbc:sqlite:db-hotel";
         
         if (conn == null) {
@@ -35,7 +35,7 @@ public class DB {
         return conn;
     }
     
-    public static void closeConexao() {
+    public static void desconectar() {
         if (conn != null) {
             try {
                 conn.close();
