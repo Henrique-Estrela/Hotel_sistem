@@ -4,8 +4,10 @@
  */
 package Models;
 
+import Utils.DateFormatterFactory;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,12 +33,15 @@ public class Cliente {
     }
 
     public Cliente(ResultSet rs) {
-        try {
+        try {            
             this.id = rs.getInt("ID");
             this.nome = rs.getString("NOME");
             this.telefone = rs.getString("TELEFONE");
             this.cpf = rs.getString("CPF");
+            this.dataNasc =  DateFormatterFactory.dateFormatyyyyMMdd().parse(rs.getString("DATA_NASC"));
         } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

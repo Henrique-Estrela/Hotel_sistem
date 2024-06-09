@@ -6,9 +6,9 @@ package Views;
 
 import Controller.ClienteController;
 import Models.Cliente;
+import Utils.DateFormatterFactory;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -90,8 +90,8 @@ public class JPClientes extends javax.swing.JPanel {
         if (cpf != null) {
             jTFCPF.setText(cpf.toString());
         }
-        if (dataNasc != null) {
-            jTFTelefone.setText(dataNasc.toString());
+        if (dataNasc != null) {            
+            jTFDataNasc.setText(dataNasc.toString());       
         }
     }
 
@@ -230,7 +230,8 @@ public class JPClientes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat df = DateFormatterFactory.dateFormatddMMyyy();
+   
         try {              
             if (formState == FormState.INSERT) {  
                 clienteController.inserirCliente(new Cliente(0,
@@ -266,9 +267,11 @@ public class JPClientes extends javax.swing.JPanel {
     }//GEN-LAST:event_jBEditarActionPerformed
 
     private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
+        jTFCodigo.setText("");
         jTFNome.setText("");
         jTFTelefone.setText("");
         jTFCPF.setText("");
+        jTFDataNasc.setText("");
         //
         formState = FormState.INSERT;
         //
@@ -287,9 +290,13 @@ public class JPClientes extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTableCliente.getModel();
         model.setRowCount(0);
         ArrayList<Cliente> lista = clienteController.conultarCliente();
+        
+                
+        DateFormat df = DateFormatterFactory.dateFormatddMMyyy();
+        
 
         for (Cliente c : lista) {
-            Object[] dados = {c.getId(), c.getNome(), c.getCpf(), c.getTelefone(), c.getDataNasc()};
+            Object[] dados = {c.getId(), c.getNome(), c.getCpf(), c.getTelefone(), df.format(c.getDataNasc())};
             model.addRow(dados);
         }
     }
