@@ -1,5 +1,6 @@
-package FuncoesDeslogadas;
+package Controller;
 
-public class FuncLogin {
+
+public class LoginController {
     
 }

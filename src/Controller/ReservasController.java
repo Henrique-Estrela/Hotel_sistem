@@ -1,5 +1,5 @@
-package FuncoesLogadas;
+package Controller;
 
-public class FuncReservas {
+public class ReservasController {
     
 }

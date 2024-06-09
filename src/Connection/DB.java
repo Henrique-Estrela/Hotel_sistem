@@ -21,7 +21,7 @@ public class DB {
     
     private static Connection conn = null;
     
-    public static Connection conectar() {            
+    public static Connection getConexao() {            
         String url = "jdbc:sqlite:db-hotel";
         
         if (conn == null) {
@@ -35,7 +35,7 @@ public class DB {
         return conn;
     }
     
-    public static void desconectar() {
+    public static void closeConexao() {
         if (conn != null) {
             try {
                 conn.close();
