@@ -75,5 +75,4 @@ public class Quarto {
     public boolean isReservado(){
         return this.reservado;
     }
-    
 }

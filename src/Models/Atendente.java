@@ -2,7 +2,6 @@ package Models;
 
 import java.sql.SQLException;
 import java.sql.ResultSet;
-//import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +19,7 @@ public class Atendente {
         this.senha = senha;
     }
     
-        public Atendente(int id, String nome, String senha, boolean ativo) {
+    public Atendente(int id, String nome, String senha, boolean ativo) {
         this.id = id;
         this.nome = nome;
         this.senha = senha;
@@ -35,13 +34,9 @@ public class Atendente {
             this.ativo = rs.getBoolean("ATIVO");
         } catch (SQLException ex) {
             Logger.getLogger(Atendente.class.getName()).log(Level.SEVERE, null, ex);
-        } /*catch (ParseException ex){
-            Logger.getLogger(Atendente.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        
+        }
     }
 
-    
     // Getters
 
     public int getId(){
@@ -75,5 +70,4 @@ public class Atendente {
     public boolean estaAtivo(){
         return this.ativo;
     }
-
 }

@@ -99,7 +99,6 @@ public class ClienteController {
         } finally {
             DB.closeConexao();
         }
-        System.out.println(clienteAcessado);
         return clienteAcessado;
     }
     

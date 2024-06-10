@@ -40,5 +40,4 @@ public class FormaPagamento {
     public void setNome(String novoNome){
         this.nome = novoNome;
     }
-
 }
