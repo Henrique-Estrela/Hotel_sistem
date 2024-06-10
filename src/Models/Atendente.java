@@ -12,6 +12,11 @@ public class Atendente {
     private boolean ativo;
 
     // Construtores
+    
+    public Atendente(int id, String senha) {
+        this.id = id;
+        this.senha = senha;
+    }
 
     public Atendente(int id, String nome, String senha) {
         this.id = id;

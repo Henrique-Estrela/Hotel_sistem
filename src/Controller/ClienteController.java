@@ -147,6 +147,6 @@ public class ClienteController {
              DB.closeConexao();
          }
          return lista;
-    }    
+    }
 }
 
