@@ -173,7 +173,7 @@ public class JPReserva extends javax.swing.JPanel {
         jTableQuarto.setShowGrid(false);
         jScrollPane1.setViewportView(jTableQuarto);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 570, 130));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 570, 170));
 
         jBGravar.setText("Gravar");
         jBGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -185,15 +185,15 @@ public class JPReserva extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Data ChekIn:");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 20));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, -1, 20));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Atendente:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, 20));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, 20));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Cliente:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 50, 20));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 50, 20));
 
         jBEditar.setText("Editar");
         jBEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -230,23 +230,23 @@ public class JPReserva extends javax.swing.JPanel {
 
         jCReservado.setEditable(true);
         jCReservado.setToolTipText("");
-        jPanel2.add(jCReservado, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 110, 30));
+        jPanel2.add(jCReservado, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 110, 30));
 
         jCTamanho.setToolTipText("");
         jCTamanho.setEnabled(false);
-        jPanel2.add(jCTamanho, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 110, 30));
+        jPanel2.add(jCTamanho, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 110, 30));
 
         jCReservado1.setEditable(true);
         jCReservado1.setToolTipText("");
-        jPanel2.add(jCReservado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 110, 30));
+        jPanel2.add(jCReservado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 110, 30));
 
         jCReservado2.setEditable(true);
         jCReservado2.setToolTipText("");
-        jPanel2.add(jCReservado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, 110, 30));
+        jPanel2.add(jCReservado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 170, 110, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Pagamento:");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, -1, 20));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, -1, 20));
 
         try {
             jTFDataNasc1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -254,15 +254,15 @@ public class JPReserva extends javax.swing.JPanel {
             ex.printStackTrace();
         }
         jTFDataNasc1.setToolTipText("");
-        jPanel2.add(jTFDataNasc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 90, 30));
+        jPanel2.add(jTFDataNasc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 110, 30));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Quarto:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, 20));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, 20));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Data ChekOut:");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, 20));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, 20));
 
         try {
             jTFDataNasc2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -270,7 +270,7 @@ public class JPReserva extends javax.swing.JPanel {
             ex.printStackTrace();
         }
         jTFDataNasc2.setToolTipText("");
-        jPanel2.add(jTFDataNasc2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 90, 30));
+        jPanel2.add(jTFDataNasc2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 110, 30));
 
         try {
             jTFDataNasc3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
@@ -278,20 +278,20 @@ public class JPReserva extends javax.swing.JPanel {
             ex.printStackTrace();
         }
         jTFDataNasc3.setToolTipText("");
-        jPanel2.add(jTFDataNasc3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 90, 30));
+        jPanel2.add(jTFDataNasc3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 110, 30));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setText("Num. Hospedes:");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, -1, 20));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, 20));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setText("Pago:");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, 20));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, -1, 20));
 
         jCReservado3.setEditable(true);
         jCReservado3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
         jCReservado3.setToolTipText("");
-        jPanel2.add(jCReservado3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 360, 110, 30));
+        jPanel2.add(jCReservado3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 110, 30));
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
