@@ -108,6 +108,27 @@ public class ClienteController {
         } return clienteAcessado;
     }
     
+    public Cliente acessarCliente(String cpf){
+        Cliente clienteAcessado = null;
+        try {
+            Connection dbConectado = DB.getConexao();
+            clienteAcessado = acessarCliente(cpf, dbConectado);
+        } finally {
+            DB.closeConexao();
+        } return clienteAcessado;
+    }
+    
+    public Cliente acessarCliente(String cpf, Connection dbConectado){
+        String templateComandoSql = "SELECT * FROM cliente WHERE CPF=" + cpf;
+        Cliente clienteAcessado = null;
+        try {
+            ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
+            clienteAcessado = new Cliente(retornoSql);
+        } catch (SQLException excecaoSql) {
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, excecaoSql);
+        } return clienteAcessado;
+    }
+    
     /*
     * Função: alterar cliente
     */
