@@ -88,18 +88,24 @@ public class ClienteController {
     * Função: acessar cliente
     */
     public Cliente acessarCliente(int codigo){
-        String templateComandoSql = "SELECT * FROM cliente WHERE id=" + codigo;
         Cliente clienteAcessado = null;
         try {
             Connection dbConectado = DB.getConexao();
+            clienteAcessado = acessarCliente(codigo, dbConectado);
+        } finally {
+            DB.closeConexao();
+        } return clienteAcessado;
+    }
+    
+    public Cliente acessarCliente(int codigo, Connection dbConectado){
+        String templateComandoSql = "SELECT * FROM cliente WHERE id=" + codigo;
+        Cliente clienteAcessado = null;
+        try {
             ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
             clienteAcessado = new Cliente(retornoSql);
         } catch (SQLException excecaoSql) {
             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, excecaoSql);
-        } finally {
-            DB.closeConexao();
-        }
-        return clienteAcessado;
+        } return clienteAcessado;
     }
     
     /*

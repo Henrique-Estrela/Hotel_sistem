@@ -17,18 +17,24 @@ public class QuartosController {
     * Função: acessar quarto
     */
     public Quarto acessarQuarto(int codigo){
-        String templateComandoSql = "SELECT * FROM quarto WHERE id=" + codigo;
         Quarto quartoAcessado = null;
         try {
             Connection dbConectado = DB.getConexao();
+            quartoAcessado = acessarQuarto(codigo, dbConectado);
+        } finally {
+            DB.closeConexao();
+        } return quartoAcessado;
+    }
+    
+    public Quarto acessarQuarto(int codigo, Connection dbConectado){
+        String templateComandoSql = "SELECT * FROM quarto WHERE id=" + codigo;
+        Quarto quartoAcessado = null;
+        try {
             ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
             quartoAcessado = new Quarto(retornoSql);
         } catch (SQLException excecaoSql) {
             Logger.getLogger(QuartosController.class.getName()).log(Level.SEVERE, null, excecaoSql);
-        } finally {
-            DB.closeConexao();
-        }
-        return quartoAcessado;
+        } return quartoAcessado;
     }
     
         public void inserirQuarto(Quarto quarto) {
@@ -69,10 +75,7 @@ public class QuartosController {
 
     public void editarQuarto(Quarto quarto) {
         try {
-            // TODO add your handling code here:
             Connection conn = DB.getConexao();
-            //
-            
             PreparedStatement pst = conn.prepareStatement("UPDATE QUARTO       "
                                                         + "   SET NUM      = ?,"
                                                         + "       TAMANHO  = ? "                                                        

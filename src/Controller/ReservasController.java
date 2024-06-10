@@ -7,10 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import Connection.DB;
+import Models.Reserva;
 
 public class ReservasController {
     
@@ -24,22 +26,7 @@ public class ReservasController {
     */
     
     public void registrarReserva(int idCliente, int idAtendente, int idQuarto, int idPagamento, int numHospedes, float valorPagamento){
-        
-    }
-    
-    
-    public void registrarReserva(
-            
-            
-            
-            
-            LocalDateTime dataCheckout,
-            
-            
-            boolean pago){
-        String templateComandoSql = "INSERT INTO reserva(id_cliente, id_atendente, id_quarto, id_pagamento, data_checkin, data_checkout, num_hospedes, valor_pagamento, pago) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        Timestamp dataCheckinSql = Timestamp.valueOf(dataCheckin);
-        Timestamp dataCheckoutSql = Timestamp.valueOf(dataCheckout);
+        String templateComandoSql = "INSERT INTO reserva(id_cliente, id_atendente, id_quarto, id_pagamento, num_hospedes, valor_pagamento) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             Connection dbConectado = DB.getConexao();
             PreparedStatement comandoSql = dbConectado.prepareStatement(templateComandoSql);
@@ -47,11 +34,8 @@ public class ReservasController {
             comandoSql.setInt(2, idAtendente);
             comandoSql.setInt(3, idQuarto);
             comandoSql.setInt(4, idPagamento);
-            comandoSql.setTimestamp(5, dataCheckinSql);
-            comandoSql.setTimestamp(6, dataCheckoutSql);
-            comandoSql.setInt(7, numHospedes);
-            comandoSql.setFloat(8, valorPagamento);
-            comandoSql.setBoolean(9, pago);
+            comandoSql.setInt(5, numHospedes);
+            comandoSql.setFloat(6, valorPagamento);
             comandoSql.execute();
         } catch (SQLException excecao) {
             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, excecao);
@@ -60,27 +44,17 @@ public class ReservasController {
         }
     }
     
-    
-    
-    
-
     /*
     * Função: registrar reserva
+    * Atribui automaticamente os seguintes valores...
+    * - num_reserva: é a chave primária autoincrementável
+    * - data_checkout: iniciará como nulo, já que não faz sentido fazer checkin e checkout no hotel ao mesmo tempo
+    * - pago: iniciará como false, indicando que o pagamento pode ser feito em momento posterior ao checkin
     */
     
-    public void registrarReserva(
-            int idCliente,
-            int idAtendente,
-            int idQuarto,
-            int idPagamento,
-            LocalDateTime dataCheckin,
-            LocalDateTime dataCheckout,
-            int numHospedes,
-            float valorPagamento,
-            boolean pago){
-        String templateComandoSql = "INSERT INTO reserva(id_cliente, id_atendente, id_quarto, id_pagamento, data_checkin, data_checkout, num_hospedes, valor_pagamento, pago) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public void registrarReserva(int idCliente, int idAtendente, int idQuarto, int idPagamento, LocalDateTime dataCheckin, int numHospedes, float valorPagamento){
+        String templateComandoSql = "INSERT INTO reserva(id_cliente, id_atendente, id_quarto, id_pagamento, data_checkin, num_hospedes, valor_pagamento) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Timestamp dataCheckinSql = Timestamp.valueOf(dataCheckin);
-        Timestamp dataCheckoutSql = Timestamp.valueOf(dataCheckout);
         try {
             Connection dbConectado = DB.getConexao();
             PreparedStatement comandoSql = dbConectado.prepareStatement(templateComandoSql);
@@ -89,10 +63,8 @@ public class ReservasController {
             comandoSql.setInt(3, idQuarto);
             comandoSql.setInt(4, idPagamento);
             comandoSql.setTimestamp(5, dataCheckinSql);
-            comandoSql.setTimestamp(6, dataCheckoutSql);
-            comandoSql.setInt(7, numHospedes);
-            comandoSql.setFloat(8, valorPagamento);
-            comandoSql.setBoolean(9, pago);
+            comandoSql.setInt(6, numHospedes);
+            comandoSql.setFloat(7, valorPagamento);
             comandoSql.execute();
         } catch (SQLException excecao) {
             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, excecao);
@@ -100,10 +72,77 @@ public class ReservasController {
             DB.closeConexao();
         }
     }
+
+    public ArrayList<Reserva> acessarReservas() {
+        String templateComandoSql = "SELECT * FROM RESERVA";
+        ArrayList<Reserva> reservas = new ArrayList();
+        try {
+            Connection dbConectado = DB.getConexao();
+            ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
+            while (retornoSql.next()) {
+                Reserva reserva = new Reserva(retornoSql);
+                reservas.addFirst(reserva);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DB.closeConexao();
+        }
+        return reservas;
+    }
     
-    public static void main(String args[]){
-        ReservasController kit = new ReservasController();
-        kit.registrarReserva(2, 1, 0, 0, 0, LocalDateTime.MIN, LocalDateTime.MAX, 0, 0, true);
+    public Reserva acessarReserva(int codigo){
+        Reserva reservaAcessada = null;
+        try {
+            Connection dbConectado = DB.getConexao();
+            reservaAcessada = acessarReserva(codigo, dbConectado);
+        } finally {
+            DB.closeConexao();
+        } return reservaAcessada;
+    }
+    
+    public Reserva acessarReserva(int codigo, Connection dbConectado){
+        String templateComandoSql = "SELECT * FROM reserva WHERE num_reserva=" + codigo;
+        Reserva reservaAcessada = null;
+        try {
+            ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
+            reservaAcessada = new Reserva(retornoSql);
+        } catch (SQLException excecaoSql) {
+            Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, excecaoSql);
+        } return reservaAcessada;
+    }
+    
+    public void alterarReserva(Reserva reserva) {
+        String templateComandoSql = "UPDATE reserva  "+
+                                    "   SET ID_CLIENTE  = ?,   "+
+                                    "       ID_ATENDENTE = ?" +
+                                    "       ID_QUARTO = ?" +
+                                    "       ID_PAGAMENTO = ?" +
+                                    "       DATA_CHECKIN = ?" +
+                                    "       DATA_CHECKOUT = ?" +
+                                    "       NUM_HOSPEDES = ?" +
+                                    "       VALOR_PAGAMENTO = ?" +
+                                    "       PAGO = ?" +
+                                    " WHERE ID = ?      ";
+        try {
+            Connection dbConectado = DB.getConexao();
+            PreparedStatement comandoSql = dbConectado.prepareStatement(templateComandoSql);
+            comandoSql.setInt(1, reserva.getIdCliente());
+            comandoSql.setInt(2, reserva.getIdAtendente());
+            comandoSql.setInt(3, reserva.getIdQuarto());
+            comandoSql.setInt(4, reserva.getIdFormaPagamento());
+            comandoSql.setTimestamp(5, reserva.getDataCheckin());
+            comandoSql.setTimestamp(6, reserva.getDataCheckout());
+            comandoSql.setInt(7, reserva.getNumHospedes());
+            comandoSql.setDouble(8, reserva.getValorPagamento());
+            comandoSql.setBoolean(9, reserva.estaPago());
+            comandoSql.setInt(10, reserva.getNum());
+            comandoSql.execute();
+        } catch (SQLException ex) {
+             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DB.closeConexao();
+        }        
     }
 }
 

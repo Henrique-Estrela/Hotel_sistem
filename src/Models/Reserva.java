@@ -3,21 +3,15 @@ package Models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Controller.AtendenteController;
-import Controller.ClienteController;
-import Controller.QuartosController;
-import Controller.PagamentoController;
-
 public class Reserva{
     private Integer num;
-    private Cliente cliente;
-    private Atendente atendente;
-    private Quarto quarto;
-    private FormaPagamento pagamento;
+    private Integer idCliente;
+    private Integer idAtendente;
+    private Integer idQuarto;
+    private Integer idFormaPagamento;
     private Timestamp dataCheckin;
     private Timestamp dataCheckout;
     private Integer numHospedes;
@@ -26,49 +20,25 @@ public class Reserva{
     
     // Construtores
     
-    public Reserva (Integer num, Cliente cliente, Atendente atendente, Quarto quarto, FormaPagamento pagamento, LocalDateTime dataCheckin, LocalDateTime dataCheckout, Integer numHospedes, Double valorPagamento){
+    public Reserva (Integer num, Integer idCliente, Integer idAtendente, Integer idQuarto, Integer idFormaPagamento, Timestamp dataCheckin, Timestamp dataCheckout, Integer numHospedes, Double valorPagamento, boolean pago){
         this.num = num;
-        this.cliente = cliente;
-        this.atendente = atendente;
-        this.quarto = quarto;
-        this.pagamento = pagamento;
-        this.dataCheckin = Timestamp.valueOf(dataCheckin);
-        this.dataCheckout = Timestamp.valueOf(dataCheckout);
-        this.numHospedes = numHospedes;
-        this.valorPagamento = valorPagamento;
-    }
-    
-    public Reserva (Integer num, Cliente cliente, Atendente atendente, Quarto quarto, FormaPagamento pagamento, LocalDateTime dataCheckin, LocalDateTime dataCheckout, Integer numHospedes, Double valorPagamento, boolean pago){
-        this.num = num;
-        this.cliente = cliente;
-        this.atendente = atendente;
-        this.quarto = quarto;
-        this.pagamento = pagamento;
-        this.dataCheckin = Timestamp.valueOf(dataCheckin);
-        this.dataCheckout = Timestamp.valueOf(dataCheckout);
-        this.numHospedes = numHospedes;
-        this.valorPagamento = valorPagamento;
-        this.pago = false;
-    }
-    
-    public Reserva (Integer num, Cliente cliente, Atendente atendente, Quarto quarto, FormaPagamento pagamento, Timestamp dataCheckin, Timestamp dataCheckout, Integer numHospedes, Double valorPagamento){
-        this.num = num;
-        this.cliente = cliente;
-        this.atendente = atendente;
-        this.quarto = quarto;
-        this.pagamento = pagamento;
+        this.idCliente = idCliente;
+        this.idAtendente = idAtendente;
+        this.idQuarto = idQuarto;
+        this.idFormaPagamento = idFormaPagamento;
         this.dataCheckin = dataCheckin;
         this.dataCheckout = dataCheckout;
         this.numHospedes = numHospedes;
         this.valorPagamento = valorPagamento;
+        this.pago = pago;
     }
     
-    public Reserva (Integer num, Cliente cliente, Atendente atendente, Quarto quarto, FormaPagamento pagamento, Timestamp dataCheckin, Timestamp dataCheckout, Integer numHospedes, Double valorPagamento, boolean pago){
+    public Reserva (Integer num, Integer idCliente, Integer idAtendente, Integer idQuarto, Integer idFormaPagamento, Timestamp dataCheckin, Timestamp dataCheckout, Integer numHospedes, Double valorPagamento){
         this.num = num;
-        this.cliente = cliente;
-        this.atendente = atendente;
-        this.quarto = quarto;
-        this.pagamento = pagamento;
+        this.idCliente = idCliente;
+        this.idAtendente = idAtendente;
+        this.idQuarto = idQuarto;
+        this.idFormaPagamento = idFormaPagamento;
         this.dataCheckin = dataCheckin;
         this.dataCheckout = dataCheckout;
         this.numHospedes = numHospedes;
@@ -78,15 +48,11 @@ public class Reserva{
     
     public Reserva(ResultSet rs) {
         try {
-            ClienteController clienteKit = new ClienteController();
-            QuartosController quartoKit = new QuartosController();
-            PagamentoController pagamentoKit = new PagamentoController();
-            AtendenteController atendenteKit = new AtendenteController();
             this.num = rs.getInt("NUM_RESERVA");
-            this.cliente = clienteKit.acessarCliente(rs.getInt("ID_CLIENTE"));
-            this.atendente = atendenteKit.acessarAtendente(rs.getInt("ID_ATENDENTE"));
-            this.quarto = quartoKit.acessarQuarto(rs.getInt("ID_QUARTO"));
-            this.pagamento = pagamentoKit.acessarForma(rs.getInt("ID_PAGAMENTO"));
+            this.idCliente = rs.getInt("ID_CLIENTE");
+            this.idAtendente = rs.getInt("ID_ATENDENTE");
+            this.idQuarto = rs.getInt("ID_QUARTO");
+            this.idFormaPagamento = rs.getInt("ID_PAGAMENTO");
             this.dataCheckin = rs.getTimestamp("data_checkin");
             this.dataCheckout = rs.getTimestamp("data_checkout");
             this.numHospedes = rs.getInt("NUM_RESERVA");
@@ -103,20 +69,20 @@ public class Reserva{
         return this.num;
     }
 
-    public Cliente getCliente(){
-        return this.cliente;
+    public Integer getIdCliente(){
+        return this.idCliente;
     }
 
-    public Atendente getAtendente(){
-        return this.atendente;
+    public Integer getIdAtendente(){
+        return this.idAtendente;
     }
 
-    public Quarto getQuarto(){
-        return this.quarto;
+    public Integer getIdQuarto(){
+        return this.idQuarto;
     }
 
-    public FormaPagamento getPagamento(){
-        return this.pagamento;
+    public Integer getIdFormaPagamento(){
+        return this.idFormaPagamento;
     }
 
     public Timestamp getDataCheckin(){

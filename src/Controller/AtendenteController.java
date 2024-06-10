@@ -15,17 +15,23 @@ public class AtendenteController {
     * Função: acessar atendente
     */
     public Atendente acessarAtendente(int codigo){
-        String templateComandoSql = "SELECT * FROM atendente WHERE id=" + codigo;
         Atendente atendenteAcessado = null;
         try {
             Connection dbConectado = DB.getConexao();
+            atendenteAcessado = acessarAtendente(codigo, dbConectado);
+        } finally {
+            DB.closeConexao();
+        } return atendenteAcessado;
+    }
+    
+    public Atendente acessarAtendente(int codigo, Connection dbConectado){
+        String templateComandoSql = "SELECT * FROM atendente WHERE id=" + codigo;
+        Atendente atendenteAcessado = null;
+        try {
             ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
             atendenteAcessado = new Atendente(retornoSql);
         } catch (SQLException excecaoSql) {
             Logger.getLogger(AtendenteController.class.getName()).log(Level.SEVERE, null, excecaoSql);
-        } finally {
-            DB.closeConexao();
-        }
-        return atendenteAcessado;
+        } return atendenteAcessado;
     }
 }
