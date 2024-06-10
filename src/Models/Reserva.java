@@ -1,6 +1,10 @@
 package Models;
 
 import java.time.LocalDateTime;
+import Models.Cliente;
+import Models.Atendente;
+import Models.Quarto;
+import Models.FormaPagamento;
 
 public class Reserva {
     private Integer num;
@@ -15,7 +19,31 @@ public class Reserva {
     private boolean pago;
 
     // Construtores
-
+    public Reserva (Integer num, Cliente cliente, Atendente atendente, Quarto quarto, FormaPagamento pagamento, LocalDateTime dataCheckin, LocalDateTime dataCheckout, Integer numHospedes, Double valorPagamento){
+        this.num = num;
+        this.cliente = cliente;
+        this.atendente = atendente;
+        this.quarto = quarto;
+        this.pagamento = pagamento;
+        this.dataCheckin = dataCheckin;
+        this.dataCheckout = dataCheckout;
+        this.numHospedes = numHospedes;
+        this.valorPagamento = valorPagamento;
+    }
+    
+        public Reserva (Integer num, Cliente cliente, Atendente atendente, Quarto quarto, FormaPagamento pagamento, LocalDateTime dataCheckin, LocalDateTime dataCheckout, Integer numHospedes, Double valorPagamento, boolean pago){
+        this.num = num;
+        this. cliente = cliente;
+        this.atendente = atendente;
+        this.quarto = quarto;
+        this.pagamento = pagamento;
+        this.dataCheckin = dataCheckin;
+        this.dataCheckout = dataCheckout;
+        this.numHospedes = numHospedes;
+        this.valorPagamento = valorPagamento;
+        this.pago = false;
+    }
+       }
     // Getters
 
     public int getNum(){

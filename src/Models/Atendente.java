@@ -1,5 +1,11 @@
 package Models;
 
+import java.sql.SQLException;
+import java.sql.ResultSet;
+//import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Atendente {
     private int id;
     private String nome;
@@ -8,9 +14,31 @@ public class Atendente {
 
     // Construtores
 
-    public Atendente(int id, String senha) {
+    public Atendente(int id, String nome, String senha) {
         this.id = id;
+        this.nome = nome;
         this.senha = senha;
+    }
+    
+        public Atendente(int id, String nome, String senha, boolean ativo) {
+        this.id = id;
+        this.nome = nome;
+        this.senha = senha;
+        this.ativo = true;
+    }
+    
+    public Atendente (ResultSet rs) {
+        try {
+            this.id = rs.getInt("ID");
+            this.nome = rs.getString("NOME");
+            this.senha = rs.getString("SENHA");
+            this.ativo = rs.getBoolean("ATIVO");
+        } catch (SQLException ex) {
+            Logger.getLogger(Atendente.class.getName()).log(Level.SEVERE, null, ex);
+        } /*catch (ParseException ex){
+            Logger.getLogger(Atendente.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        
     }
 
     
