@@ -10,6 +10,8 @@ public class Quarto {
     private int num;
     private boolean reservado;
     private char tamanho;
+    
+    // Construtores
 
     public Quarto(int num, char tamanho) {
         this.num = num;
@@ -28,7 +30,6 @@ public class Quarto {
         this.reservado = reservado;
         this.tamanho = tamanho;
     }
-        
 
     public Quarto(ResultSet rs) {
         try {
@@ -40,8 +41,6 @@ public class Quarto {
             Logger.getLogger(Quarto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    // Construtores
 
     // Getters
 
@@ -70,7 +69,6 @@ public class Quarto {
     public void setTamanho(char novoTamanho){
         this.tamanho = novoTamanho;
     }
-
 
     // Métodos Adicionais
 

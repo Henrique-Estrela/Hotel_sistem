@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Models;
 
 import Utils.DateFormatterFactory;
@@ -12,10 +8,6 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Vinicius
- */
 public class Cliente {
 
     private Integer id;
@@ -23,12 +15,22 @@ public class Cliente {
     private String telefone;
     private String cpf;
     private Date dataNasc;
+    
+    // Construtores
 
     public Cliente(Integer id, String nome, String telefone, String cpf, Date dataNasc) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.cpf = cpf;
+        this.dataNasc = dataNasc;
+    }
+    
+    public Cliente(Integer id, String nome, String telefone, Date dataNasc) {
+        this.id = id;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.cpf = null;
         this.dataNasc = dataNasc;
     }
 
@@ -45,41 +47,45 @@ public class Cliente {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    // Getters
 
     public Integer getId() {
         return id;
     }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+    
     public String getNome() {
         return nome;
+    }
+        
+    public String getTelefone() {
+        return telefone;
+    }
+    
+    public String getCpf() {
+        return cpf;
+    }
+    
+    public Date getDataNasc() {
+        return dataNasc;
+    }
+    
+    // Setters
+    
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public String getTelefone() {
-        return telefone;
-    }
-
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
-    public String getCpf() {
-        return cpf;
-    }
-
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public Date getDataNasc() {
-        return dataNasc;
     }
 
     public void setDataNasc(Date dataNasc) {
