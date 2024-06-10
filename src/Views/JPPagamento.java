@@ -53,17 +53,14 @@ public class JPPagamento extends javax.swing.JPanel {
     
     public void updateButtons() {
         if (FormState.SEARCH == formState) {
-            jBNovo.setEnabled(true);
             jBEditar.setEnabled(true);
             jBCancelar.setEnabled(false);
             jBGravar.setEnabled(false); 
         } else if (FormState.INSERT == formState) {
-            jBNovo.setEnabled(false);
             jBEditar.setEnabled(false);
             jBCancelar.setEnabled(true);
             jBGravar.setEnabled(true);
         } else if (FormState.EDIT == formState) {
-            jBNovo.setEnabled(false);
             jBEditar.setEnabled(false);
             jBCancelar.setEnabled(true);
             jBGravar.setEnabled(true);            
@@ -73,7 +70,6 @@ public class JPPagamento extends javax.swing.JPanel {
     public void updateEdits() {        
         jTFNome.setText("");
         jTFQuarto.setText("");
-        jTFCPF.setText("");
         jTFQuarto.setText("");
         //        
         Object nome = jTableCliente.getValueAt(jTableCliente.getSelectedRow(), 1);
@@ -87,9 +83,6 @@ public class JPPagamento extends javax.swing.JPanel {
         }
         if (telefone != null) {
             jTFQuarto.setText(telefone.toString());
-        }
-        if (cpf != null) {
-            jTFCPF.setText(cpf.toString());
         }
         if (dataNasc != null) {            
             jTFQuarto.setText(jTFQuarto.toString());       
@@ -113,18 +106,18 @@ public class JPPagamento extends javax.swing.JPanel {
         jBGravar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jTFQuarto = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTFCPF = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTFNome = new javax.swing.JTextField();
         jBEditar = new javax.swing.JButton();
-        jBNovo = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jTFCodigo = new javax.swing.JTextField();
         jBCancelar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jTFTelefone1 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableCliente1 = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -145,14 +138,14 @@ public class JPPagamento extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Código", "Nome", "CPF", "Atendente", "Quarto", "Valor"
+                "Código", "Nome", "Quarto", "Pago"
             }
         ));
         jTableCliente.setMinimumSize(new java.awt.Dimension(0, 0));
         jTableCliente.setShowGrid(false);
         jScrollPane1.setViewportView(jTableCliente);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 570, 130));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 240, 150));
 
         jBGravar.setText("Gravar");
         jBGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -163,25 +156,20 @@ public class JPPagamento extends javax.swing.JPanel {
         jPanel2.add(jBGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 290, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Telefone:");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, 20));
+        jLabel3.setText("Pago:");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, 20));
 
+        jTFQuarto.setEditable(false);
         jTFQuarto.setToolTipText("");
-        jPanel2.add(jTFQuarto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 230, 30));
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("CPF:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, 20));
-
-        jTFCPF.setToolTipText("");
-        jPanel2.add(jTFCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 230, 30));
+        jPanel2.add(jTFQuarto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 230, 30));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Nome:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 50, 20));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 50, 20));
 
+        jTFNome.setEditable(false);
         jTFNome.setToolTipText("");
-        jPanel2.add(jTFNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 230, 30));
+        jPanel2.add(jTFNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 230, 30));
 
         jBEditar.setText("Editar");
         jBEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -189,23 +177,15 @@ public class JPPagamento extends javax.swing.JPanel {
                 jBEditarActionPerformed(evt);
             }
         });
-        jPanel2.add(jBEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 100, -1));
-
-        jBNovo.setText("Novo");
-        jBNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBNovoActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jBNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, -1));
+        jPanel2.add(jBEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Código:");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 50, 20));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 50, 20));
 
         jTFCodigo.setEditable(false);
         jTFCodigo.setToolTipText("");
-        jPanel2.add(jTFCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 230, 30));
+        jPanel2.add(jTFCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 230, 30));
 
         jBCancelar.setText("Cancelar");
         jBCancelar.setActionCommand("");
@@ -214,21 +194,45 @@ public class JPPagamento extends javax.swing.JPanel {
                 jBCancelarActionPerformed(evt);
             }
         });
-        jPanel2.add(jBCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 100, -1));
+        jPanel2.add(jBCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 150, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Quarto:");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 20));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, 20));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Historico");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, -1, -1));
+        jLabel7.setText("Pendências");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, -1, -1));
 
         jTFTelefone1.setToolTipText("");
-        jPanel2.add(jTFTelefone1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 230, 30));
+        jPanel2.add(jTFTelefone1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 230, 30));
 
-        add(jPanel2, java.awt.BorderLayout.CENTER);
+        jTableCliente1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Nome", "CPF", "Atendente", "Quarto", "Valor"
+            }
+        ));
+        jTableCliente1.setMinimumSize(new java.awt.Dimension(0, 0));
+        jTableCliente1.setShowGrid(false);
+        jScrollPane2.setViewportView(jTableCliente1);
+        if (jTableCliente1.getColumnModel().getColumnCount() > 0) {
+            jTableCliente1.getColumnModel().getColumn(2).setHeaderValue("CPF");
+            jTableCliente1.getColumnModel().getColumn(3).setHeaderValue("Atendente");
+            jTableCliente1.getColumnModel().getColumn(5).setHeaderValue("Valor");
+        }
+
+        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 570, 150));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Historico");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, -1, -1));
+
+        add(jPanel2, java.awt.BorderLayout.LINE_START);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
@@ -239,14 +243,12 @@ public class JPPagamento extends javax.swing.JPanel {
                 clienteController.inserirCliente(new Cliente(0,
                         jTFNome.getText(),
                         jTFQuarto.getText(),
-                        jTFCPF.getText(),
                         df.parse(jTFQuarto.getText())));
             
             } else if (formState == FormState.EDIT) {
                 clienteController.editarCliente(new Cliente(Integer.valueOf(jTFCodigo.getText()), 
                                                         jTFNome.getText(), 
                                                         jTFQuarto.getText(), 
-                                                        jTFCPF.getText(),
                                                         df.parse(jTFQuarto.getText())));
             }        
         } catch (ParseException ex) {
@@ -272,7 +274,6 @@ public class JPPagamento extends javax.swing.JPanel {
         jTFCodigo.setText("");
         jTFNome.setText("");
         jTFQuarto.setText("");
-        jTFCPF.setText("");
         jTFQuarto.setText("");
         //
         formState = FormState.INSERT;
@@ -307,22 +308,22 @@ public class JPPagamento extends javax.swing.JPanel {
     private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBEditar;
     private javax.swing.JButton jBGravar;
-    private javax.swing.JButton jBNovo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTFCPF;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTFCodigo;
     private javax.swing.JTextField jTFNome;
     private javax.swing.JTextField jTFQuarto;
     private javax.swing.JTextField jTFTelefone1;
     private javax.swing.JTable jTableCliente;
+    private javax.swing.JTable jTableCliente1;
     // End of variables declaration//GEN-END:variables
 }
