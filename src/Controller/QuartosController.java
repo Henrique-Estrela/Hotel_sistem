@@ -72,6 +72,25 @@ public class QuartosController {
         }
         return lista;
     }
+    public ArrayList<Quarto> conultarQuartosVazios() {
+        ArrayList<Quarto> lista = new ArrayList();
+        try {
+            // TODO add your handling code here:
+            Connection conn = DB.getConexao();
+            //
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM QUARTO WHERE RESERVADO = 0");
+            while (rs.next()) {
+                Quarto quarto = new Quarto(rs);
+                lista.add(quarto);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuartosController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DB.closeConexao();
+        }
+        return lista;
+    }
 
     public void editarQuarto(Quarto quarto) {
         try {

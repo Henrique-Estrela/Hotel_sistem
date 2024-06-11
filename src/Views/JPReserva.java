@@ -31,6 +31,8 @@ public class JPReserva extends javax.swing.JPanel {
     private final ClienteController clienteController;
     private final ReservasController reservasController;
     private final AtendenteController atendenteController;
+    private final QuartosController quartosController;
+
     private FormState formState;
 
     public JPReserva() {
@@ -38,6 +40,8 @@ public class JPReserva extends javax.swing.JPanel {
         this.reservasController = new ReservasController();
         this.clienteController = new ClienteController();
         this.atendenteController = new AtendenteController();
+        this.quartosController = new QuartosController();
+
                 
         this.formState = FormState.SEARCH;
         //
@@ -262,6 +266,7 @@ public class JPReserva extends javax.swing.JPanel {
         jCQuarto.setToolTipText("");
         jPanel2.add(jCQuarto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 110, 30));
 
+        jCAtendente.setEditable(true);
         jCAtendente.setToolTipText("");
         jCAtendente.setEnabled(false);
         jPanel2.add(jCAtendente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 110, 30));
@@ -374,6 +379,18 @@ public class JPReserva extends javax.swing.JPanel {
         ArrayList<Cliente> clientes = clienteController.consultarCliente();
         for (Cliente c : clientes) {            
             jCCliente.addItem(new ComboItem(c.getId(), c.getNome()));                         
+        }
+        
+        ArrayList<Atendente> atendentes = atendenteController.acessarAtendente();
+        for (Atendente a : atendentes) {            
+            jCAtendente.addItem(new ComboItem(a.getId(), a.getNome()));                         
+        }
+        
+        ArrayList<Quarto> quartos = quartosController.conultarQuartosVazios();
+        for (Quarto q : quartos) {   
+            Integer num = q.getNum();
+            String aaa = num.toString();
+            jCQuarto.addItem(new ComboItem(q.getId(), aaa ));                         
         }
         
         formState = FormState.INSERT;
