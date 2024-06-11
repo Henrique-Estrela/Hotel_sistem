@@ -4,10 +4,16 @@
  */
 package Views;
 
+import Controller.AtendenteController;
+import Controller.ClienteController;
 import Controller.QuartosController;
+import Controller.ReservasController;
+import Models.Atendente;
+import Models.Cliente;
 import Models.Quarto;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import Utils.ComboItem;
+import Models.Reserva;
+import Views.FormState;
 import java.util.ArrayList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -22,12 +28,17 @@ public class JPReserva extends javax.swing.JPanel {
     /**
      * Creates new form JPClientes
      */
-    private final QuartosController quartoController;
+    private final ClienteController clienteController;
+    private final ReservasController reservasController;
+    private final AtendenteController atendenteController;
     private FormState formState;
 
     public JPReserva() {
         initComponents();
-        this.quartoController = new QuartosController();
+        this.reservasController = new ReservasController();
+        this.clienteController = new ClienteController();
+        this.atendenteController = new AtendenteController();
+                
         this.formState = FormState.SEARCH;
         //
         atualizarTabela();        
@@ -37,10 +48,10 @@ public class JPReserva extends javax.swing.JPanel {
     }
     
     public void addListenerSelectionTable() {
-        jTableQuarto.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        jTableReserva.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (!jTableQuarto.getSelectionModel().isSelectionEmpty()) {
+                if (!jTableReserva.getSelectionModel().isSelectionEmpty()) {
                     updateEdits();
                 }
             }
@@ -68,38 +79,55 @@ public class JPReserva extends javax.swing.JPanel {
     
     public void updateEdits() {        
         jTFCodigo.setText("");
-        //jTFNumQuarto.setText("");
-        /*
-        jCReservado.setText("");
-        jCReservado.setText("");
-        */
-        //        
-        Object numQuarto = jTableQuarto.getValueAt(jTableQuarto.getSelectedRow(), 1);
-        Object tamanho = jTableQuarto.getValueAt(jTableQuarto.getSelectedRow(), 2);
-        Object reservado = jTableQuarto.getValueAt(jTableQuarto.getSelectedRow(), 3);       
-        //
-        jTFCodigo.setText(jTableQuarto.getValueAt(jTableQuarto.getSelectedRow(), 0).toString());
-        if (numQuarto != null) {
-            //jTFNumQuarto.setText(numQuarto.toString());
-        }
-        if (tamanho != null) {            
-            if (tamanho.toString().equals("P")) {
-                jCTamanho.setSelectedIndex(0);
-            } else if (tamanho.toString().equals("M")) {
-                jCTamanho.setSelectedIndex(1);
-            } else if (tamanho.toString().equals("G")) {
-                jCTamanho.setSelectedIndex(2);
-            }                                             
-        }
-        if (reservado != null) {
-            if ((boolean) reservado)  {
-                jCReservado.setSelectedIndex(0);
-            } else {
-                jCReservado.setSelectedIndex(1);
-            }
-            
-        }
+        //jCCliente
+        //jCAtendente
+        //jCQuarto
+        jTFNumHospedes.setText("");
+        jTFDataChekIn.setText("");
+        jTFDataChekOut.setText("");
+        //jCPagamento
+        jTFValorPagamento.setText("");
+        //JCPago
         
+               
+        Object cliente = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 1);
+        Object atendente = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 2);
+        Object quarto = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 3);
+        Object numHospedes = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 4);
+        Object dataCheckIn = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 5);
+        Object dataCheckOut = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 6);
+        Object tipoPagamento = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 7);
+        Object valorPago = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 8);        
+        Object pago = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 9);        
+        //
+        jTFCodigo.setText(jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 0).toString());
+        if (cliente != null) {
+            jCCliente.setSelectedItem(cliente);            
+        }
+        if (atendente != null) {
+            jCAtendente.setSelectedItem(atendente);            
+        }
+        if (quarto != null) {
+            jCQuarto.setSelectedItem(quarto);
+        }
+        if (numHospedes != null) {
+            jTFNumHospedes.setText(numHospedes.toString());
+        }
+        if (dataCheckIn != null) {
+            jTFDataChekIn.setText(dataCheckIn.toString());
+        }
+        if (dataCheckOut != null) {
+            jTFDataChekOut.setText(dataCheckOut.toString());
+        }           
+        if (tipoPagamento != null) {
+            jCPagamento.setSelectedItem(tipoPagamento);
+        } 
+        if (valorPago != null) {
+            jTFValorPagamento.setText(valorPago.toString());
+        }
+        if (pago != null) {
+            JCPago.setSelectedItem(pago);
+        }                        
     }
 
     /**
@@ -116,7 +144,7 @@ public class JPReserva extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableQuarto = new javax.swing.JTable();
+        jTableReserva = new javax.swing.JTable();
         jBGravar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -126,19 +154,21 @@ public class JPReserva extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jTFCodigo = new javax.swing.JTextField();
         jBCancelar = new javax.swing.JButton();
-        jCReservado = new javax.swing.JComboBox<>();
-        jCTamanho = new javax.swing.JComboBox<>();
-        jCReservado1 = new javax.swing.JComboBox<>();
-        jCReservado2 = new javax.swing.JComboBox<>();
+        jCQuarto = new javax.swing.JComboBox<>();
+        jCAtendente = new javax.swing.JComboBox<>();
+        jCCliente = new javax.swing.JComboBox<>();
+        jCPagamento = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        jTFDataNasc1 = new javax.swing.JFormattedTextField();
+        jTFDataChekIn = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTFDataNasc2 = new javax.swing.JFormattedTextField();
-        jTFDataNasc3 = new javax.swing.JFormattedTextField();
+        jTFDataChekOut = new javax.swing.JFormattedTextField();
+        jTFNumHospedes = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jCReservado3 = new javax.swing.JComboBox<>();
+        JCPago = new javax.swing.JComboBox<>();
+        jTFValorPagamento = new javax.swing.JFormattedTextField();
+        jLabel11 = new javax.swing.JLabel();
 
         try {
             jTFDataNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -161,17 +191,17 @@ public class JPReserva extends javax.swing.JPanel {
         jPanel2.setToolTipText("");
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTableQuarto.setModel(new javax.swing.table.DefaultTableModel(
+        jTableReserva.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Num. Quarto", "Tamanho", "Reservado"
+                "Num.", "Cliente", "Atendente", "Quarto", "Num Hospedes", "Data Chekin", "Data Checkout", "Pagamento", "Valor Pagamento", "Pago"
             }
         ));
-        jTableQuarto.setMinimumSize(new java.awt.Dimension(0, 0));
-        jTableQuarto.setShowGrid(false);
-        jScrollPane1.setViewportView(jTableQuarto);
+        jTableReserva.setMinimumSize(new java.awt.Dimension(0, 0));
+        jTableReserva.setShowGrid(false);
+        jScrollPane1.setViewportView(jTableReserva);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 570, 170));
 
@@ -213,7 +243,7 @@ public class JPReserva extends javax.swing.JPanel {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Código:");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 50, 20));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 50, 20));
 
         jTFCodigo.setEditable(false);
         jTFCodigo.setToolTipText("");
@@ -228,33 +258,33 @@ public class JPReserva extends javax.swing.JPanel {
         });
         jPanel2.add(jBCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 100, -1));
 
-        jCReservado.setEditable(true);
-        jCReservado.setToolTipText("");
-        jPanel2.add(jCReservado, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 110, 30));
+        jCQuarto.setEditable(true);
+        jCQuarto.setToolTipText("");
+        jPanel2.add(jCQuarto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 110, 30));
 
-        jCTamanho.setToolTipText("");
-        jCTamanho.setEnabled(false);
-        jPanel2.add(jCTamanho, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 110, 30));
+        jCAtendente.setToolTipText("");
+        jCAtendente.setEnabled(false);
+        jPanel2.add(jCAtendente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 110, 30));
 
-        jCReservado1.setEditable(true);
-        jCReservado1.setToolTipText("");
-        jPanel2.add(jCReservado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 110, 30));
+        jCCliente.setEditable(true);
+        jCCliente.setToolTipText("");
+        jPanel2.add(jCCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 110, 30));
 
-        jCReservado2.setEditable(true);
-        jCReservado2.setToolTipText("");
-        jPanel2.add(jCReservado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 170, 110, 30));
+        jCPagamento.setEditable(true);
+        jCPagamento.setToolTipText("");
+        jPanel2.add(jCPagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 170, 110, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Pagamento:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, -1, 20));
 
         try {
-            jTFDataNasc1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            jTFDataChekIn.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jTFDataNasc1.setToolTipText("");
-        jPanel2.add(jTFDataNasc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 110, 30));
+        jTFDataChekIn.setToolTipText("");
+        jPanel2.add(jTFDataChekIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 110, 30));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Quarto:");
@@ -265,20 +295,20 @@ public class JPReserva extends javax.swing.JPanel {
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, 20));
 
         try {
-            jTFDataNasc2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            jTFDataChekOut.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jTFDataNasc2.setToolTipText("");
-        jPanel2.add(jTFDataNasc2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 110, 30));
+        jTFDataChekOut.setToolTipText("");
+        jPanel2.add(jTFDataChekOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 110, 30));
 
         try {
-            jTFDataNasc3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
+            jTFNumHospedes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jTFDataNasc3.setToolTipText("");
-        jPanel2.add(jTFDataNasc3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 110, 30));
+        jTFNumHospedes.setToolTipText("");
+        jPanel2.add(jTFNumHospedes, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 110, 30));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setText("Num. Hospedes:");
@@ -288,29 +318,40 @@ public class JPReserva extends javax.swing.JPanel {
         jLabel10.setText("Pago:");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, -1, 20));
 
-        jCReservado3.setEditable(true);
-        jCReservado3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
-        jCReservado3.setToolTipText("");
-        jPanel2.add(jCReservado3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 110, 30));
+        JCPago.setEditable(true);
+        JCPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
+        JCPago.setToolTipText("");
+        jPanel2.add(JCPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 110, 30));
+
+        jTFValorPagamento.setToolTipText("");
+        jPanel2.add(jTFValorPagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 360, 30));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel11.setText("Valor Pagamento:");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, 20));
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
- /*      
-        if (formState == FormState.INSERT) {
- 
-            quartoController.inserirQuarto(new Quarto(Integer.valueOf(jTFNumQuarto.getText()),
-                    jCTamanho.getItemAt(jCTamanho.getSelectedIndex()).toCharArray()[0]));
-   
+     
+        if (formState == FormState.INSERT) { 
+            Object cliente = jCCliente.getSelectedItem();
+            reservasController.registrarReserva(((ComboItem) cliente).getKey(),
+                                                (Integer) jCAtendente.getSelectedItem(),
+                                                (Integer) jCQuarto.getSelectedItem(),
+                                                (Integer) jCPagamento.getSelectedItem(),
+                                                Integer.valueOf(jTFNumHospedes.getText()),
+                                                Double.valueOf(jTFValorPagamento.getText()));               
         } else if (formState == FormState.EDIT) {
-           
+           /*
             quartoController.editarQuarto(new Quarto(Integer.valueOf(jTFCodigo.getText()),
                     Integer.valueOf(jTFNumQuarto.getText()),
                     jCTamanho.getItemAt(jCTamanho.getSelectedIndex()).toCharArray()[0]));
+*/
         }
         //
-*/         
+        
         atualizarTabela();
         //
         formState = FormState.SEARCH;
@@ -330,6 +371,11 @@ public class JPReserva extends javax.swing.JPanel {
         jTFCodigo.setText("");
         //jTFNumQuarto.setText("");        
         //
+        ArrayList<Cliente> clientes = clienteController.consultarCliente();
+        for (Cliente c : clientes) {            
+            jCCliente.addItem(new ComboItem(c.getId(), c.getNome()));                         
+        }
+        
         formState = FormState.INSERT;
         //
         updateButtons();
@@ -343,28 +389,41 @@ public class JPReserva extends javax.swing.JPanel {
     }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void atualizarTabela() {
-        DefaultTableModel model = (DefaultTableModel) jTableQuarto.getModel();
+        DefaultTableModel model = (DefaultTableModel) jTableReserva.getModel();
         model.setRowCount(0);
-        ArrayList<Quarto> lista = quartoController.conultarQuartos();
+        ArrayList<Reserva> lista = reservasController.acessarReservas();
 
-        for (Quarto q : lista) {
-            Object[] dados = {q.getId(), q.getNum(), q.getTamanho(), q.isReservado()};
+        for (Reserva r : lista) {
+            Cliente c = clienteController.acessarCliente(r.getIdCliente());
+            Atendente a = atendenteController.acessarAtendente(r.getIdAtendente());            
+            //       
+            Object[] dados = {r.getNum(), 
+                                c.getId().toString()+" - "+c.getNome(), 
+                                a.getId().toString()+" - "+a.getNome(),
+                                r.getIdQuarto(),
+                                r.getNumHospedes(),
+                                r.getDataCheckin(),
+                                r.getDataCheckout(),
+                                r.getIdFormaPagamento(),
+                                r.getValorPagamento(),
+                                r.estaPago()};
             model.addRow(dados);
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> JCPago;
     private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBEditar;
     private javax.swing.JButton jBGravar;
     private javax.swing.JButton jBNovo;
-    private javax.swing.JComboBox<String> jCReservado;
-    private javax.swing.JComboBox<String> jCReservado1;
-    private javax.swing.JComboBox<String> jCReservado2;
-    private javax.swing.JComboBox<String> jCReservado3;
-    private javax.swing.JComboBox<String> jCTamanho;
+    private javax.swing.JComboBox<ComboItem> jCAtendente;
+    private javax.swing.JComboBox<ComboItem> jCCliente;
+    private javax.swing.JComboBox<String> jCPagamento;
+    private javax.swing.JComboBox<ComboItem> jCQuarto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -377,10 +436,11 @@ public class JPReserva extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFCodigo;
+    private javax.swing.JFormattedTextField jTFDataChekIn;
+    private javax.swing.JFormattedTextField jTFDataChekOut;
     private javax.swing.JFormattedTextField jTFDataNasc;
-    private javax.swing.JFormattedTextField jTFDataNasc1;
-    private javax.swing.JFormattedTextField jTFDataNasc2;
-    private javax.swing.JFormattedTextField jTFDataNasc3;
-    private javax.swing.JTable jTableQuarto;
+    private javax.swing.JFormattedTextField jTFNumHospedes;
+    private javax.swing.JFormattedTextField jTFValorPagamento;
+    private javax.swing.JTable jTableReserva;
     // End of variables declaration//GEN-END:variables
 }

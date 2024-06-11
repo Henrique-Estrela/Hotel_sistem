@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Atendente {
-    private int id;
+    private Integer id;
     private String nome;
     private String senha;
     private boolean ativo;
@@ -44,7 +44,7 @@ public class Atendente {
 
     // Getters
 
-    public int getId(){
+    public Integer getId(){
         return this.id;
     }
 
