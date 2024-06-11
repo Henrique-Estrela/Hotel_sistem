@@ -5,7 +5,7 @@
 package Views;
 
 
-import Controller.ReservaController;
+import Controller.ClienteController;
 import Models.Cliente;
 import Utils.DateFormatterFactory;
 import java.text.DateFormat;
@@ -26,12 +26,12 @@ public class JPPagamento extends javax.swing.JPanel {
     /**
      * Creates new form JPClientes
      */
-    private final ReservaController reservasController;
+    private final ClienteController reservasController;
     private FormState formState;
 
     public JPPagamento(){
         initComponents();
-        this.reservasController = new ReservaController();
+        this.reservasController = new ClienteController();
         this.formState = FormState.SEARCH;
         //
         atualizarTabela();        

@@ -38,7 +38,7 @@ public class ReservasController {
             comandoSql.setDouble(6, valorPagamento);
             comandoSql.execute();
         } catch (SQLException excecao) {
-            Logger.getLogger(ReservaController.class.getName()).log(Level.SEVERE, null, excecao);
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, excecao);
         } finally {
             DB.closeConexao();
         }
@@ -67,7 +67,7 @@ public class ReservasController {
             comandoSql.setFloat(7, valorPagamento);
             comandoSql.execute();
         } catch (SQLException excecao) {
-            Logger.getLogger(ReservaController.class.getName()).log(Level.SEVERE, null, excecao);
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, excecao);
         } finally {
             DB.closeConexao();
         }
@@ -139,7 +139,7 @@ public class ReservasController {
             comandoSql.setInt(10, reserva.getNum());
             comandoSql.execute();
         } catch (SQLException ex) {
-             Logger.getLogger(ReservaController.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DB.closeConexao();
         }        
