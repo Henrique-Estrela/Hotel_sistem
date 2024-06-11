@@ -15,6 +15,8 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
     private JPReserva jPReserva;
     private JPQuarto jPQuarto;
     private JPPagamento jpPagamento;
+    private JPAtender jpAtender;
+
     /**
      * Creates new form jFTelaPrincipal
      */
@@ -170,6 +172,14 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
 
     private void jBAtenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAtenderActionPerformed
         // TODO add your handling code here:
+        jPnlMain.removeAll();        
+        if (jpAtender == null) {
+            jpAtender = new JPAtender();                
+        }
+        jPnlMain.add(jpAtender);
+        //
+        jPnlMain.revalidate();
+        jPnlMain.repaint(); 
     }//GEN-LAST:event_jBAtenderActionPerformed
 
     /**
