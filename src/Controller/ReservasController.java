@@ -16,6 +16,19 @@ import Models.Reserva;
 
 public class ReservasController {
     
+    public void reservarQuarto(int idQuarto){
+        String templateComandoSql = "UPDATE QUARTO SET RESERVADO=1 WHERE ID=" + idQuarto;
+        try {
+            Connection dbConectado = DB.getConexao();
+            PreparedStatement comandoSql = dbConectado.prepareStatement(templateComandoSql);
+            comandoSql.execute();
+        } catch (SQLException excecao) {
+            Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, excecao);
+        } finally {
+            DB.closeConexao();
+        }
+    }
+    
     /*
     * Função: registrar reserva
     * Atribui automaticamente os seguintes valores...
@@ -41,6 +54,7 @@ public class ReservasController {
             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, excecao);
         } finally {
             DB.closeConexao();
+            reservarQuarto(idQuarto);
         }
     }
     
@@ -70,6 +84,7 @@ public class ReservasController {
             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, excecao);
         } finally {
             DB.closeConexao();
+            reservarQuarto(idQuarto);
         }
     }
 

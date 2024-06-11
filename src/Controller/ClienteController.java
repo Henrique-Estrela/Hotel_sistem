@@ -12,11 +12,29 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Connection.DB;
+import java.text.ParseException;
 
+import Connection.DB;
+import Exceptions.Exception;
 import Utils.DateFormatterFactory;
 
 public class ClienteController {
+    
+    public Exception avaliarNovoCliente(Cliente novoCliente){
+        String nome = novoCliente.getNome();
+        String telefone = novoCliente.getTelefone();
+        String cpf = novoCliente.getCpf();
+        if (nome.length() < 1){
+            return new Exception("Nome deve conter mais de 1 caractere");
+        }
+        if (telefone.length() != 11){
+            return new Exception("Telefone informado incorretamente");
+        }
+        if (cpf.length() != 11){
+            return new Exception("CPF informado incorretamente");
+        }
+        return null;
+    }
     
     /*
     * Função: registrar novo cliente
@@ -24,11 +42,14 @@ public class ClienteController {
     * - Nome deve ter 2 letras
     * - Não pode deixar um campo em branco
     */
-    public void inserirCliente(Cliente cliente) {
+    
+    public Exception inserirCliente(Cliente cliente) {
+        Exception erroNoCliente = avaliarNovoCliente(cliente);
+        if (erroNoCliente != null){
+            return erroNoCliente;
+        }
         try {
-            // TODO add your handling code here:
             Connection conn = DB.getConexao();
-            //
             PreparedStatement pst = conn.prepareStatement("INSERT INTO CLIENTE(ID, NOME, CPF, TELEFONE, DATA_NASC) VALUES (null, ?, ?, ?, ?)");
             pst.setString(1, cliente.getNome());
             pst.setString(2, cliente.getCpf());
@@ -39,8 +60,8 @@ public class ClienteController {
             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DB.closeConexao();
-        }
-    }    
+        } return null;
+    }
     
     public void editarCliente(Cliente cliente) {
         try {
@@ -154,8 +175,6 @@ public class ClienteController {
         }        
     }
             
-    // ------------------------------------------------------------------- //
-    
      public ArrayList<Cliente> consultarCliente() {
          ArrayList<Cliente> lista = new ArrayList();
          try {
