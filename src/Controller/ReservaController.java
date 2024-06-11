@@ -16,7 +16,7 @@ import Connection.DB;
 
 import Utils.DateFormatterFactory;
 
-public class ClienteController {
+public class ReservaController {
     
     /*
     * Função: registrar novo cliente
@@ -36,7 +36,7 @@ public class ClienteController {
             pst.setString(4, DateFormatterFactory.dateFormatyyyyMMdd().format(cliente.getDataNasc()));
             pst.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReservaController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DB.closeConexao();
         }
@@ -61,7 +61,7 @@ public class ClienteController {
             pst.setInt(5, cliente.getId());
             pst.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReservaController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DB.closeConexao();
         }
@@ -78,7 +78,7 @@ public class ClienteController {
             comandoSql.setString(4, telefone);
             comandoSql.execute();
         } catch (SQLException excecao) {
-            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, excecao);
+            Logger.getLogger(ReservaController.class.getName()).log(Level.SEVERE, null, excecao);
         } finally {
             DB.closeConexao();
         }
@@ -104,7 +104,7 @@ public class ClienteController {
             ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
             clienteAcessado = new Cliente(retornoSql);
         } catch (SQLException excecaoSql) {
-            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, excecaoSql);
+            Logger.getLogger(ReservaController.class.getName()).log(Level.SEVERE, null, excecaoSql);
         } return clienteAcessado;
     }
     
@@ -125,7 +125,7 @@ public class ClienteController {
             ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
             clienteAcessado = new Cliente(retornoSql);
         } catch (SQLException excecaoSql) {
-            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, excecaoSql);
+            Logger.getLogger(ReservaController.class.getName()).log(Level.SEVERE, null, excecaoSql);
         } return clienteAcessado;
     }
     
@@ -148,7 +148,7 @@ public class ClienteController {
             comandoSql.setInt(4, cliente.getId());
             comandoSql.execute();
         } catch (SQLException ex) {
-             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(ReservaController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DB.closeConexao();
         }        
@@ -169,7 +169,7 @@ public class ClienteController {
                  lista.add(cliente);
              }
          } catch (SQLException ex) {
-             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(ReservaController.class.getName()).log(Level.SEVERE, null, ex);
          } finally {
              DB.closeConexao();
          }

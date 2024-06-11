@@ -5,7 +5,7 @@
 package Views;
 
 
-import Controller.ClienteController;
+import Controller.ReservaController;
 import Models.Cliente;
 import Utils.DateFormatterFactory;
 import java.text.DateFormat;
@@ -26,12 +26,12 @@ public class JPPagamento extends javax.swing.JPanel {
     /**
      * Creates new form JPClientes
      */
-    private final ClienteController clienteController;
+    private final ReservaController reservasController;
     private FormState formState;
 
-    public JPPagamento() {
+    public JPPagamento(){
         initComponents();
-        this.clienteController = new ClienteController();
+        this.reservasController = new ReservaController();
         this.formState = FormState.SEARCH;
         //
         atualizarTabela();        
@@ -41,10 +41,10 @@ public class JPPagamento extends javax.swing.JPanel {
     }
     
     public void addListenerSelectionTable() {
-        jTableCliente.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        jTableReserva.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (!jTableCliente.getSelectionModel().isSelectionEmpty()) {
+                if (!jTableReserva.getSelectionModel().isSelectionEmpty()) {
                     updateEdits();
                 }
             }
@@ -70,22 +70,22 @@ public class JPPagamento extends javax.swing.JPanel {
     public void updateEdits() {        
         jTFNome.setText("");
         jTFQuarto.setText("");
-        jTFQuarto.setText("");
+        jTFPago.setText("");
         //        
-        Object nome = jTableCliente.getValueAt(jTableCliente.getSelectedRow(), 1);
-        Object telefone = jTableCliente.getValueAt(jTableCliente.getSelectedRow(), 2);
-        Object cpf = jTableCliente.getValueAt(jTableCliente.getSelectedRow(), 3);
-        Object dataNasc = jTableCliente.getValueAt(jTableCliente.getSelectedRow(), 4);        
+        Object nome = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 1);
+        Object quarto = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 2);
+        Object pago = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 3);
+
         //
-        jTFCodigo.setText(jTableCliente.getValueAt(jTableCliente.getSelectedRow(), 0).toString());
+        jTFCodigo.setText(jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 0).toString());
         if (nome != null) {
             jTFNome.setText(nome.toString());
         }
-        if (telefone != null) {
-            jTFQuarto.setText(telefone.toString());
+        if (quarto != null) {
+            jTFQuarto.setText(quarto.toString());
         }
-        if (dataNasc != null) {            
-            jTFQuarto.setText(jTFQuarto.toString());       
+        if (pago != null) {            
+            jTFPago.setText(pago.toString());       
         }
     }
 
@@ -102,7 +102,7 @@ public class JPPagamento extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableCliente = new javax.swing.JTable();
+        jTableReserva = new javax.swing.JTable();
         jBGravar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jTFQuarto = new javax.swing.JTextField();
@@ -114,7 +114,7 @@ public class JPPagamento extends javax.swing.JPanel {
         jBCancelar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTFTelefone1 = new javax.swing.JTextField();
+        jTFPago = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableCliente1 = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
@@ -133,7 +133,7 @@ public class JPPagamento extends javax.swing.JPanel {
         jPanel2.setToolTipText("");
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTableCliente.setModel(new javax.swing.table.DefaultTableModel(
+        jTableReserva.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -141,9 +141,9 @@ public class JPPagamento extends javax.swing.JPanel {
                 "Código", "Nome", "Quarto", "Pago"
             }
         ));
-        jTableCliente.setMinimumSize(new java.awt.Dimension(0, 0));
-        jTableCliente.setShowGrid(false);
-        jScrollPane1.setViewportView(jTableCliente);
+        jTableReserva.setMinimumSize(new java.awt.Dimension(0, 0));
+        jTableReserva.setShowGrid(false);
+        jScrollPane1.setViewportView(jTableReserva);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 240, 150));
 
@@ -205,8 +205,8 @@ public class JPPagamento extends javax.swing.JPanel {
         jLabel7.setText("Pendências");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, -1, -1));
 
-        jTFTelefone1.setToolTipText("");
-        jPanel2.add(jTFTelefone1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 230, 30));
+        jTFPago.setToolTipText("");
+        jPanel2.add(jTFPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 230, 30));
 
         jTableCliente1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -236,24 +236,18 @@ public class JPPagamento extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
-        DateFormat df = DateFormatterFactory.dateFormatddMMyyy();
    
         try {              
-            if (formState == FormState.INSERT) {  
-                clienteController.inserirCliente(new Cliente(0,
-                        jTFNome.getText(),
-                        jTFQuarto.getText(),
-                        df.parse(jTFQuarto.getText())));
-            
-            } else if (formState == FormState.EDIT) {
-                clienteController.editarCliente(new Cliente(Integer.valueOf(jTFCodigo.getText()), 
-                                                        jTFNome.getText(), 
-                                                        jTFQuarto.getText(), 
-                                                        df.parse(jTFQuarto.getText())));
-            }        
+            if (formState == FormState.EDIT) {
+                reservasController.(new Reserva(Integer.valueOf(
+                    jTFCodigo.getText()), 
+                    jTFNome.getText(), 
+                    jTFQuarto.getText()
+                ));
+            }      
         } catch (ParseException ex) {
                 Logger.getLogger(JPPagamento.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        }
         //
         atualizarTabela();
         //
@@ -274,7 +268,7 @@ public class JPPagamento extends javax.swing.JPanel {
         jTFCodigo.setText("");
         jTFNome.setText("");
         jTFQuarto.setText("");
-        jTFQuarto.setText("");
+        jTFPago.setText("");
         //
         formState = FormState.INSERT;
         //
@@ -290,9 +284,9 @@ public class JPPagamento extends javax.swing.JPanel {
     }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void atualizarTabela() {
-        DefaultTableModel model = (DefaultTableModel) jTableCliente.getModel();
+        DefaultTableModel model = (DefaultTableModel) jTableReserva.getModel();
         model.setRowCount(0);
-        ArrayList<Cliente> lista = clienteController.consultarCliente();
+        ArrayList<Cliente> lista = reservasController.consultarCliente();
         
                 
         DateFormat df = DateFormatterFactory.dateFormatddMMyyy();
@@ -321,9 +315,9 @@ public class JPPagamento extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTFCodigo;
     private javax.swing.JTextField jTFNome;
+    private javax.swing.JTextField jTFPago;
     private javax.swing.JTextField jTFQuarto;
-    private javax.swing.JTextField jTFTelefone1;
-    private javax.swing.JTable jTableCliente;
     private javax.swing.JTable jTableCliente1;
+    private javax.swing.JTable jTableReserva;
     // End of variables declaration//GEN-END:variables
 }
