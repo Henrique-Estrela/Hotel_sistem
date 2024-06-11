@@ -162,14 +162,14 @@ public class JPClientes extends javax.swing.JPanel {
         jPanel2.add(jBGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 290, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Telefone:");
+        jLabel3.setText("CPF:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, 20));
 
         jTFTelefone.setToolTipText("");
         jPanel2.add(jTFTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 230, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("CPF:");
+        jLabel2.setText("Telefone:");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, 20));
 
         jTFCPF.setToolTipText("");
@@ -237,15 +237,15 @@ public class JPClientes extends javax.swing.JPanel {
             if (formState == FormState.INSERT) {  
                 clienteController.inserirCliente(new Cliente(0,
                         jTFNome.getText(),
-                        jTFTelefone.getText(),
                         jTFCPF.getText(),
+                        jTFTelefone.getText(),
                         df.parse(jTFDataNasc.getText())));
             
             } else if (formState == FormState.EDIT) {
                 clienteController.editarCliente(new Cliente(Integer.valueOf(jTFCodigo.getText()), 
                                                         jTFNome.getText(), 
-                                                        jTFTelefone.getText(), 
                                                         jTFCPF.getText(),
+                                                        jTFTelefone.getText(), 
                                                         df.parse(jTFDataNasc.getText())));
             }        
         } catch (ParseException ex) {
@@ -270,8 +270,8 @@ public class JPClientes extends javax.swing.JPanel {
     private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
         jTFCodigo.setText("");
         jTFNome.setText("");
-        jTFTelefone.setText("");
         jTFCPF.setText("");
+        jTFTelefone.setText("");
         jTFDataNasc.setText("");
         //
         formState = FormState.INSERT;
