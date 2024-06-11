@@ -45,6 +45,10 @@ public class Reserva{
         this.valorPagamento = valorPagamento;
         this.pago = false;
     }
+     public Reserva (Integer num, boolean pago){
+        this.num = num;
+        this.pago = pago;
+    }
     
     public Reserva(ResultSet rs) {
         try {
