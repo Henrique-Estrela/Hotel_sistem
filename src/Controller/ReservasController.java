@@ -25,7 +25,7 @@ public class ReservasController {
     * - pago: iniciará como false, indicando que o pagamento pode ser feito em momento posterior ao checkin
     */
     
-    public void registrarReserva(int idCliente, int idAtendente, int idQuarto, int idPagamento, int numHospedes, float valorPagamento){
+    public void registrarReserva(int idCliente, int idAtendente, int idQuarto, int idPagamento, int numHospedes, Double valorPagamento){
         String templateComandoSql = "INSERT INTO reserva(id_cliente, id_atendente, id_quarto, id_pagamento, num_hospedes, valor_pagamento) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             Connection dbConectado = DB.getConexao();
@@ -35,7 +35,7 @@ public class ReservasController {
             comandoSql.setInt(3, idQuarto);
             comandoSql.setInt(4, idPagamento);
             comandoSql.setInt(5, numHospedes);
-            comandoSql.setFloat(6, valorPagamento);
+            comandoSql.setDouble(6, valorPagamento);
             comandoSql.execute();
         } catch (SQLException excecao) {
             Logger.getLogger(ReservaController.class.getName()).log(Level.SEVERE, null, excecao);
@@ -101,7 +101,7 @@ public class ReservasController {
         } return reservaAcessada;
     }
     
-    public Reserva acessarReserva(int codigo, Connection dbConectado){
+    private Reserva acessarReserva(int codigo, Connection dbConectado){
         String templateComandoSql = "SELECT * FROM reserva WHERE num_reserva=" + codigo;
         Reserva reservaAcessada = null;
         try {

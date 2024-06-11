@@ -24,7 +24,7 @@ public class AtendenteController {
         } return atendenteAcessado;
     }
     
-    public Atendente acessarAtendente(int codigo, Connection dbConectado){
+    private Atendente acessarAtendente(int codigo, Connection dbConectado){
         String templateComandoSql = "SELECT * FROM atendente WHERE id=" + codigo;
         Atendente atendenteAcessado = null;
         try {
