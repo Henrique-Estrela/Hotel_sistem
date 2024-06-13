@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import Connection.DB;
 import Models.FormaPagamento;
 import Models.Pagamento;
+import Models.Reserva;
 
 public class PagamentoController {
     
@@ -113,10 +114,33 @@ public class PagamentoController {
     }
     
     /*
-    * Função: marcar uma reserva como paga
-    * Requisito: informar o núemro da reserva
+    * Função: esvaziar um quarto reservado
+    * Requisito: informar o número da reserva que terá o quarto liberado
     */
-    public void marcarReservaComoPaga(int numReserva) {
+    public void esvaziarQuarto(int numReserva){
+        String templateComandoSql = "UPDATE QUARTO SET " +
+                                    "RESERVADO = 0 " + 
+                                    "WHERE ID = ?";
+        ReservasController funcKit = new ReservasController();
+        Reserva reserva = funcKit.acessarReserva(numReserva);
+        int idQuarto = reserva.getIdQuarto();
+        try {
+            Connection dbConectado = DB.getConexao();
+            PreparedStatement comandoSql = dbConectado.prepareStatement(templateComandoSql);
+            comandoSql.setInt(1, idQuarto);
+            comandoSql.execute();
+        } catch (SQLException ex) {
+             Logger.getLogger(PagamentoController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DB.closeConexao();
+        }  
+    }
+    
+    /*
+    * Função: marcar uma reserva como paga
+    * Requisito: informar o núemro da reserva / informar se o quarto ficará vago após a operação (true ou false)
+    */
+    public void marcarReservaComoPaga(int numReserva, boolean quartoVago) {
         String templateComandoSql = "UPDATE RESERVA SET "+
                                     "DATA_CHECKOUT = CURRENT_TIMESTAMP, "+
                                     "PAGO = 1 " +
@@ -130,6 +154,25 @@ public class PagamentoController {
              Logger.getLogger(PagamentoController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DB.closeConexao();
+        }
+        if (quartoVago){
+            esvaziarQuarto(numReserva);
+        }
+    }
+    
+    public static void main (String args[]){
+        PagamentoController kit = new PagamentoController();
+        
+        ArrayList<Pagamento> a = kit.verPendencias();
+        
+        for (int i=0; i < a.size(); i++){
+            Pagamento pag = a.get(i);
+            System.out.println(pag.getNumReserva());
+            System.out.println(pag.getDataPagamento());
+            System.out.println(pag.getCliente());
+            System.out.println(pag.getAtendente());
+            System.out.println(pag.getFormaPagamento());
+            System.out.println(pag.getValor());
         }
     }
 }
