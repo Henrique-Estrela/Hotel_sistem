@@ -1,6 +1,5 @@
 package Controller;
 
-import Connection.DB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,16 +8,62 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import Connection.DB;
 import Models.FormaPagamento;
+import Models.Pagamento;
 import Models.Reserva;
-import Utils.DateFormatterFactory;
 
 public class PagamentoController {
     
     /*
-    * Função: acessar pagamento
+    * Função: ver histórico de pagamentos
+    * Requisito: -
+    * Retorno: retornará as informações de todos os pagamentos registrados relacionados às reservas realizadas
     */
+    public ArrayList<Pagamento> verPagamentos(){
+        String templateComandoSql = "SELECT * FROM RESERVA";
+        ArrayList<Pagamento> pagamentos = new ArrayList();
+        try {
+            Connection dbConectado = DB.getConexao();
+            ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
+            while (retornoSql.next()) {
+                Pagamento pagamento = new Pagamento(retornoSql, dbConectado);
+                pagamentos.addFirst(pagamento);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PagamentoController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DB.closeConexao();
+        } return pagamentos;
+    }
     
+    /*
+    * Função: ver pagamentos pendentes
+    * Requisito: -
+    * Retorno: retornará as informações de todos os pagamentos que constam como pendentes no banco de dados
+    */
+    public ArrayList<Pagamento> verPendencias(){
+        String templateComandoSql = "SELECT * FROM RESERVA WHERE PAGO=0";
+        ArrayList<Pagamento> pendencias = new ArrayList();
+        try {
+            Connection dbConectado = DB.getConexao();
+            ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
+            while (retornoSql.next()) {
+                Pagamento pagamento = new Pagamento(retornoSql, dbConectado);
+                pendencias.addFirst(pagamento);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PagamentoController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DB.closeConexao();
+        } return pendencias;
+    }
+    
+    /*
+    * Função: obter a forma de pagamento
+    * Requisito: informar o código da forma de pagamento que deseja buscar
+    * Retorno: retornará uma instância contendo todas as informações da forma de pagamento vinculada ao código informado
+    */
     public FormaPagamento acessarForma(int codigo){
         FormaPagamento pagamentoAcessado = null;
         try {
@@ -29,6 +74,12 @@ public class PagamentoController {
         } return pagamentoAcessado;
     }
     
+    /*
+    * Função: obter a forma de pagamento
+    * Requisito: informar o código da forma de pagamento que deseja buscar
+    * Retorno: retornará uma instância contendo todas as informações da forma de pagamento vinculada ao código informado
+    * Obs: este método evita que a conexão com o banco de dados seja finalizada antes da execução completa do método
+    */
     public FormaPagamento acessarForma(int codigo, Connection dbConectado){
         String templateComandoSql = "SELECT * FROM forma_de_pagamento WHERE id=" + codigo;
         FormaPagamento pagamentoAcessado = null;
@@ -36,49 +87,14 @@ public class PagamentoController {
             ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
             pagamentoAcessado = new FormaPagamento(retornoSql);
         } catch (SQLException excecaoSql) {
-            Logger.getLogger(FormaPagamento.class.getName()).log(Level.SEVERE, null, excecaoSql);
+            Logger.getLogger(PagamentoController.class.getName()).log(Level.SEVERE, null, excecaoSql);
         } return pagamentoAcessado;
     }
     
     /*
-    * Função: ver histórico de pagamentos
+    * Função: esvaziar um quarto reservado
+    * Requisito: informar o número da reserva que terá o quarto liberado
     */
-    
-    public ArrayList<String> verPagamentos() {
-        String templateComandoSql = "SELECT " +
-            "RESERVA.DATA_CHECKOUT as 'checkout', " +
-            "CLIENTE.NOME as 'cliente', " +
-            "RESERVA.VALOR_PAGAMENTO as 'valor', " +
-            "FORMA_DE_PAGAMENTO.NOME as 'pagamento' " +
-            "FROM RESERVA " +
-            "INNER JOIN CLIENTE ON CLIENTE.ID = RESERVA.ID_CLIENTE " +
-            "INNER JOIN FORMA_DE_PAGAMENTO ON FORMA_DE_PAGAMENTO.ID = RESERVA.ID_PAGAMENTO " +
-            "WHERE PAGO = 1 " +
-            "ORDER BY checkout DESC";
-        ArrayList<String> pagamentos = new ArrayList();
-        try {
-            Connection dbConectado = DB.getConexao();
-            ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
-            while (retornoSql.next()) {
-                String horario = retornoSql.getTimestamp("checkout").toLocalDateTime().format(DateFormatterFactory.dateTime());
-                String cliente = retornoSql.getString("cliente");
-                Double valor = retornoSql.getDouble("valor");
-                String forma = retornoSql.getString("pagamento");
-                String pagamento = "[ " + horario + " ] " + cliente + " pagou R$" + valor + " via " + forma + ".";
-                pagamentos.add(pagamento);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PagamentoController.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            DB.closeConexao();
-        }
-        return pagamentos;
-    }
-    
-    /*
-    * Função: esvaziar quarto buscando-o pelo número da reserva
-    */
-
     public void esvaziarQuarto(int numReserva){
         String templateComandoSql = "UPDATE QUARTO SET " +
                                     "RESERVADO = 0 " + 
@@ -92,16 +108,16 @@ public class PagamentoController {
             comandoSql.setInt(1, idQuarto);
             comandoSql.execute();
         } catch (SQLException ex) {
-             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(PagamentoController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DB.closeConexao();
         }  
     }
     
     /*
-    * Função: marcar reserva como paga
+    * Função: marcar uma reserva como paga
+    * Requisito: informar o núemro da reserva / informar se o quarto ficará vago após a operação (true ou false)
     */
-    
     public void marcarReservaComoPaga(int numReserva, boolean quartoVago) {
         String templateComandoSql = "UPDATE RESERVA SET "+
                                     "DATA_CHECKOUT = CURRENT_TIMESTAMP, "+
@@ -113,34 +129,12 @@ public class PagamentoController {
             comandoSql.setInt(1, numReserva);
             comandoSql.execute();
         } catch (SQLException ex) {
-             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(PagamentoController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DB.closeConexao();
         }
         if (quartoVago){
             esvaziarQuarto(numReserva);
         }
-    }
-    
-    /*
-    * Função: ver pagamentos pendentes
-    */
-    
-    public ArrayList<Reserva> verPendencias(){
-        String templateComandoSql = "SELECT * FROM RESERVA WHERE PAGO=0";
-        ArrayList<Reserva> reservas = new ArrayList();
-        try {
-            Connection dbConectado = DB.getConexao();
-            ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
-            while (retornoSql.next()) {
-                Reserva reserva = new Reserva(retornoSql);
-                reservas.addFirst(reserva);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            DB.closeConexao();
-        }
-        return reservas;
     }
 }
