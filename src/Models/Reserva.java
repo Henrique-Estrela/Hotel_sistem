@@ -3,6 +3,7 @@ package Models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,8 +13,8 @@ public class Reserva{
     private Integer idAtendente;
     private Integer idQuarto;
     private Integer idFormaPagamento;
-    private Timestamp dataCheckin;
-    private Timestamp dataCheckout;
+    private LocalDateTime dataCheckin;
+    private LocalDateTime dataCheckout;
     private Integer numHospedes;
     private Double valorPagamento;
     private boolean pago;
@@ -56,8 +57,8 @@ public class Reserva{
             this.idAtendente = rs.getInt("ID_ATENDENTE");
             this.idQuarto = rs.getInt("ID_QUARTO");
             this.idFormaPagamento = rs.getInt("ID_PAGAMENTO");
-            this.dataCheckin = rs.getTimestamp("data_checkin");
-            this.dataCheckout = rs.getTimestamp("data_checkout");
+            this.dataCheckin = rs.getTimestamp("data_checkin").toLocalDateTime();
+            this.dataCheckout = rs.getTimestamp("data_checkout").toLocalDateTime();
             this.numHospedes = rs.getInt("NUM_RESERVA");
             this.valorPagamento = rs.getDouble("VALOR_PAGAMENTO");
             this.pago = rs.getBoolean("PAGO");

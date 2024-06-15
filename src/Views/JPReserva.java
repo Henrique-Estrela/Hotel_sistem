@@ -15,7 +15,9 @@ import Models.FormaPagamento;
 import Models.Quarto;
 import Utils.ComboItem;
 import Models.Reserva;
+import Utils.DateFormatterFactory;
 import Views.FormState;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -106,7 +108,7 @@ public class JPReserva extends javax.swing.JPanel {
         Object tipoPagamento = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 7);
         Object valorPago = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 8);        
         Object pago = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 9);        
-        //
+        //        
         jTFCodigo.setText(jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 0).toString());
         if (cliente != null) {
             jCCliente.setSelectedItem(cliente);            
@@ -412,6 +414,7 @@ public class JPReserva extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTableReserva.getModel();
         model.setRowCount(0);
         ArrayList<Reserva> lista = reservasController.acessarReservas();
+        DateFormat df = DateFormatterFactory.dateFormatddMMyyy();
 
         for (Reserva r : lista) {
             Cliente c = clienteController.acessarCliente(r.getIdCliente());
@@ -422,8 +425,8 @@ public class JPReserva extends javax.swing.JPanel {
                                 a.getId().toString()+" - "+a.getNome(),
                                 r.getIdQuarto(),
                                 r.getNumHospedes(),
-                                r.getDataCheckin(),
-                                r.getDataCheckout(),
+                                df.format(r.getDataCheckin()),
+                                df.format(r.getDataCheckout()),
                                 r.getIdFormaPagamento(),
                                 r.getValorPagamento(),
                                 r.estaPago()};
