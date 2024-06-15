@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class FormaPagamento {
-    private int id;
+    private Integer id;
     private String nome;
 
     // Construtores
@@ -27,7 +27,7 @@ public class FormaPagamento {
       
     // Getters
 
-    public int getId(){
+    public Integer getId(){
         return this.id;
     }
 

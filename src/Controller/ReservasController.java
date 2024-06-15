@@ -12,8 +12,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import Connection.DB;
-import Models.Pagamento;
 import Models.Reserva;
+import Utils.DateFormatterFactory;
+import java.text.DateFormat;
 
 public class ReservasController {
 
@@ -150,26 +151,29 @@ public class ReservasController {
     * Obs: a modificaçõo ocorre no registro da reserva que contenha o id inserido na reserva instanciada
     */
     public void alterarReserva(Reserva reserva) {
-        String templateComandoSql = "UPDATE reserva  "+
-                                    "   SET ID_CLIENTE  = ?,   "+
-                                    "       ID_ATENDENTE = ?" +
-                                    "       ID_QUARTO = ?" +
-                                    "       ID_PAGAMENTO = ?" +
-                                    "       DATA_CHECKIN = ?" +
-                                    "       DATA_CHECKOUT = ?" +
-                                    "       NUM_HOSPEDES = ?" +
-                                    "       VALOR_PAGAMENTO = ?" +
-                                    "       PAGO = ?" +
-                                    " WHERE ID = ?      ";
+        String templateComandoSql = "UPDATE reserva             " +
+                                    "   SET ID_CLIENTE  = ?,    " +
+                                    "       ID_ATENDENTE = ?,   " +
+                                    "       ID_QUARTO = ?,      " +
+                                    "       ID_PAGAMENTO = ?,   " +
+                                    "       DATA_CHECKIN = ?,   " +
+                                    "       DATA_CHECKOUT = ?,  " +
+                                    "       NUM_HOSPEDES = ?,   " +
+                                    "       VALOR_PAGAMENTO = ?," +
+                                    "       PAGO = ?            " +
+                                    " WHERE NUM_RESERVA = ?     ";
         try {
+            DateFormat df = DateFormatterFactory.dateFormatyyyyMMdd();
+            
+            
             Connection dbConectado = DB.getConexao();
             PreparedStatement comandoSql = dbConectado.prepareStatement(templateComandoSql);
             comandoSql.setInt(1, reserva.getIdCliente());
             comandoSql.setInt(2, reserva.getIdAtendente());
             comandoSql.setInt(3, reserva.getIdQuarto());
             comandoSql.setInt(4, reserva.getIdFormaPagamento());
-            comandoSql.setTimestamp(5, reserva.getDataCheckin());
-            comandoSql.setTimestamp(6, reserva.getDataCheckout());
+            comandoSql.setString(5, Timestamp.valueOf(reserva.getDataCheckin()).toString());
+            comandoSql.setString(6, Timestamp.valueOf(reserva.getDataCheckout()).toString());
             comandoSql.setInt(7, reserva.getNumHospedes());
             comandoSql.setDouble(8, reserva.getValorPagamento());
             comandoSql.setBoolean(9, reserva.estaPago());

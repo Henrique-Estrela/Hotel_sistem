@@ -17,7 +17,10 @@ import Utils.ComboItem;
 import Models.Reserva;
 import Utils.DateFormatterFactory;
 import Views.FormState;
+import java.security.Timestamp;
 import java.text.DateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -47,15 +50,19 @@ public class JPReserva extends javax.swing.JPanel {
         this.atendenteController = new AtendenteController();
         this.quartosController = new QuartosController();
         this.pagamentoController = new PagamentoController();
-                
+
         this.formState = FormState.SEARCH;
         //
-        atualizarTabela();        
+        jTableReserva.removeColumn(jTableReserva.getColumn("Atendente"));
+        jTableReserva.removeColumn(jTableReserva.getColumn("Valor Pagamento"));
+        jTableReserva.removeColumn(jTableReserva.getColumn("Pago"));
+        //
+        atualizarTabela();
         updateButtons();
         //
         addListenerSelectionTable();
     }
-    
+
     public void addListenerSelectionTable() {
         jTableReserva.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -66,13 +73,13 @@ public class JPReserva extends javax.swing.JPanel {
             }
         });
     }
-    
+
     public void updateButtons() {
         if (FormState.SEARCH == formState) {
             jBNovo.setEnabled(true);
             jBEditar.setEnabled(true);
             jBCancelar.setEnabled(false);
-            jBGravar.setEnabled(false); 
+            jBGravar.setEnabled(false);
         } else if (FormState.INSERT == formState) {
             jBNovo.setEnabled(false);
             jBEditar.setEnabled(false);
@@ -82,39 +89,33 @@ public class JPReserva extends javax.swing.JPanel {
             jBNovo.setEnabled(false);
             jBEditar.setEnabled(false);
             jBCancelar.setEnabled(true);
-            jBGravar.setEnabled(true);            
+            jBGravar.setEnabled(true);
         }
     }
-    
+
     public void updateEdits() {        
-        jTFCodigo.setText("");
-        //jCCliente
-        //jCAtendente
-        //jCQuarto
+        jTFCodigo.setText("");        
         jTFNumHospedes.setText("");
         jTFDataChekIn.setText("");
-        jTFDataChekOut.setText("");
-        //jCPagamento
-        jTFValorPagamento.setText("");
-        //JCPago
-        
-               
-        Object cliente = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 1);
-        Object atendente = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 2);
-        Object quarto = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 3);
-        Object numHospedes = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 4);
-        Object dataCheckIn = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 5);
-        Object dataCheckOut = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 6);
-        Object tipoPagamento = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 7);
-        Object valorPago = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 8);        
-        Object pago = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 9);        
+        jTFDataChekOut.setText("");        
+        jTFValorPagamento.setText("");        
+        //
+        Object cliente = jTableReserva.getModel().getValueAt(jTableReserva.getSelectedRow(), 1);
+        Object atendente = jTableReserva.getModel().getValueAt(jTableReserva.getSelectedRow(), 2);
+        Object quarto = jTableReserva.getModel().getValueAt(jTableReserva.getSelectedRow(), 3);
+        Object numHospedes = jTableReserva.getModel().getValueAt(jTableReserva.getSelectedRow(), 4);
+        Object dataCheckIn = jTableReserva.getModel().getValueAt(jTableReserva.getSelectedRow(), 5);
+        Object dataCheckOut = jTableReserva.getModel().getValueAt(jTableReserva.getSelectedRow(), 6);
+        Object tipoPagamento = jTableReserva.getModel().getValueAt(jTableReserva.getSelectedRow(), 7);
+        Object valorPago = jTableReserva.getModel().getValueAt(jTableReserva.getSelectedRow(), 8);
+        Object pago = jTableReserva.getModel().getValueAt(jTableReserva.getSelectedRow(), 9);
         //        
         jTFCodigo.setText(jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 0).toString());
         if (cliente != null) {
-            jCCliente.setSelectedItem(cliente);            
+            jCCliente.setSelectedItem(cliente);
         }
         if (atendente != null) {
-            jCAtendente.setSelectedItem(atendente);            
+            jCAtendente.setSelectedItem(atendente);
         }
         if (quarto != null) {
             jCQuarto.setSelectedItem(quarto);
@@ -127,16 +128,16 @@ public class JPReserva extends javax.swing.JPanel {
         }
         if (dataCheckOut != null) {
             jTFDataChekOut.setText(dataCheckOut.toString());
-        }           
+        }
         if (tipoPagamento != null) {
             jCPagamento.setSelectedItem(tipoPagamento);
-        } 
+        }
         if (valorPago != null) {
             jTFValorPagamento.setText(valorPago.toString());
         }
         if (pago != null) {
             JCPago.setSelectedItem(pago);
-        }                        
+        }
     }
 
     /**
@@ -208,6 +209,7 @@ public class JPReserva extends javax.swing.JPanel {
                 "Num.", "Cliente", "Atendente", "Quarto", "Num Hospedes", "Data Chekin", "Data Checkout", "Pagamento", "Valor Pagamento", "Pago"
             }
         ));
+        jTableReserva.setToolTipText("");
         jTableReserva.setMinimumSize(new java.awt.Dimension(0, 0));
         jTableReserva.setShowGrid(false);
         jScrollPane1.setViewportView(jTableReserva);
@@ -312,11 +314,7 @@ public class JPReserva extends javax.swing.JPanel {
         jTFDataChekOut.setToolTipText("");
         jPanel2.add(jTFDataChekOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 110, 30));
 
-        try {
-            jTFNumHospedes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        jTFNumHospedes.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTFNumHospedes.setToolTipText("");
         jPanel2.add(jTFNumHospedes, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 110, 30));
 
@@ -344,33 +342,74 @@ public class JPReserva extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
-     
-        if (formState == FormState.INSERT) { 
-            Object cliente = jCCliente.getSelectedItem();
-            reservasController.registrarReserva(((ComboItem) cliente).getKey(),
-                                                (Integer) jCAtendente.getSelectedItem(),
-                                                (Integer) jCQuarto.getSelectedItem(),
-                                                (Integer) jCPagamento.getSelectedItem(),
-                                                Integer.valueOf(jTFNumHospedes.getText()),
-                                                Double.valueOf(jTFValorPagamento.getText()));               
+        ComboItem cliente = (ComboItem) jCCliente.getSelectedItem();
+        ComboItem atendente = (ComboItem) jCAtendente.getSelectedItem();
+        ComboItem quarto = (ComboItem) jCQuarto.getSelectedItem();
+        ComboItem pagamento = (ComboItem) jCPagamento.getSelectedItem();
+        
+        if (formState == FormState.INSERT) {
+
+            //
+            reservasController.registrarReserva(
+                    cliente.getKey(),
+                    atendente.getKey(),
+                    quarto.getKey(),
+                    pagamento.getKey(),
+                    Integer.valueOf(jTFNumHospedes.getText()),
+                    Double.valueOf(jTFValorPagamento.getText()));
         } else if (formState == FormState.EDIT) {
-           /*
-            quartoController.editarQuarto(new Quarto(Integer.valueOf(jTFCodigo.getText()),
-                    Integer.valueOf(jTFNumQuarto.getText()),
-                    jCTamanho.getItemAt(jCTamanho.getSelectedIndex()).toCharArray()[0]));
-*/
+            reservasController.alterarReserva(new Reserva(
+                    Integer.valueOf(jTFCodigo.getText()),
+                    cliente.getKey(),
+                    atendente.getKey(),
+                    quarto.getKey(),
+                    pagamento.getKey(),
+                    LocalDateTime.parse(jTFDataChekIn.getText(), DateFormatterFactory.date()),
+                    LocalDateTime.parse(jTFDataChekOut.getText(), DateFormatterFactory.date()),
+                    Integer.valueOf(jTFNumHospedes.getText()),
+                    Double.valueOf(jTFValorPagamento.getText())
+            ));
         }
         //
-        
+
         atualizarTabela();
         //
         formState = FormState.SEARCH;
         updateButtons();
     }//GEN-LAST:event_jBGravarActionPerformed
+    private void carregaItens() {
+        jCCliente.removeAllItems();
+        jCAtendente.removeAllItems();
+        jCPagamento.removeAllItems();
+        jCQuarto.removeAllItems();
+        JCPago.removeAllItems();               
+        
+        ArrayList<Cliente> clientes = clienteController.consultarCliente();
+        for (Cliente c : clientes) {                        
+            jCCliente.addItem(new ComboItem(c.getId(), c.getNome()));
+        }
 
+        ArrayList<Atendente> atendentes = atendenteController.acessarAtendente();
+        for (Atendente a : atendentes) {
+            jCAtendente.addItem(new ComboItem(a.getId(), a.getNome()));
+        }
+
+        ArrayList<Quarto> quartos = quartosController.conultarQuartosVazios();
+        for (Quarto q : quartos) {
+            jCQuarto.addItem(new ComboItem(q.getId(), q.getNum().toString()));
+        }
+
+        ArrayList<FormaPagamento> formaPagamentos = pagamentoController.verFormasDePagar();
+        for (FormaPagamento f : formaPagamentos) {
+            jCPagamento.addItem(new ComboItem(f.getId(), f.getNome()));
+        }      
+    }
+    
     private void jBEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarActionPerformed
-        // TODO add your handling code here:    
-        updateEdits();
+        // TODO add your handling code here:            
+        carregaItens();   
+        //
+        updateEdits();      
         //
         formState = FormState.EDIT;
         //
@@ -378,26 +417,14 @@ public class JPReserva extends javax.swing.JPanel {
     }//GEN-LAST:event_jBEditarActionPerformed
 
     private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
-        jTFCodigo.setText("");
-        //jTFNumQuarto.setText("");        
+        jTFCodigo.setText("");                
+        jTFNumHospedes.setText("");
+        jTFDataChekIn.setText("");
+        jTFDataChekOut.setText("");        
+        jTFValorPagamento.setText("");        
         //
-        ArrayList<Cliente> clientes = clienteController.consultarCliente();
-        for (Cliente c : clientes) {            
-            jCCliente.addItem(new ComboItem(c.getId(), c.getNome()));                         
-        }
-        
-        ArrayList<Atendente> atendentes = atendenteController.acessarAtendente();
-        for (Atendente a : atendentes) {            
-            jCAtendente.addItem(new ComboItem(a.getId(), a.getNome()));                         
-        }
-        
-        ArrayList<Quarto> quartos = quartosController.conultarQuartosVazios();
-        for (Quarto q : quartos) {                          
-            jCQuarto.addItem(new ComboItem(q.getId(), q.getNum().toString() ));                         
-        }
-        
-        //ArrayList<FormaPagamento> formaPagamentos = pagamentoController.acessarForma();
-        
+        carregaItens();           
+        //
         formState = FormState.INSERT;
         //
         updateButtons();
@@ -407,29 +434,42 @@ public class JPReserva extends javax.swing.JPanel {
         // TODO add your handling code here:       
         formState = FormState.SEARCH;
         //
-        updateButtons();       
+        updateButtons();
     }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void atualizarTabela() {
         DefaultTableModel model = (DefaultTableModel) jTableReserva.getModel();
         model.setRowCount(0);
-        ArrayList<Reserva> lista = reservasController.acessarReservas();
-        DateFormat df = DateFormatterFactory.dateFormatddMMyyy();
+        ArrayList<Reserva> lista = reservasController.acessarReservas();        
 
         for (Reserva r : lista) {
             Cliente c = clienteController.acessarCliente(r.getIdCliente());
-            Atendente a = atendenteController.acessarAtendente(r.getIdAtendente());            
-            //       
-            Object[] dados = {r.getNum(), 
-                                c.getId().toString()+" - "+c.getNome(), 
-                                a.getId().toString()+" - "+a.getNome(),
-                                r.getIdQuarto(),
-                                r.getNumHospedes(),
-                                df.format(r.getDataCheckin()),
-                                df.format(r.getDataCheckout()),
-                                r.getIdFormaPagamento(),
-                                r.getValorPagamento(),
-                                r.estaPago()};
+            Atendente a = atendenteController.acessarAtendente(r.getIdAtendente());
+            FormaPagamento f = pagamentoController.acessarForma(r.getIdFormaPagamento());
+            Quarto q = quartosController.acessarQuarto(r.getIdQuarto());
+            //
+            String dateCheckIn ="";
+            String dateCheckOut = "";
+            
+            if (r.getDataCheckin() != null) {                
+                dateCheckIn = r.getDataCheckin().format(DateFormatterFactory.dateTime());
+            }
+            
+            if (r.getDataCheckout() != null) {
+                dateCheckOut = r.getDataCheckout().format(DateFormatterFactory.dateTime());
+            }
+
+            //                              
+            Object[] dados = {r.getNum(),
+                new ComboItem(c.getId(), c.getNome()),
+                new ComboItem(a.getId(), a.getNome()),
+                new ComboItem(q.getId(), q.getNum().toString()),
+                r.getNumHospedes(),
+                dateCheckIn,
+                dateCheckOut,                
+                new ComboItem(f.getId(), f.getNome()),
+                r.getValorPagamento(),
+                r.estaPago()};
             model.addRow(dados);
         }
     }
@@ -442,7 +482,7 @@ public class JPReserva extends javax.swing.JPanel {
     private javax.swing.JButton jBNovo;
     private javax.swing.JComboBox<ComboItem> jCAtendente;
     private javax.swing.JComboBox<ComboItem> jCCliente;
-    private javax.swing.JComboBox<String> jCPagamento;
+    private javax.swing.JComboBox<ComboItem> jCPagamento;
     private javax.swing.JComboBox<ComboItem> jCQuarto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

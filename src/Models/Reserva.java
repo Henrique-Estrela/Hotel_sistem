@@ -2,12 +2,12 @@ package Models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Reserva{
+public class Reserva {
+
     private Integer num;
     private Integer idCliente;
     private Integer idAtendente;
@@ -18,10 +18,9 @@ public class Reserva{
     private Integer numHospedes;
     private Double valorPagamento;
     private boolean pago;
-    
+
     // Construtores
-    
-    public Reserva (Integer num, Integer idCliente, Integer idAtendente, Integer idQuarto, Integer idFormaPagamento, Timestamp dataCheckin, Timestamp dataCheckout, Integer numHospedes, Double valorPagamento, boolean pago){
+    public Reserva(Integer num, Integer idCliente, Integer idAtendente, Integer idQuarto, Integer idFormaPagamento, LocalDateTime dataCheckin, LocalDateTime dataCheckout, Integer numHospedes, Double valorPagamento, boolean pago) {
         this.num = num;
         this.idCliente = idCliente;
         this.idAtendente = idAtendente;
@@ -33,8 +32,8 @@ public class Reserva{
         this.valorPagamento = valorPagamento;
         this.pago = pago;
     }
-    
-    public Reserva (Integer num, Integer idCliente, Integer idAtendente, Integer idQuarto, Integer idFormaPagamento, Timestamp dataCheckin, Timestamp dataCheckout, Integer numHospedes, Double valorPagamento){
+
+    public Reserva(Integer num, Integer idCliente, Integer idAtendente, Integer idQuarto, Integer idFormaPagamento, LocalDateTime dataCheckin, LocalDateTime dataCheckout, Integer numHospedes, Double valorPagamento) {
         this.num = num;
         this.idCliente = idCliente;
         this.idAtendente = idAtendente;
@@ -45,11 +44,12 @@ public class Reserva{
         this.numHospedes = numHospedes;
         this.valorPagamento = valorPagamento;
     }
-     public Reserva (Integer num, boolean pago){
+
+    public Reserva(Integer num, boolean pago) {
         this.num = num;
         this.pago = pago;
     }
-    
+
     public Reserva(ResultSet rs) {
         try {
             this.num = rs.getInt("NUM_RESERVA");
@@ -57,8 +57,12 @@ public class Reserva{
             this.idAtendente = rs.getInt("ID_ATENDENTE");
             this.idQuarto = rs.getInt("ID_QUARTO");
             this.idFormaPagamento = rs.getInt("ID_PAGAMENTO");
-            this.dataCheckin = rs.getTimestamp("data_checkin").toLocalDateTime();
-            this.dataCheckout = rs.getTimestamp("data_checkout").toLocalDateTime();
+            if (rs.getTimestamp("data_checkin") != null) {
+                this.dataCheckin = rs.getTimestamp("data_checkin").toLocalDateTime();
+            }
+            if (rs.getTimestamp("data_checkout") != null) {
+                this.dataCheckout = rs.getTimestamp("data_checkout").toLocalDateTime();
+            }
             this.numHospedes = rs.getInt("NUM_RESERVA");
             this.valorPagamento = rs.getDouble("VALOR_PAGAMENTO");
             this.pago = rs.getBoolean("PAGO");
@@ -66,62 +70,59 @@ public class Reserva{
             Logger.getLogger(Quarto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     // Getters
-    
-    public int getNum(){
+    public int getNum() {
         return this.num;
     }
 
-    public Integer getIdCliente(){
+    public Integer getIdCliente() {
         return this.idCliente;
     }
 
-    public Integer getIdAtendente(){
+    public Integer getIdAtendente() {
         return this.idAtendente;
     }
 
-    public Integer getIdQuarto(){
+    public Integer getIdQuarto() {
         return this.idQuarto;
     }
 
-    public Integer getIdFormaPagamento(){
+    public Integer getIdFormaPagamento() {
         return this.idFormaPagamento;
     }
 
-    public Timestamp getDataCheckin(){
+    public LocalDateTime getDataCheckin() {
         return this.dataCheckin;
     }
 
-    public Timestamp getDataCheckout(){
+    public LocalDateTime getDataCheckout() {
         return this.dataCheckout;
     }
 
-    public Integer getNumHospedes(){
+    public Integer getNumHospedes() {
         return this.numHospedes;
     }
 
-    public Double getValorPagamento(){
+    public Double getValorPagamento() {
         return this.valorPagamento;
     }
-    
+
     // Setters
-    
-    public void setNumHospedes(Integer novoNum){
+    public void setNumHospedes(Integer novoNum) {
         this.numHospedes = novoNum;
     }
 
-    public void setValorPagamento(Double novoValor){
+    public void setValorPagamento(Double novoValor) {
         this.valorPagamento = novoValor;
     }
 
-    public void setStatusPago(boolean novoStatus){
+    public void setStatusPago(boolean novoStatus) {
         this.pago = novoStatus;
     }
 
     // Métodos Adicionais
-
-    public boolean estaPago(){
+    public boolean estaPago() {
         return this.pago;
     }
 }

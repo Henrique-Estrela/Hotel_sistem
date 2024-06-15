@@ -7,6 +7,8 @@ package Utils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 
 /**
  *
@@ -24,4 +26,13 @@ public class DateFormatterFactory {
     public static DateTimeFormatter dateTime(){
         return DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     }
+    
+    public static DateTimeFormatter date(){
+        return new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy[ [HH][:mm][:ss][.SSS]]")
+            .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+            .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+            .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+            .toFormatter();
+    }
+    
 }
