@@ -328,6 +328,7 @@ public class JPPagamento extends javax.swing.JPanel {
             model.addRow(dados);
         }
     }
+   
     private void atualizarTabela2() {
         DefaultTableModel model = (DefaultTableModel) jTableReserva2.getModel();
         model.setRowCount(0);
