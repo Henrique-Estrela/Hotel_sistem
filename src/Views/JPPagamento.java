@@ -310,7 +310,7 @@ public class JPPagamento extends javax.swing.JPanel {
    private void atualizarTabela1() {
         DefaultTableModel model = (DefaultTableModel) jTableReserva.getModel();
         model.setRowCount(0);
-        ArrayList<Reserva> lista = reservasController.acessarReservas();
+        ArrayList<Reserva> lista = reservasController.verPendencias();
 
         for (Reserva r : lista) {
             Cliente c = clienteController.acessarCliente(r.getIdCliente());
@@ -333,10 +333,11 @@ public class JPPagamento extends javax.swing.JPanel {
             //       
             Object[] dados = {r.getNum(), 
                                 c.getId().toString()+" - "+c.getNome(),
-                                c.getCpf().toString(),
+                                c.getCpf(),
                                 a.getId().toString()+" - "+a.getNome(),
                                 r.getIdQuarto(),
-                                r.getValorPagamento()};
+                                r.getValorPagamento()
+            };
             model.addRow(dados);
         }
     }

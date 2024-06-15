@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import Connection.DB;
+import Models.Pagamento;
 import Models.Reserva;
 
 public class ReservasController {
@@ -37,7 +38,7 @@ public class ReservasController {
             comandoSql.setDouble(6, valorPagamento);
             comandoSql.execute();
         } catch (SQLException excecao) {
-            Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, excecao);
         } finally {
             DB.closeConexao();
         }
@@ -65,7 +66,7 @@ public class ReservasController {
             comandoSql.setFloat(7, valorPagamento);
             comandoSql.execute();
         } catch (SQLException excecao) {
-            Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, excecao);
         } finally {
             DB.closeConexao();
         }
@@ -92,6 +93,24 @@ public class ReservasController {
             DB.closeConexao();
         } return reservas;
     }
+    
+      public ArrayList<Reserva> verPendencias() {
+        String templateComandoSql = "SELECT * FROM RESERVA WHERE PAGO = 0";
+        ArrayList<Reserva> reservas = new ArrayList();
+        try {
+            Connection dbConectado = DB.getConexao();
+            ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
+            while (retornoSql.next()) {
+                Reserva reserva = new Reserva(retornoSql);
+                reservas.addFirst(reserva);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DB.closeConexao();
+        } return reservas;
+    }
+          
     
     /*
     * Função: acessar reserva pelo código

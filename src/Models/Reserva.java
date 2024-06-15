@@ -43,7 +43,6 @@ public class Reserva{
         this.dataCheckout = dataCheckout;
         this.numHospedes = numHospedes;
         this.valorPagamento = valorPagamento;
-        this.pago = false;
     }
      public Reserva (Integer num, boolean pago){
         this.num = num;
