@@ -45,9 +45,9 @@ public class ClienteController {
     
     public Exception inserirCliente(Cliente cliente) {
         Exception erroNoCliente = avaliarNovoCliente(cliente);
-        if (erroNoCliente != null){
-            return erroNoCliente;
-        }
+        //if (erroNoCliente != null){
+        //    return erroNoCliente;
+        //}
         try {
             Connection conn = DB.getConexao();
             PreparedStatement pst = conn.prepareStatement("INSERT INTO CLIENTE(ID, NOME, CPF, TELEFONE, DATA_NASC) VALUES (null, ?, ?, ?, ?)");

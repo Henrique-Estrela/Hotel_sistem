@@ -48,7 +48,7 @@ public class Quarto {
         return this.id;
     }
 
-    public int getNum(){
+    public Integer getNum(){
         return this.num;
     }
 

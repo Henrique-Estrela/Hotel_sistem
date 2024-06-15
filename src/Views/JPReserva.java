@@ -6,10 +6,12 @@ package Views;
 
 import Controller.AtendenteController;
 import Controller.ClienteController;
+import Controller.PagamentoController;
 import Controller.QuartosController;
 import Controller.ReservasController;
 import Models.Atendente;
 import Models.Cliente;
+import Models.FormaPagamento;
 import Models.Quarto;
 import Utils.ComboItem;
 import Models.Reserva;
@@ -32,6 +34,7 @@ public class JPReserva extends javax.swing.JPanel {
     private final ReservasController reservasController;
     private final AtendenteController atendenteController;
     private final QuartosController quartosController;
+    private final PagamentoController pagamentoController;
 
     private FormState formState;
 
@@ -41,7 +44,7 @@ public class JPReserva extends javax.swing.JPanel {
         this.clienteController = new ClienteController();
         this.atendenteController = new AtendenteController();
         this.quartosController = new QuartosController();
-
+        this.pagamentoController = new PagamentoController();
                 
         this.formState = FormState.SEARCH;
         //
@@ -387,11 +390,11 @@ public class JPReserva extends javax.swing.JPanel {
         }
         
         ArrayList<Quarto> quartos = quartosController.conultarQuartosVazios();
-        for (Quarto q : quartos) {   
-            Integer num = q.getNum();
-            String aaa = num.toString();
-            jCQuarto.addItem(new ComboItem(q.getId(), aaa ));                         
+        for (Quarto q : quartos) {                          
+            jCQuarto.addItem(new ComboItem(q.getId(), q.getNum().toString() ));                         
         }
+        
+        //ArrayList<FormaPagamento> formaPagamentos = pagamentoController.acessarForma();
         
         formState = FormState.INSERT;
         //
