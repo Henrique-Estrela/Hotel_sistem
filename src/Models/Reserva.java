@@ -62,7 +62,7 @@ public class Reserva{
             this.valorPagamento = rs.getDouble("VALOR_PAGAMENTO");
             this.pago = rs.getBoolean("PAGO");
         } catch (SQLException ex) {
-            Logger.getLogger(Quarto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Reserva.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
