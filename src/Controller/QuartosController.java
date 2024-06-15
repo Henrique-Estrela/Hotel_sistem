@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +13,9 @@ import java.util.logging.Logger;
 public class QuartosController {
     
     /*
-    * Função: acessar quarto
+    * Função: acessar quarto pelo código
+    * Requisito: informar o código do quarto
+    * Retorno: retornará as informações do quarto que possui o código informado cadastrado no seu registro
     */
     public Quarto acessarQuarto(int codigo){
         Quarto quartoAcessado = null;
@@ -26,6 +27,12 @@ public class QuartosController {
         } return quartoAcessado;
     }
     
+    /*
+    * Função: acessar quarto pelo código
+    * Requisito: informar o código do quarto / passar a conexão já pré-estabelecida com o banco de dados
+    * Retorno: retornará as informações do quarto que possui o código informado cadastrado no seu registro
+    * Obs: este método evita que a conexão com o banco de dados seja finalizada antes da execução completa do método
+    */
     public Quarto acessarQuarto(int codigo, Connection dbConectado){
         String templateComandoSql = "SELECT * FROM quarto WHERE id=" + codigo;
         Quarto quartoAcessado = null;
@@ -37,15 +44,18 @@ public class QuartosController {
         } return quartoAcessado;
     }
     
-        public void inserirQuarto(Quarto quarto) {
+    /*
+    * Função: inserir novo quarto no banco de dados
+    * Requisito: passar o quarto instanciado com as novas informações
+    */
+    public void inserirQuarto(Quarto quarto) {
+        String templateComandoSql = "INSERT INTO QUARTO(ID, NUM, TAMANHO) VALUES (null, ?, ?)";
         try {
-            // TODO add your handling code here:
-            Connection conn = DB.getConexao();
-            //
-            PreparedStatement pst = conn.prepareStatement("INSERT INTO QUARTO(ID, NUM, TAMANHO) VALUES (null, ?, ?)");
-            pst.setInt(1, quarto.getNum());           
-            pst.setString(2, String.valueOf(quarto.getTamanho()));            
-            pst.execute();
+            Connection dbConectado = DB.getConexao();
+            PreparedStatement comandoSql = dbConectado.prepareStatement(templateComandoSql);
+            comandoSql.setInt(1, quarto.getNum());           
+            comandoSql.setString(2, String.valueOf(quarto.getTamanho()));            
+            comandoSql.execute();
         } catch (SQLException ex) {
             Logger.getLogger(QuartosController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -53,57 +63,65 @@ public class QuartosController {
         }
     }
 
+    /*
+    * Função: consultar todos os quartos registrados
+    * Retorno: retornará uma lista contendo todos os quartos registrados no banco de dados
+    */ 
     public ArrayList<Quarto> conultarQuartos() {
-        ArrayList<Quarto> lista = new ArrayList();
+        String templateComandoSql = "SELECT * FROM QUARTO";
+        ArrayList<Quarto> quartos = new ArrayList();
         try {
-            // TODO add your handling code here:
-            Connection conn = DB.getConexao();
-            //
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM QUARTO");
-            while (rs.next()) {
-                Quarto quarto = new Quarto(rs);
-                lista.add(quarto);
+            Connection dbConectado = DB.getConexao();
+            ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
+            while (retornoSql.next()) {
+                Quarto quarto = new Quarto(retornoSql);
+                quartos.add(quarto);
             }
         } catch (SQLException ex) {
             Logger.getLogger(QuartosController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DB.closeConexao();
-        }
-        return lista;
-    }
-    public ArrayList<Quarto> conultarQuartosVazios() {
-        ArrayList<Quarto> lista = new ArrayList();
-        try {
-            // TODO add your handling code here:
-            Connection conn = DB.getConexao();
-            //
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM QUARTO WHERE RESERVADO = 0");
-            while (rs.next()) {
-                Quarto quarto = new Quarto(rs);
-                lista.add(quarto);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(QuartosController.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            DB.closeConexao();
-        }
-        return lista;
+        } return quartos;
     }
 
-    public void editarQuarto(Quarto quarto) {
+    /*
+    * Função: consultar todos os quartos registrados que estão vazios atualmente
+    * Retorno: retornará uma lista contendo todos os quartos registrados no banco de dados que estão vazios atualmente
+    */ 
+    public ArrayList<Quarto> conultarQuartosVazios() {
+        String templateComandoSql = "SELECT * FROM QUARTO WHERE RESERVADO = 0";
+        ArrayList<Quarto> quartosVazios = new ArrayList();
         try {
-            Connection conn = DB.getConexao();
-            PreparedStatement pst = conn.prepareStatement("UPDATE QUARTO       "
-                                                        + "   SET NUM      = ?,"
-                                                        + "       TAMANHO  = ? "                                                        
-                                                        + " WHERE ID = ?       ");
-            pst.setInt(1, quarto.getNum());
-            pst.setString(2, String.valueOf(quarto.getTamanho()));
-            pst.setInt(3, quarto.getId());
-            //            
-            pst.execute();
+            Connection dbConectado = DB.getConexao();
+            ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
+            while (retornoSql.next()) {
+                Quarto quarto = new Quarto(retornoSql);
+                quartosVazios.add(quarto);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuartosController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DB.closeConexao();
+        } return quartosVazios;
+    }
+
+    /*
+    * Função: editar informações de um quarto
+    * Requisito: passar o quarto instanciado com novas informações
+    * Obs: a modificaçõo ocorre no registro do quarto que contenha o id inserido no quarto instanciado
+    */
+    public void editarQuarto(Quarto quarto) {
+        String templateComandoSql = "UPDATE QUARTO SET  " +
+                                    "   NUM      = ?,   " +
+                                    "   TAMANHO  = ?    " +                                                       
+                                    "WHERE ID = ?";
+        try {
+            Connection dbConectado = DB.getConexao();
+            PreparedStatement comandoSql = dbConectado.prepareStatement(templateComandoSql);
+            comandoSql.setInt(1, quarto.getNum());
+            comandoSql.setString(2, String.valueOf(quarto.getTamanho()));
+            comandoSql.setInt(3, quarto.getId());
+            comandoSql.execute();
         } catch (SQLException ex) {
             Logger.getLogger(QuartosController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

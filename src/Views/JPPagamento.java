@@ -8,6 +8,8 @@ package Views;
 import Controller.AtendenteController;
 import Controller.ClienteController;
 import Controller.ReservasController;
+import Controller.PagamentoController;
+
 
 import Models.Atendente;
 import Models.Cliente;
@@ -34,6 +36,8 @@ public class JPPagamento extends javax.swing.JPanel {
     private final ClienteController clienteController;
     private final ReservasController reservasController;
     private final AtendenteController atendenteController;
+    private final PagamentoController pagamentoController;
+
     
     private FormState formState;
 
@@ -42,6 +46,8 @@ public class JPPagamento extends javax.swing.JPanel {
         this.reservasController = new ReservasController();
         this.clienteController = new ClienteController();
         this.atendenteController = new AtendenteController();
+        this.pagamentoController = new PagamentoController();
+
         
         this.formState = FormState.SEARCH;
         //
@@ -84,7 +90,6 @@ public class JPPagamento extends javax.swing.JPanel {
         jTFNome.setText("");        
         jTFQuarto.setText("");
         //JCPago
-         jTFCodigo.setText("");
        
         
                
@@ -259,30 +264,31 @@ public class JPPagamento extends javax.swing.JPanel {
            jTFCodigo.setEnabled(true);
            jTFQuarto.setEnabled(true);
            jTFNome.setEnabled(true);
+                      
            
-       
-            System.out.println(JCPago.getSelectedItem());
-           
-           
-           
-           reservasController.alterarReserva(new Reserva(Integer.valueOf(
-                                                        jTFCodigo.getText()), 
-                                                       Boolean.getBoolean((String) JCPago.getSelectedItem()))); 
-                                                       
+           // Obtendo o valor do JComboBox e convertendo para booleano
+        boolean isPaid = Boolean.parseBoolean((String) JCPago.getSelectedItem());
+        
 
-           /*
-            quartoController.editarQuarto(new Quarto(Integer.valueOf(jTFCodigo.getText()),
-                    Integer.valueOf(jTFNumQuarto.getText()),
-                    jCTamanho.getItemAt(jCTamanho.getSelectedIndex()).toCharArray()[0]));
-*/
+        // Verifica se o valor selecionado é "true" para marcar a reserva como paga
+        if (isPaid) {
+            pagamentoController.marcarReservaComoPaga(Integer.valueOf(jTFCodigo.getText()));
+            jTFCodigo.setText("");
+            jTFNome.setText("");        
+            jTFQuarto.setText("");
         }
         //
- 
+       
+
+        }
+       
+        //
         atualizarTabela1();
         atualizarTabela2();
         //
         formState = FormState.SEARCH;
         updateButtons();
+
     
     }//GEN-LAST:event_jBGravarActionPerformed
 
@@ -310,7 +316,7 @@ public class JPPagamento extends javax.swing.JPanel {
    private void atualizarTabela1() {
         DefaultTableModel model = (DefaultTableModel) jTableReserva.getModel();
         model.setRowCount(0);
-        ArrayList<Reserva> lista = reservasController.acessarReservas();
+        ArrayList<Reserva> lista = reservasController.verPendencias();
 
         for (Reserva r : lista) {
             Cliente c = clienteController.acessarCliente(r.getIdCliente());
@@ -333,10 +339,11 @@ public class JPPagamento extends javax.swing.JPanel {
             //       
             Object[] dados = {r.getNum(), 
                                 c.getId().toString()+" - "+c.getNome(),
-                                c.getCpf().toString(),
+                                c.getCpf(),
                                 a.getId().toString()+" - "+a.getNome(),
                                 r.getIdQuarto(),
-                                r.getValorPagamento()};
+                                r.getValorPagamento()
+            };
             model.addRow(dados);
         }
     }

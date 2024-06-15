@@ -1,5 +1,7 @@
 package Exceptions;
 
+// Classe genérica para a instanciação de eventos inesperados durante a execução do programa
+
 public class Exception {
     private String msg;
 

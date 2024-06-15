@@ -1,29 +1,30 @@
 package Controller;
 
-import Models.Cliente;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import java.text.ParseException;
-
 import Connection.DB;
 import Exceptions.Exception;
+import Models.Cliente;
 import Utils.DateFormatterFactory;
 
 public class ClienteController {
-    
-    public Exception avaliarNovoCliente(Cliente novoCliente){
-        String nome = novoCliente.getNome();
-        String telefone = novoCliente.getTelefone();
-        String cpf = novoCliente.getCpf();
+
+    /*
+    * Função: verificar se há algum erro nas informações do cliente instanciado
+    * Requisito: passar o cliente instanciado
+    * Retorno: retornará uma Exception com o erro encontrado nas informações do cliente
+    * Obs: se as informações estiverem ok, retornará null
+    */
+    public Exception avaliarCliente(Cliente cliente){
+        String nome = cliente.getNome();
+        String telefone = cliente.getTelefone();
+        String cpf = cliente.getCpf();
         if (nome.length() < 1){
             return new Exception("Nome deve conter mais de 1 caractere");
         }
@@ -32,30 +33,32 @@ public class ClienteController {
         }
         if (cpf.length() != 11){
             return new Exception("CPF informado incorretamente");
-        }
-        return null;
+        } return null;
     }
     
     /*
-    * Função: registrar novo cliente
-    * Requisitos:
-    * - Nome deve ter 2 letras
-    * - Não pode deixar um campo em branco
+    * Função: inserir cliente no banco de dados
+    * Requisito: passar o cliente instanciado
+    * Retorno: retornará uma Exception caso algum erro seja encontrado nas informações do novo cliente
+    * Obs: se as informações estiverem ok, retornará null
     */
-    
-    public Exception inserirCliente(Cliente cliente) {
-        Exception erroNoCliente = avaliarNovoCliente(cliente);
-        //if (erroNoCliente != null){
-        //    return erroNoCliente;
-        //}
+    public Exception inserirCliente(Cliente cliente) {    
+
+        String templateComandoSql = "INSERT INTO CLIENTE(ID, NOME, CPF, TELEFONE, DATA_NASC) VALUES (null, ?, ?, ?, ?)";
+        
+//        Exception erroNoCliente = avaliarCliente(cliente);
+//        if (erroNoCliente != null){
+//            return erroNoCliente;
+//        };
+
         try {
-            Connection conn = DB.getConexao();
-            PreparedStatement pst = conn.prepareStatement("INSERT INTO CLIENTE(ID, NOME, CPF, TELEFONE, DATA_NASC) VALUES (null, ?, ?, ?, ?)");
-            pst.setString(1, cliente.getNome());
-            pst.setString(2, cliente.getCpf());
-            pst.setString(3, cliente.getTelefone());
-            pst.setString(4, DateFormatterFactory.dateFormatyyyyMMdd().format(cliente.getDataNasc()));
-            pst.execute();
+            Connection dbConectado = DB.getConexao();
+            PreparedStatement comandoSql = dbConectado.prepareStatement(templateComandoSql);
+            comandoSql.setString(1, cliente.getNome());
+            comandoSql.setString(2, cliente.getCpf());
+            comandoSql.setString(3, cliente.getTelefone());
+            comandoSql.setString(4, DateFormatterFactory.dateFormatyyyyMMdd().format(cliente.getDataNasc()));
+            comandoSql.execute();
         } catch (SQLException ex) {
             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -63,50 +66,38 @@ public class ClienteController {
         } return null;
     }
     
+    /*
+    * Função: editar informações de um cliente
+    * Requisito: passar o cliente instanciado com novas informações
+    * Obs: a modificaçõo ocorre no registro do cliente que contenha o id inserido no cliente instanciado
+    */
     public void editarCliente(Cliente cliente) {
+        String templateComandoSql = "UPDATE CLIENTE      " +
+                                    "   SET NOME = ?,    " +
+                                    "       CPF  = ?,    " +
+                                    "       TELEFONE = ?," +
+                                    "       DATA_NASC = ?" +
+                                    "   WHERE ID = ?  ";
         try {
-            // TODO add your handling code here:
-            Connection conn = DB.getConexao();
-            //
-            
-            PreparedStatement pst = conn.prepareStatement("UPDATE CLIENTE      "
-                                                        + "   SET NOME = ?,    "
-                                                        + "       CPF  = ?,    "
-                                                        + "       TELEFONE = ?,"
-                                                        + "       DATA_NASC = ?"
-                                                        + " WHERE ID = ?      ");
-            pst.setString(1, cliente.getNome());
-            pst.setString(2, cliente.getCpf());
-            pst.setString(3, cliente.getTelefone());
-            pst.setString(4, DateFormatterFactory.dateFormatyyyyMMdd().format(cliente.getDataNasc()));
-            pst.setInt(5, cliente.getId());
-            pst.execute();
+            Connection dbConectado = DB.getConexao();
+            PreparedStatement comandoSql = dbConectado.prepareStatement(templateComandoSql);
+            comandoSql.setString(1, cliente.getNome());
+            comandoSql.setString(2, cliente.getCpf());
+            comandoSql.setString(3, cliente.getTelefone());
+            comandoSql.setString(4, DateFormatterFactory.dateFormatyyyyMMdd().format(cliente.getDataNasc()));
+            comandoSql.setInt(5, cliente.getId());
+            comandoSql.execute();
         } catch (SQLException ex) {
             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DB.closeConexao();
         }
     }    
-    
-    public void registrarCliente(String cpf, String nome, String data_nasc, String telefone){
-        String templateComandoSql = "INSERT INTO cliente(cpf, nome, data_nasc, telefone) VALUES (?, ?, ?, ?)";
-        try {
-            Connection dbConectado = DB.getConexao();
-            PreparedStatement comandoSql = dbConectado.prepareStatement(templateComandoSql);
-            comandoSql.setString(1, cpf);
-            comandoSql.setString(2, nome);
-            comandoSql.setString(3, data_nasc);
-            comandoSql.setString(4, telefone);
-            comandoSql.execute();
-        } catch (SQLException excecao) {
-            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, excecao);
-        } finally {
-            DB.closeConexao();
-        }
-    }
         
     /*
     * Função: acessar cliente
+    * Requisito: informar o código do cliente
+    * Retorno: retornará as informações do cliente que possui o código informado cadastrado no seu registro
     */
     public Cliente acessarCliente(int codigo){
         Cliente clienteAcessado = null;
@@ -118,6 +109,12 @@ public class ClienteController {
         } return clienteAcessado;
     }
     
+    /*
+    * Função: acessar cliente
+    * Requisito: informar o código do cliente / passar a conexão já pré-estabelecida com o banco de dados
+    * Retorno: retornará as informações do cliente que possui o código informado cadastrado no seu registro
+    * Obs: este método evita que a conexão com o banco de dados seja finalizada antes da execução completa do método
+    */
     public Cliente acessarCliente(int codigo, Connection dbConectado){
         String templateComandoSql = "SELECT * FROM cliente WHERE id=" + codigo;
         Cliente clienteAcessado = null;
@@ -129,6 +126,11 @@ public class ClienteController {
         } return clienteAcessado;
     }
     
+    /*
+    * Função: acessar cliente
+    * Requisito: informar o cpf do cliente
+    * Retorno: retornará as informações do cliente que possui o cpf informado cadastrado no seu registro
+    */
     public Cliente acessarCliente(String cpf){
         Cliente clienteAcessado = null;
         try {
@@ -139,6 +141,12 @@ public class ClienteController {
         } return clienteAcessado;
     }
     
+    /*
+    * Função: acessar cliente
+    * Requisito: informar o cpf do cliente
+    * Retorno: retornará as informações do cliente que possui o cpf informado cadastrado no seu registro
+    * Obs: este método evita que a conexão com o banco de dados seja finalizada antes da execução completa do método
+    */
     public Cliente acessarCliente(String cpf, Connection dbConectado){
         String templateComandoSql = "SELECT * FROM cliente WHERE CPF=" + cpf;
         Cliente clienteAcessado = null;
@@ -151,48 +159,25 @@ public class ClienteController {
     }
     
     /*
-    * Função: alterar cliente
-    */
-    
-    public void alterarCliente(Cliente cliente) {
-        String templateComandoSql = "UPDATE cliente  "+
-                                    "   SET NOME = ?,   "+
-                                    "       CPF  = ?,   "+
-                                    "       TELEFONE = ?"+
-                                    " WHERE ID = ?      ";
+    * Função: consultar todos os clientes registrados
+    * Requisito: -
+    * Retorno: retornará uma lista contendo todos os clientes registrados no banco de dados
+    */            
+     public ArrayList<Cliente> consultarCliente() {
+        String templateComandoSql = "SELECT * FROM CLIENTE";
+        ArrayList<Cliente> clientes = new ArrayList();
         try {
             Connection dbConectado = DB.getConexao();
-            PreparedStatement comandoSql = dbConectado.prepareStatement(templateComandoSql);
-            comandoSql.setString(1, cliente.getNome());
-            comandoSql.setString(2, cliente.getCpf());
-            comandoSql.setString(3, cliente.getTelefone());
-            comandoSql.setInt(4, cliente.getId());
-            comandoSql.execute();
+            ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
+            while (retornoSql.next()) {
+                Cliente cliente = new Cliente(retornoSql);
+                clientes.add(cliente);
+            }
         } catch (SQLException ex) {
-             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DB.closeConexao();
-        }        
-    }
-            
-     public ArrayList<Cliente> consultarCliente() {
-         ArrayList<Cliente> lista = new ArrayList();
-         try {
-             // TODO add your handling code here:
-             Connection conn = DB.getConexao();
-             //
-             Statement st = conn.createStatement();
-             ResultSet rs = st.executeQuery("SELECT * FROM CLIENTE");
-             while (rs.next()) {
-                 Cliente cliente = new Cliente(rs);
-                 lista.add(cliente);
-             }
-         } catch (SQLException ex) {
-             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
-         } finally {
-             DB.closeConexao();
-         }
-         return lista;
+        } return clientes;
     }
 }
 

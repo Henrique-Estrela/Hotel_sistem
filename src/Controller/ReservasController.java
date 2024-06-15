@@ -12,23 +12,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import Connection.DB;
+import Models.Pagamento;
 import Models.Reserva;
 
 public class ReservasController {
-    
-    public void reservarQuarto(int idQuarto){
-        String templateComandoSql = "UPDATE QUARTO SET RESERVADO=1 WHERE ID=" + idQuarto;
-        try {
-            Connection dbConectado = DB.getConexao();
-            PreparedStatement comandoSql = dbConectado.prepareStatement(templateComandoSql);
-            comandoSql.execute();
-        } catch (SQLException excecao) {
-            Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, excecao);
-        } finally {
-            DB.closeConexao();
-        }
-    }
-    
+
     /*
     * Função: registrar reserva
     * Atribui automaticamente os seguintes valores...
@@ -37,7 +25,6 @@ public class ReservasController {
     * - data_checkout: iniciará como nulo, já que não faz sentido fazer checkin e checkout no hotel ao mesmo tempo
     * - pago: iniciará como false, indicando que o pagamento pode ser feito em momento posterior ao checkin
     */
-    
     public void registrarReserva(int idCliente, int idAtendente, int idQuarto, int idPagamento, int numHospedes, Double valorPagamento){
         String templateComandoSql = "INSERT INTO reserva(id_cliente, id_atendente, id_quarto, id_pagamento, num_hospedes, valor_pagamento) VALUES (?, ?, ?, ?, ?, ?)";
         try {
@@ -51,10 +38,9 @@ public class ReservasController {
             comandoSql.setDouble(6, valorPagamento);
             comandoSql.execute();
         } catch (SQLException excecao) {
-            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, excecao);
+            Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, excecao);
         } finally {
             DB.closeConexao();
-            reservarQuarto(idQuarto);
         }
     }
     
@@ -65,7 +51,6 @@ public class ReservasController {
     * - data_checkout: iniciará como nulo, já que não faz sentido fazer checkin e checkout no hotel ao mesmo tempo
     * - pago: iniciará como false, indicando que o pagamento pode ser feito em momento posterior ao checkin
     */
-    
     public void registrarReserva(int idCliente, int idAtendente, int idQuarto, int idPagamento, LocalDateTime dataCheckin, int numHospedes, float valorPagamento){
         String templateComandoSql = "INSERT INTO reserva(id_cliente, id_atendente, id_quarto, id_pagamento, data_checkin, num_hospedes, valor_pagamento) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Timestamp dataCheckinSql = Timestamp.valueOf(dataCheckin);
@@ -81,13 +66,17 @@ public class ReservasController {
             comandoSql.setFloat(7, valorPagamento);
             comandoSql.execute();
         } catch (SQLException excecao) {
-            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, excecao);
+            Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, excecao);
         } finally {
             DB.closeConexao();
-            reservarQuarto(idQuarto);
         }
     }
 
+    /*
+    * Função: acessar todas as reservas registradas no banco de dados
+    * Requisito: -
+    * Retorno: retornará uma lista com todos os registros de reservas armazenados no banco de dados
+    */
     public ArrayList<Reserva> acessarReservas() {
         String templateComandoSql = "SELECT * FROM RESERVA";
         ArrayList<Reserva> reservas = new ArrayList();
@@ -102,10 +91,32 @@ public class ReservasController {
             Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DB.closeConexao();
-        }
-        return reservas;
+        } return reservas;
     }
     
+      public ArrayList<Reserva> verPendencias() {
+        String templateComandoSql = "SELECT * FROM RESERVA WHERE PAGO = 0";
+        ArrayList<Reserva> reservas = new ArrayList();
+        try {
+            Connection dbConectado = DB.getConexao();
+            ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
+            while (retornoSql.next()) {
+                Reserva reserva = new Reserva(retornoSql);
+                reservas.addFirst(reserva);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DB.closeConexao();
+        } return reservas;
+    }
+          
+    
+    /*
+    * Função: acessar reserva pelo código
+    * Requisito: informar o código da reserva
+    * Retorno: retornará as informações da reserva que possui o código informado cadastrado no seu registro
+    */
     public Reserva acessarReserva(int codigo){
         Reserva reservaAcessada = null;
         try {
@@ -116,7 +127,13 @@ public class ReservasController {
         } return reservaAcessada;
     }
     
-    private Reserva acessarReserva(int codigo, Connection dbConectado){
+    /*
+    * Função: acessar reserva pelo código
+    * Requisito: informar o código da reserva / passar a conexão já pré-estabelecida com o banco de dados
+    * Retorno: retornará as informações da reserva que possui o código informado cadastrado no seu registro
+    * Obs: este método evita que a conexão com o banco de dados seja finalizada antes da execução completa do método
+    */
+    public Reserva acessarReserva(int codigo, Connection dbConectado){
         String templateComandoSql = "SELECT * FROM reserva WHERE num_reserva=" + codigo;
         Reserva reservaAcessada = null;
         try {
@@ -127,6 +144,11 @@ public class ReservasController {
         } return reservaAcessada;
     }
     
+    /*
+    * Função: alterar informações de uma reserva
+    * Requisito: passar a reserva instanciada com novas informações
+    * Obs: a modificaçõo ocorre no registro da reserva que contenha o id inserido na reserva instanciada
+    */
     public void alterarReserva(Reserva reserva) {
         String templateComandoSql = "UPDATE reserva  "+
                                     "   SET ID_CLIENTE  = ?,   "+
@@ -154,7 +176,7 @@ public class ReservasController {
             comandoSql.setInt(10, reserva.getNum());
             comandoSql.execute();
         } catch (SQLException ex) {
-             Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             DB.closeConexao();
         }        
