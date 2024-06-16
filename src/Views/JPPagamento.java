@@ -247,7 +247,7 @@ public class JPPagamento extends javax.swing.JPanel {
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 153, 255));
-        jLabel8.setText("Historico");
+        jLabel8.setText("Histórico");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, -1, -1));
 
         JCPago.setEditable(true);

@@ -125,7 +125,7 @@ public class JPAtender extends javax.swing.JPanel {
         jPanel2.add(jTFNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 370, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel5.setText("Proximos clientes...");
+        jLabel5.setText("Próximos clientes...");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 200, 20));
         jLabel5.getAccessibleContext().setAccessibleName("Atender");
 
@@ -134,12 +134,12 @@ public class JPAtender extends javax.swing.JPanel {
         jPanel2.add(jTFCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 110, 30));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel8.setText("Código:");
+        jLabel8.setText("Código");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 50, 20));
 
         jBAtenderP.setBackground(new java.awt.Color(0, 153, 255));
         jBAtenderP.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jBAtenderP.setText("Atender cliente");
+        jBAtenderP.setText("Atender Cliente");
         jBAtenderP.setBorder(null);
         jBAtenderP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

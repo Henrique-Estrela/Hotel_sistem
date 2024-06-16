@@ -131,7 +131,7 @@ public class JPClientes extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Tela Clientes");
+        jLabel4.setText("Clientes");
         jPanel1.add(jLabel4);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
@@ -144,14 +144,37 @@ public class JPClientes extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Código", "Nome", "CPF", "Telefone", "Data Nasc"
+                "ID", "Nome", "CPF", "Telefone", "Data de Nasc."
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableCliente.setMinimumSize(new java.awt.Dimension(0, 0));
         jTableCliente.setShowGrid(false);
+        jTableCliente.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableCliente);
+        if (jTableCliente.getColumnModel().getColumnCount() > 0) {
+            jTableCliente.getColumnModel().getColumn(0).setMaxWidth(40);
+            jTableCliente.getColumnModel().getColumn(1).setMinWidth(200);
+            jTableCliente.getColumnModel().getColumn(2).setMinWidth(20);
+            jTableCliente.getColumnModel().getColumn(3).setMinWidth(20);
+            jTableCliente.getColumnModel().getColumn(4).setMinWidth(70);
+        }
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 570, 130));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 570, 180));
 
         jBGravar.setText("Gravar");
         jBGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -199,11 +222,12 @@ public class JPClientes extends javax.swing.JPanel {
         jPanel2.add(jBNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Código:");
+        jLabel5.setText("ID:");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 50, 20));
 
         jTFCodigo.setEditable(false);
         jTFCodigo.setToolTipText("");
+        jTFCodigo.setEnabled(false);
         jPanel2.add(jTFCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 230, 30));
 
         jBCancelar.setText("Cancelar");

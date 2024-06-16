@@ -133,7 +133,7 @@ public class JPQuarto extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Tela Quartos");
+        jLabel4.setText("Quartos");
         jPanel1.add(jLabel4);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
@@ -146,7 +146,7 @@ public class JPQuarto extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Código", "Num. Quarto", "Tamanho", "Reservado"
+                "Código", "Número do Quarto", "Tamanho", "Reservado"
             }
         ));
         jTableQuarto.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -172,7 +172,7 @@ public class JPQuarto extends javax.swing.JPanel {
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, 20));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Num: Quarto:");
+        jLabel1.setText("Número:");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 90, 20));
 
         jTFNumQuarto.setToolTipText("");
@@ -219,6 +219,11 @@ public class JPQuarto extends javax.swing.JPanel {
         jCTamanho.setEditable(true);
         jCTamanho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "P", "M", "G" }));
         jCTamanho.setToolTipText("");
+        jCTamanho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCTamanhoActionPerformed(evt);
+            }
+        });
         jPanel2.add(jCTamanho, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 60, 30));
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -267,6 +272,10 @@ public class JPQuarto extends javax.swing.JPanel {
         //
         updateButtons();       
     }//GEN-LAST:event_jBCancelarActionPerformed
+
+    private void jCTamanhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCTamanhoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCTamanhoActionPerformed
 
     private void atualizarTabela() {
         DefaultTableModel model = (DefaultTableModel) jTableQuarto.getModel();

@@ -189,7 +189,7 @@ public class JPReserva extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Tela Reservas");
+        jLabel4.setText("Reservas");
         jPanel1.add(jLabel4);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
@@ -221,7 +221,7 @@ public class JPReserva extends javax.swing.JPanel {
         jPanel2.add(jBGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 290, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Data ChekIn:");
+        jLabel3.setText("Data de Chek-In:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, -1, 20));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -249,7 +249,7 @@ public class JPReserva extends javax.swing.JPanel {
         jPanel2.add(jBNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Código:");
+        jLabel5.setText("Número:");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 50, 20));
 
         jTFCodigo.setEditable(false);
@@ -299,7 +299,7 @@ public class JPReserva extends javax.swing.JPanel {
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, 20));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel8.setText("Data ChekOut:");
+        jLabel8.setText("Data de Chek-Out:");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, 20));
 
         try {
@@ -315,7 +315,7 @@ public class JPReserva extends javax.swing.JPanel {
         jPanel2.add(jTFNumHospedes, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 110, 30));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel9.setText("Num. Hospedes:");
+        jLabel9.setText("Hóspedes:");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, 20));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N

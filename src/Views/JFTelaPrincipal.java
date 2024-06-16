@@ -40,6 +40,11 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         jBCliente3 = new javax.swing.JButton();
         jBAtender = new javax.swing.JButton();
         jPnlMain = new javax.swing.JPanel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("fTelaPrincipal"); // NOI18N
@@ -63,7 +68,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jBCliente2.setText("Reservar");
+        jBCliente2.setText("Reservas");
         jBCliente2.setBorder(null);
         jBCliente2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,6 +120,52 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);
 
         jPnlMain.setLayout(new java.awt.GridLayout(1, 0));
+
+        jPanel2.setBackground(new java.awt.Color(0, 153, 255));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Componentes do Projeto");
+        jPanel2.add(jLabel4);
+
+        jTextArea2.setEditable(false);
+        jTextArea2.setBackground(new java.awt.Color(255, 255, 255));
+        jTextArea2.setColumns(20);
+        jTextArea2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jTextArea2.setLineWrap(true);
+        jTextArea2.setRows(5);
+        jTextArea2.setText("Arthur de Aquino Anjos\nDenilson Santos\nGabriel Arlisson de Souza Santos Torres\nHenrique Estrela Santos\nLuan Vinícius Miranda da Silva\nMatheus Kaick Rocha da Fonseca\nRafael Pinto Germano Pereira\nVinicius Cerqueira OIiveira\nVinícius de Oliveira Costa");
+        jTextArea2.setToolTipText("Integrantes do grupo que desenvolveu este programa");
+        jTextArea2.setFocusable(false);
+        jScrollPane1.setViewportView(jTextArea2);
+
+        jLayeredPane1.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addContainerGap(8, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addGap(118, 118, 118)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(222, Short.MAX_VALUE))
+        );
+
+        jPnlMain.add(jLayeredPane1);
+
         getContentPane().add(jPnlMain, java.awt.BorderLayout.CENTER);
 
         setSize(new java.awt.Dimension(773, 530));
@@ -224,7 +275,12 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jBCliente1;
     private javax.swing.JButton jBCliente2;
     private javax.swing.JButton jBCliente3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPnlMain;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea2;
     // End of variables declaration//GEN-END:variables
 }

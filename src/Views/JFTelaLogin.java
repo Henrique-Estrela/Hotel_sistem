@@ -47,7 +47,7 @@ public class JFTelaLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Logar");
+        jButton1.setText("Entrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -62,7 +62,7 @@ public class JFTelaLogin extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Tela Login");
+        jLabel4.setText("Login");
         jPanel1.add(jLabel4);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
