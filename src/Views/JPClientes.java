@@ -176,7 +176,7 @@ public class JPClientes extends javax.swing.JPanel {
             jTableCliente.getColumnModel().getColumn(4).setMinWidth(70);
         }
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 570, 180));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 570, 200));
 
         jBGravar.setText("Gravar");
         jBGravar.addActionListener(new java.awt.event.ActionListener() {
