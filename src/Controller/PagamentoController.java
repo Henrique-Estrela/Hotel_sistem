@@ -71,7 +71,7 @@ public class PagamentoController {
             ResultSet retornoSql = dbConectado.createStatement().executeQuery(templateComandoSql);
             while (retornoSql.next()) {
                 FormaPagamento forma = new FormaPagamento(retornoSql);
-                formas.addFirst(forma);
+                formas.add(forma);
             }
         } catch (SQLException ex) {
             Logger.getLogger(PagamentoController.class.getName()).log(Level.SEVERE, null, ex);
