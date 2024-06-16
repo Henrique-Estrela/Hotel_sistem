@@ -14,12 +14,7 @@ import Controller.PagamentoController;
 import Models.Atendente;
 import Models.Cliente;
 import Models.Reserva;
-import Utils.DateFormatterFactory;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -47,15 +42,16 @@ public class JPPagamento extends javax.swing.JPanel {
         this.clienteController = new ClienteController();
         this.atendenteController = new AtendenteController();
         this.pagamentoController = new PagamentoController();
-
         
         this.formState = FormState.SEARCH;
         //
+        addListenerSelectionTable();
+    }
+    
+    public void refresh() {
         atualizarTabela1();
         atualizarTabela2();        
-        updateButtons();
-        //
-        addListenerSelectionTable();
+        updateButtons();        
     }
     
     public void addListenerSelectionTable() {

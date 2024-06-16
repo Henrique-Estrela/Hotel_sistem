@@ -53,12 +53,15 @@ public class JPReserva extends javax.swing.JPanel {
         jTableReserva.removeColumn(jTableReserva.getColumn("Valor Pagamento"));
         jTableReserva.removeColumn(jTableReserva.getColumn("Pago"));
         //
-        atualizarTabela();
-        updateButtons();
+
         //
         addListenerSelectionTable();
     }
-
+    public void refresh() {
+        atualizarTabela();
+        updateButtons(); 
+    }
+    
     private void addListenerSelectionTable() {
         jTableReserva.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -354,14 +357,25 @@ public class JPReserva extends javax.swing.JPanel {
                     Integer.valueOf(jTFNumHospedes.getText()),
                     Double.valueOf(jTFValorPagamento.getText()));
         } else if (formState == FormState.EDIT) {
+            
+            LocalDateTime dataCheckIn = null;
+            if (!jTFDataChekIn.getText().trim().equals("/  /")) {
+                dataCheckIn = LocalDateTime.parse(jTFDataChekIn.getText(), DateFormatterFactory.date());
+            }
+            
+            LocalDateTime dataCheckOut = null;
+            if (!jTFDataChekOut.getText().trim().equals("/  /")) {
+                dataCheckOut = LocalDateTime.parse(jTFDataChekOut.getText(), DateFormatterFactory.date());
+            }
+            
             reservasController.alterarReserva(new Reserva(
                     Integer.valueOf(jTFCodigo.getText()),
                     cliente.getKey(),
                     atendente.getKey(),
                     quarto.getKey(),
                     pagamento.getKey(),
-                    LocalDateTime.parse(jTFDataChekIn.getText(), DateFormatterFactory.date()),
-                    LocalDateTime.parse(jTFDataChekOut.getText(), DateFormatterFactory.date()),
+                    dataCheckIn,
+                    dataCheckOut,
                     Integer.valueOf(jTFNumHospedes.getText()),
                     Double.valueOf(jTFValorPagamento.getText())
             ));

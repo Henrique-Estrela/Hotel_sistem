@@ -147,13 +147,12 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addGap(118, 118, 118)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,6 +177,8 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         if (jPClientes == null) {
             jPClientes = new JPClientes();                
         }
+        
+        jPClientes.refresh();
         jPnlMain.add(jPClientes);
         //
         jPnlMain.revalidate();
@@ -191,6 +192,8 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         if (jPQuarto == null) {
             jPQuarto = new JPQuarto();                
         }
+        jPQuarto.refresh();
+        
         jPnlMain.add(jPQuarto);
         //
         jPnlMain.revalidate();
@@ -203,6 +206,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         if (jPReserva == null) {
             jPReserva = new JPReserva();                
         }
+        jPReserva.refresh();
         jPnlMain.add(jPReserva);
         //
         jPnlMain.revalidate();
@@ -215,6 +219,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         if (jpPagamento == null) {
             jpPagamento = new JPPagamento();                
         }
+        jpPagamento.refresh();
         jPnlMain.add(jpPagamento);
         //
         jPnlMain.revalidate();
@@ -227,6 +232,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         if (jpAtender == null) {
             jpAtender = new JPAtender();                
         }
+        jpAtender.refresh();
         jPnlMain.add(jpAtender);
         //
         jPnlMain.revalidate();

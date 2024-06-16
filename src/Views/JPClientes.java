@@ -34,10 +34,12 @@ public class JPClientes extends javax.swing.JPanel {
         this.clienteController = new ClienteController();
         this.formState = FormState.SEARCH;
         //
+        addListenerSelectionTable();
+    }
+    
+    public void refresh() {
         atualizarTabela();        
         updateButtons();
-        //
-        addListenerSelectionTable();
     }
     
     private void addListenerSelectionTable() {
@@ -347,4 +349,6 @@ public class JPClientes extends javax.swing.JPanel {
     private javax.swing.JTextField jTFTelefone;
     private javax.swing.JTable jTableCliente;
     // End of variables declaration//GEN-END:variables
+
+
 }

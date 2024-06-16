@@ -26,12 +26,14 @@ public class JPQuarto extends javax.swing.JPanel {
     public JPQuarto() {
         initComponents();
         this.quartoController = new QuartosController();
-        this.formState = FormState.SEARCH;
-        //
-        atualizarTabela();        
-        updateButtons();
+        this.formState = FormState.SEARCH;        
         //
         addListenerSelectionTable();
+    }
+    
+    public void refresh() {
+        atualizarTabela();
+        updateButtons();
     }
     
     private void addListenerSelectionTable() {
@@ -308,3 +310,4 @@ public class JPQuarto extends javax.swing.JPanel {
     private javax.swing.JTable jTableQuarto;
     // End of variables declaration//GEN-END:variables
 }
+

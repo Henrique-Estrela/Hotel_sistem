@@ -21,19 +21,20 @@ public class JPAtender extends javax.swing.JPanel {
     /**
      * Creates new form JPClientes
      */
-    private FormState formState;
-    private ClienteController clienteController;
-    private AtendimentoController atendimentoController;
+   
+    private final ClienteController clienteController;
+    private final AtendimentoController atendimentoController;
 
     public JPAtender() {
         initComponents();
-        this.formState = FormState.SEARCH;
         //
         this.clienteController = new ClienteController();
         this.atendimentoController = new AtendimentoController();
-        //
+        //        
+    }
+    
+    public void refresh() {
         updateDados();
-
     }
 
     private void updateDados() {
@@ -56,16 +57,16 @@ public class JPAtender extends javax.swing.JPanel {
         Queue<FilaAtendimento> filaAtendimentos = atendimentoController.consultarFila();
         for (FilaAtendimento f : filaAtendimentos) {
             if (index == 0) {
-                jTFCodigo.setText(f.getIdFila().toString());;
+                jTFCodigo.setText(f.getIdFila().toString());
                 jTFNome.setText(f.getCliente().getNome());
             } else if (index == 1) {
-                jTFCodigo1.setText(f.getIdFila().toString());;
+                jTFCodigo1.setText(f.getIdFila().toString());
                 jTFNome1.setText(f.getCliente().getNome());
             } else if (index == 2) {
-                jTFCodigo2.setText(f.getIdFila().toString());;
+                jTFCodigo2.setText(f.getIdFila().toString());
                 jTFNome2.setText(f.getCliente().getNome());
             } else if (index == 3) {
-                jTFCodigo3.setText(f.getIdFila().toString());;
+                jTFCodigo3.setText(f.getIdFila().toString());
                 jTFNome3.setText(f.getCliente().getNome());
             } else if (index == 4) {
                 break;
