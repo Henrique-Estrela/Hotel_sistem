@@ -146,14 +146,34 @@ public class JPQuarto extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Código", "Número do Quarto", "Tamanho", "Reservado"
+                "ID", "Número do Quarto", "Tamanho", "Reservado"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableQuarto.setMinimumSize(new java.awt.Dimension(0, 0));
         jTableQuarto.setShowGrid(false);
+        jTableQuarto.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableQuarto);
+        if (jTableQuarto.getColumnModel().getColumnCount() > 0) {
+            jTableQuarto.getColumnModel().getColumn(0).setMaxWidth(40);
+            jTableQuarto.getColumnModel().getColumn(3).setMaxWidth(160);
+        }
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 570, 130));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 570, 240));
 
         jBGravar.setText("Gravar");
         jBGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -195,7 +215,7 @@ public class JPQuarto extends javax.swing.JPanel {
         jPanel2.add(jBNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Código:");
+        jLabel5.setText("ID:");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 50, 20));
 
         jTFCodigo.setEditable(false);

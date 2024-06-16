@@ -159,12 +159,33 @@ public class JPPagamento extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Código", "Nome", "Quarto", "Pago"
+                "Reserva", "Nome", "Quarto", "Pago"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableReserva.setMinimumSize(new java.awt.Dimension(0, 0));
         jTableReserva.setShowGrid(false);
+        jTableReserva.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableReserva);
+        if (jTableReserva.getColumnModel().getColumnCount() > 0) {
+            jTableReserva.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTableReserva.getColumnModel().getColumn(2).setMaxWidth(50);
+            jTableReserva.getColumnModel().getColumn(3).setMaxWidth(50);
+        }
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 240, 150));
 
@@ -182,6 +203,7 @@ public class JPPagamento extends javax.swing.JPanel {
 
         jTFQuarto.setEditable(false);
         jTFQuarto.setToolTipText("");
+        jTFQuarto.setEnabled(false);
         jPanel2.add(jTFQuarto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 230, 30));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -190,6 +212,7 @@ public class JPPagamento extends javax.swing.JPanel {
 
         jTFNome.setEditable(false);
         jTFNome.setToolTipText("");
+        jTFNome.setEnabled(false);
         jPanel2.add(jTFNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 230, 30));
 
         jBEditar.setText("Editar");
@@ -201,11 +224,12 @@ public class JPPagamento extends javax.swing.JPanel {
         jPanel2.add(jBEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Código:");
+        jLabel5.setText("Reserva:");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 50, 20));
 
         jTFCodigo.setEditable(false);
         jTFCodigo.setToolTipText("");
+        jTFCodigo.setEnabled(false);
         jPanel2.add(jTFCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 230, 30));
 
         jBCancelar.setText("Cancelar");
@@ -231,16 +255,35 @@ public class JPPagamento extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Código", "Nome", "CPF", "Atendente", "Quarto", "Valor"
+                "Reserva", "Nome", "CPF", "Atendente", "Quarto", "Valor"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableReserva2.setMinimumSize(new java.awt.Dimension(0, 0));
         jTableReserva2.setShowGrid(false);
+        jTableReserva2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTableReserva2);
         if (jTableReserva2.getColumnModel().getColumnCount() > 0) {
-            jTableReserva2.getColumnModel().getColumn(2).setHeaderValue("CPF");
-            jTableReserva2.getColumnModel().getColumn(3).setHeaderValue("Atendente");
-            jTableReserva2.getColumnModel().getColumn(5).setHeaderValue("Valor");
+            jTableReserva2.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTableReserva2.getColumnModel().getColumn(1).setMinWidth(110);
+            jTableReserva2.getColumnModel().getColumn(2).setPreferredWidth(50);
+            jTableReserva2.getColumnModel().getColumn(3).setMinWidth(110);
+            jTableReserva2.getColumnModel().getColumn(4).setMaxWidth(55);
+            jTableReserva2.getColumnModel().getColumn(5).setMaxWidth(65);
         }
 
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 570, 150));

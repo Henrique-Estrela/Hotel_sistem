@@ -83,22 +83,22 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="10" rowCount="0">
-                    <Column editable="true" title="Num." type="java.lang.Object"/>
-                    <Column editable="true" title="Cliente" type="java.lang.Object"/>
-                    <Column editable="true" title="Atendente" type="java.lang.Object"/>
-                    <Column editable="true" title="Quarto" type="java.lang.Object"/>
-                    <Column editable="true" title="Num Hospedes" type="java.lang.Object"/>
-                    <Column editable="true" title="Data Chekin" type="java.lang.Object"/>
-                    <Column editable="true" title="Data Checkout" type="java.lang.Object"/>
-                    <Column editable="true" title="Pagamento" type="java.lang.Object"/>
-                    <Column editable="true" title="Valor Pagamento" type="java.lang.Object"/>
-                    <Column editable="true" title="Pago" type="java.lang.Object"/>
+                    <Column editable="false" title="Num." type="java.lang.Integer"/>
+                    <Column editable="false" title="Cliente" type="java.lang.String"/>
+                    <Column editable="false" title="Atendente" type="java.lang.String"/>
+                    <Column editable="false" title="Quarto" type="java.lang.Integer"/>
+                    <Column editable="false" title="Num Hospedes" type="java.lang.Integer"/>
+                    <Column editable="false" title="Check-in" type="java.lang.Object"/>
+                    <Column editable="false" title="Check-out" type="java.lang.Object"/>
+                    <Column editable="false" title="Pagamento" type="java.lang.String"/>
+                    <Column editable="false" title="Valor Pagamento" type="java.lang.Double"/>
+                    <Column editable="false" title="Pago" type="java.lang.Boolean"/>
                   </Table>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="45" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -113,7 +113,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="60" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -155,7 +155,7 @@
                 </Property>
                 <Property name="showGrid" type="boolean" value="false"/>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                  <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                 </Property>
               </Properties>
             </Component>
@@ -179,7 +179,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Data de Chek-In:"/>
+            <Property name="text" type="java.lang.String" value="Chek-in:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -248,7 +248,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="50" y="50" width="50" height="20"/>
+              <AbsoluteConstraints x="50" y="50" width="60" height="20"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -259,7 +259,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="120" y="40" width="210" height="30"/>
+              <AbsoluteConstraints x="130" y="40" width="210" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -290,7 +290,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="160" y="170" width="110" height="30"/>
+              <AbsoluteConstraints x="130" y="170" width="110" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -308,7 +308,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="160" y="130" width="110" height="30"/>
+              <AbsoluteConstraints x="130" y="130" width="110" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -325,7 +325,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="160" y="90" width="110" height="30"/>
+              <AbsoluteConstraints x="130" y="90" width="110" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -342,7 +342,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="410" y="170" width="110" height="30"/>
+              <AbsoluteConstraints x="380" y="170" width="110" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -368,7 +368,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="410" y="90" width="110" height="30"/>
+              <AbsoluteConstraints x="380" y="90" width="110" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -390,7 +390,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Data de Chek-Out:"/>
+            <Property name="text" type="java.lang.String" value="Chek-out:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -407,7 +407,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="410" y="130" width="110" height="30"/>
+              <AbsoluteConstraints x="380" y="130" width="110" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -418,7 +418,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="160" y="210" width="110" height="30"/>
+              <AbsoluteConstraints x="130" y="210" width="110" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -464,7 +464,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="410" y="210" width="110" height="30"/>
+              <AbsoluteConstraints x="380" y="210" width="110" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -474,7 +474,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="160" y="250" width="360" height="30"/>
+              <AbsoluteConstraints x="130" y="250" width="360" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -483,7 +483,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Valor Pagamento:"/>
+            <Property name="text" type="java.lang.String" value="Valor:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

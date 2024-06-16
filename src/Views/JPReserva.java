@@ -202,13 +202,33 @@ public class JPReserva extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Num.", "Cliente", "Atendente", "Quarto", "Num Hospedes", "Data Chekin", "Data Checkout", "Pagamento", "Valor Pagamento", "Pago"
+                "Num.", "Cliente", "Atendente", "Quarto", "Num Hospedes", "Check-in", "Check-out", "Pagamento", "Valor Pagamento", "Pago"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Double.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableReserva.setToolTipText("");
         jTableReserva.setMinimumSize(new java.awt.Dimension(0, 0));
         jTableReserva.setShowGrid(false);
+        jTableReserva.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableReserva);
+        if (jTableReserva.getColumnModel().getColumnCount() > 0) {
+            jTableReserva.getColumnModel().getColumn(0).setMaxWidth(45);
+            jTableReserva.getColumnModel().getColumn(3).setMaxWidth(60);
+        }
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 570, 170));
 
@@ -221,7 +241,7 @@ public class JPReserva extends javax.swing.JPanel {
         jPanel2.add(jBGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 290, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Data de Chek-In:");
+        jLabel3.setText("Chek-in:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, -1, 20));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -250,11 +270,11 @@ public class JPReserva extends javax.swing.JPanel {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Número:");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 50, 20));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 60, 20));
 
         jTFCodigo.setEditable(false);
         jTFCodigo.setToolTipText("");
-        jPanel2.add(jTFCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 210, 30));
+        jPanel2.add(jTFCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 210, 30));
 
         jBCancelar.setText("Cancelar");
         jBCancelar.setActionCommand("");
@@ -267,20 +287,20 @@ public class JPReserva extends javax.swing.JPanel {
 
         jCQuarto.setEditable(true);
         jCQuarto.setToolTipText("");
-        jPanel2.add(jCQuarto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 110, 30));
+        jPanel2.add(jCQuarto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 110, 30));
 
         jCAtendente.setEditable(true);
         jCAtendente.setToolTipText("");
         jCAtendente.setEnabled(false);
-        jPanel2.add(jCAtendente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 110, 30));
+        jPanel2.add(jCAtendente, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 110, 30));
 
         jCCliente.setEditable(true);
         jCCliente.setToolTipText("");
-        jPanel2.add(jCCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 110, 30));
+        jPanel2.add(jCCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 110, 30));
 
         jCPagamento.setEditable(true);
         jCPagamento.setToolTipText("");
-        jPanel2.add(jCPagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 170, 110, 30));
+        jPanel2.add(jCPagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 110, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Pagamento:");
@@ -292,14 +312,14 @@ public class JPReserva extends javax.swing.JPanel {
             ex.printStackTrace();
         }
         jTFDataChekIn.setToolTipText("");
-        jPanel2.add(jTFDataChekIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 110, 30));
+        jPanel2.add(jTFDataChekIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, 110, 30));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Quarto:");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, 20));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel8.setText("Data de Chek-Out:");
+        jLabel8.setText("Chek-out:");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, 20));
 
         try {
@@ -308,11 +328,11 @@ public class JPReserva extends javax.swing.JPanel {
             ex.printStackTrace();
         }
         jTFDataChekOut.setToolTipText("");
-        jPanel2.add(jTFDataChekOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 110, 30));
+        jPanel2.add(jTFDataChekOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, 110, 30));
 
         jTFNumHospedes.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTFNumHospedes.setToolTipText("");
-        jPanel2.add(jTFNumHospedes, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 110, 30));
+        jPanel2.add(jTFNumHospedes, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 110, 30));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setText("Hóspedes:");
@@ -325,13 +345,13 @@ public class JPReserva extends javax.swing.JPanel {
         JCPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
         JCPago.setToolTipText("");
         JCPago.setEnabled(false);
-        jPanel2.add(JCPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 110, 30));
+        jPanel2.add(JCPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 210, 110, 30));
 
         jTFValorPagamento.setToolTipText("");
-        jPanel2.add(jTFValorPagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 360, 30));
+        jPanel2.add(jTFValorPagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 360, 30));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel11.setText("Valor Pagamento:");
+        jLabel11.setText("Valor:");
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, 20));
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
