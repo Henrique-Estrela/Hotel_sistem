@@ -16,11 +16,7 @@ import Models.Quarto;
 import Utils.ComboItem;
 import Models.Reserva;
 import Utils.DateFormatterFactory;
-import Views.FormState;
-import java.security.Timestamp;
-import java.text.DateFormat;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -63,7 +59,7 @@ public class JPReserva extends javax.swing.JPanel {
         addListenerSelectionTable();
     }
 
-    public void addListenerSelectionTable() {
+    private void addListenerSelectionTable() {
         jTableReserva.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -74,7 +70,7 @@ public class JPReserva extends javax.swing.JPanel {
         });
     }
 
-    public void updateButtons() {
+    private void updateButtons() {
         if (FormState.SEARCH == formState) {
             jBNovo.setEnabled(true);
             jBEditar.setEnabled(true);
@@ -326,9 +322,9 @@ public class JPReserva extends javax.swing.JPanel {
         jLabel10.setText("Pago:");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, -1, 20));
 
-        JCPago.setEditable(true);
         JCPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
         JCPago.setToolTipText("");
+        JCPago.setEnabled(false);
         jPanel2.add(JCPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 110, 30));
 
         jTFValorPagamento.setToolTipText("");

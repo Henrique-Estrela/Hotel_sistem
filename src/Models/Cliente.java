@@ -19,6 +19,10 @@ public class Cliente {
     
     // Construtores
 
+    public Cliente(Integer id) {
+        this.id = id;
+    }
+
     public Cliente(Integer id, String nome, String telefone, String cpf, Date dataNasc) {
         this.id = id;
         this.nome = nome;

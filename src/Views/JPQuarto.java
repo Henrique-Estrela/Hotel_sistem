@@ -6,8 +6,6 @@ package Views;
 
 import Controller.QuartosController;
 import Models.Quarto;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -36,7 +34,7 @@ public class JPQuarto extends javax.swing.JPanel {
         addListenerSelectionTable();
     }
     
-    public void addListenerSelectionTable() {
+    private void addListenerSelectionTable() {
         jTableQuarto.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -47,7 +45,7 @@ public class JPQuarto extends javax.swing.JPanel {
         });
     }
     
-    public void updateButtons() {
+    private void updateButtons() {
         if (FormState.SEARCH == formState) {
             jBNovo.setEnabled(true);
             jBEditar.setEnabled(true);
@@ -227,13 +225,14 @@ public class JPQuarto extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGravarActionPerformed
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         if (formState == FormState.INSERT) {
-            quartoController.inserirQuarto(new Quarto(Integer.valueOf(jTFNumQuarto.getText()),
+            quartoController.inserirQuarto(new Quarto(
+                    Integer.valueOf(jTFNumQuarto.getText()),
                     jCTamanho.getItemAt(jCTamanho.getSelectedIndex()).toCharArray()[0]));
             
         } else if (formState == FormState.EDIT) {
-            quartoController.editarQuarto(new Quarto(Integer.valueOf(jTFCodigo.getText()),
+            quartoController.editarQuarto(new Quarto(
+                    Integer.valueOf(jTFCodigo.getText()),
                     Integer.valueOf(jTFNumQuarto.getText()),
                     jCTamanho.getItemAt(jCTamanho.getSelectedIndex()).toCharArray()[0]));
         }

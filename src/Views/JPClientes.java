@@ -40,7 +40,7 @@ public class JPClientes extends javax.swing.JPanel {
         addListenerSelectionTable();
     }
     
-    public void addListenerSelectionTable() {
+    private void addListenerSelectionTable() {
         jTableCliente.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -51,7 +51,7 @@ public class JPClientes extends javax.swing.JPanel {
         });
     }
     
-    public void updateButtons() {
+    private void updateButtons() {
         if (FormState.SEARCH == formState) {
             jBNovo.setEnabled(true);
             jBEditar.setEnabled(true);
