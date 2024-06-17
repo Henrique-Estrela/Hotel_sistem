@@ -470,7 +470,7 @@ public class JPReserva extends javax.swing.JPanel {
     private void atualizarTabela() {
         DefaultTableModel model = (DefaultTableModel) jTableReserva.getModel();
         model.setRowCount(0);
-        ArrayList<Reserva> lista = reservasController.acessarReservas();        
+        ArrayList<Reserva> lista = reservasController.acessarReservas();
 
         for (Reserva r : lista) {
             Cliente c = clienteController.acessarCliente(r.getIdCliente());

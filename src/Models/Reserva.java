@@ -63,7 +63,7 @@ public class Reserva {
             if (rs.getTimestamp("data_checkout") != null) {
                 this.dataCheckout = rs.getTimestamp("data_checkout").toLocalDateTime();
             }
-            this.numHospedes = rs.getInt("NUM_RESERVA");
+            this.numHospedes = rs.getInt("NUM_HOSPEDES");
             this.valorPagamento = rs.getDouble("VALOR_PAGAMENTO");
             this.pago = rs.getBoolean("PAGO");
         } catch (SQLException ex) {
