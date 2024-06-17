@@ -67,9 +67,9 @@ public class JPPagamento extends javax.swing.JPanel {
     
     public void updateButtons() {
         if (FormState.SEARCH == formState) {
-            jBEditar.setEnabled(true);
+            jBEditar.setEnabled(false);
             jBCancelar.setEnabled(false);
-            jBGravar.setEnabled(false); 
+            jBGravar.setEnabled(false);
         } else if (FormState.INSERT == formState) {
             jBEditar.setEnabled(false);
             jBCancelar.setEnabled(true);
@@ -176,6 +176,11 @@ public class JPPagamento extends javax.swing.JPanel {
         jTableReserva.setMinimumSize(new java.awt.Dimension(0, 0));
         jTableReserva.setShowGrid(false);
         jTableReserva.getTableHeader().setReorderingAllowed(false);
+        jTableReserva.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableReservaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableReserva);
         if (jTableReserva.getColumnModel().getColumnCount() > 0) {
             jTableReserva.getColumnModel().getColumn(0).setMaxWidth(60);
@@ -272,6 +277,11 @@ public class JPPagamento extends javax.swing.JPanel {
         jTableReserva2.setMinimumSize(new java.awt.Dimension(0, 0));
         jTableReserva2.setShowGrid(false);
         jTableReserva2.getTableHeader().setReorderingAllowed(false);
+        jTableReserva2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableReserva2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTableReserva2);
         if (jTableReserva2.getColumnModel().getColumnCount() > 0) {
             jTableReserva2.getColumnModel().getColumn(0).setMaxWidth(60);
@@ -351,6 +361,15 @@ public class JPPagamento extends javax.swing.JPanel {
         //
         updateButtons();       
     }//GEN-LAST:event_jBCancelarActionPerformed
+
+    private void jTableReserva2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableReserva2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableReserva2MouseClicked
+
+    private void jTableReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableReservaMouseClicked
+        // TODO add your handling code here:
+        jBEditar.setEnabled(true);
+    }//GEN-LAST:event_jTableReservaMouseClicked
 
    private void atualizarTabela1() {
         DefaultTableModel model = (DefaultTableModel) jTableReserva.getModel();

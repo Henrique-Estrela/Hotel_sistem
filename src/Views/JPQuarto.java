@@ -50,7 +50,7 @@ public class JPQuarto extends javax.swing.JPanel {
     private void updateButtons() {
         if (FormState.SEARCH == formState) {
             jBNovo.setEnabled(true);
-            jBEditar.setEnabled(true);
+            jBEditar.setEnabled(false);
             jBCancelar.setEnabled(false);
             jBGravar.setEnabled(false); 
         } else if (FormState.INSERT == formState) {
@@ -169,6 +169,11 @@ public class JPQuarto extends javax.swing.JPanel {
         jTableQuarto.setMinimumSize(new java.awt.Dimension(0, 0));
         jTableQuarto.setShowGrid(false);
         jTableQuarto.getTableHeader().setReorderingAllowed(false);
+        jTableQuarto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableQuartoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableQuarto);
         if (jTableQuarto.getColumnModel().getColumnCount() > 0) {
             jTableQuarto.getColumnModel().getColumn(0).setMaxWidth(40);
@@ -298,6 +303,11 @@ public class JPQuarto extends javax.swing.JPanel {
     private void jCTamanhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCTamanhoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCTamanhoActionPerformed
+
+    private void jTableQuartoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableQuartoMouseClicked
+        // TODO add your handling code here:
+        jBEditar.setEnabled(true);
+    }//GEN-LAST:event_jTableQuartoMouseClicked
 
     private void atualizarTabela() {
         DefaultTableModel model = (DefaultTableModel) jTableQuarto.getModel();

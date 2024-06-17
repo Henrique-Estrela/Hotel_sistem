@@ -56,7 +56,7 @@ public class JPClientes extends javax.swing.JPanel {
     private void updateButtons() {
         if (FormState.SEARCH == formState) {
             jBNovo.setEnabled(true);
-            jBEditar.setEnabled(true);
+            jBEditar.setEnabled(false); //
             jBCancelar.setEnabled(false);
             jBGravar.setEnabled(false); 
         } else if (FormState.INSERT == formState) {
@@ -167,6 +167,14 @@ public class JPClientes extends javax.swing.JPanel {
         jTableCliente.setMinimumSize(new java.awt.Dimension(0, 0));
         jTableCliente.setShowGrid(false);
         jTableCliente.getTableHeader().setReorderingAllowed(false);
+        jTableCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableClienteMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTableClienteMouseEntered(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableCliente);
         if (jTableCliente.getColumnModel().getColumnCount() > 0) {
             jTableCliente.getColumnModel().getColumn(0).setMaxWidth(40);
@@ -312,6 +320,15 @@ public class JPClientes extends javax.swing.JPanel {
         //
         updateButtons();       
     }//GEN-LAST:event_jBCancelarActionPerformed
+
+    private void jTableClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClienteMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableClienteMouseEntered
+
+    private void jTableClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClienteMouseClicked
+        // TODO add your handling code here:
+        jBEditar.setEnabled(true); //
+    }//GEN-LAST:event_jTableClienteMouseClicked
 
     private void atualizarTabela() {
         DefaultTableModel model = (DefaultTableModel) jTableCliente.getModel();

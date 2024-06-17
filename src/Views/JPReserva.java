@@ -76,7 +76,7 @@ public class JPReserva extends javax.swing.JPanel {
     private void updateButtons() {
         if (FormState.SEARCH == formState) {
             jBNovo.setEnabled(true);
-            jBEditar.setEnabled(true);
+            jBEditar.setEnabled(false);
             jBCancelar.setEnabled(false);
             jBGravar.setEnabled(false);
         } else if (FormState.INSERT == formState) {
@@ -227,6 +227,11 @@ public class JPReserva extends javax.swing.JPanel {
         jTableReserva.setMinimumSize(new java.awt.Dimension(0, 0));
         jTableReserva.setShowGrid(false);
         jTableReserva.getTableHeader().setReorderingAllowed(false);
+        jTableReserva.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableReservaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableReserva);
         if (jTableReserva.getColumnModel().getColumnCount() > 0) {
             jTableReserva.getColumnModel().getColumn(0).setMaxWidth(45);
@@ -466,6 +471,11 @@ public class JPReserva extends javax.swing.JPanel {
         //
         updateButtons();
     }//GEN-LAST:event_jBCancelarActionPerformed
+
+    private void jTableReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableReservaMouseClicked
+        // TODO add your handling code here:
+        jBEditar.setEnabled(true);
+    }//GEN-LAST:event_jTableReservaMouseClicked
 
     private void atualizarTabela() {
         DefaultTableModel model = (DefaultTableModel) jTableReserva.getModel();
