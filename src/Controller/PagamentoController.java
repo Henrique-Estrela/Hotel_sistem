@@ -118,7 +118,7 @@ public class PagamentoController {
     */
     public void marcarReservaComoPaga(int numReserva) {
         String templateComandoSql = "UPDATE RESERVA SET "+
-                                    "DATA_CHECKOUT = CURRENT_TIMESTAMP, "+
+                                    "DATA_CHECKOUT = DATETIME('now', '-3 hours'), "+
                                     "PAGO = 1 " +
                                     "WHERE NUM_RESERVA = ?";
         try {

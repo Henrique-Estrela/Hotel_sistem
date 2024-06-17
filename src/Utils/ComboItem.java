@@ -20,7 +20,8 @@ public class ComboItem {
 
     @Override
     public String toString() {
-        return this.key + " - " + this.value;
+        return this.key + ": " + this.value;
+        //return this.key + " - " + this.value;
     }
 
     public Integer getKey() {

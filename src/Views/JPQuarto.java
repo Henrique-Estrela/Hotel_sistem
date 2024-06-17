@@ -176,11 +176,18 @@ public class JPQuarto extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTableQuarto);
         if (jTableQuarto.getColumnModel().getColumnCount() > 0) {
-            jTableQuarto.getColumnModel().getColumn(0).setMaxWidth(40);
-            jTableQuarto.getColumnModel().getColumn(3).setMaxWidth(160);
+            jTableQuarto.getColumnModel().getColumn(0).setMinWidth(30);
+            jTableQuarto.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTableQuarto.getColumnModel().getColumn(0).setMaxWidth(30);
+            jTableQuarto.getColumnModel().getColumn(1).setMinWidth(120);
+            jTableQuarto.getColumnModel().getColumn(1).setPreferredWidth(120);
+            jTableQuarto.getColumnModel().getColumn(1).setMaxWidth(120);
+            jTableQuarto.getColumnModel().getColumn(2).setMinWidth(70);
+            jTableQuarto.getColumnModel().getColumn(2).setPreferredWidth(70);
+            jTableQuarto.getColumnModel().getColumn(2).setMaxWidth(70);
         }
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 570, 240));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 330, 240));
 
         jBGravar.setText("Gravar");
         jBGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -227,6 +234,7 @@ public class JPQuarto extends javax.swing.JPanel {
 
         jTFCodigo.setEditable(false);
         jTFCodigo.setToolTipText("");
+        jTFCodigo.setEnabled(false);
         jPanel2.add(jTFCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 210, 30));
 
         jBCancelar.setText("Cancelar");

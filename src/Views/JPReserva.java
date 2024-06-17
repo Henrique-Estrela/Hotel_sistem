@@ -205,7 +205,7 @@ public class JPReserva extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Num.", "Cliente", "Atendente", "Quarto", "Num Hospedes", "Check-in", "Check-out", "Pagamento", "Valor Pagamento", "Pago"
+                "Num.", "Cliente", "Atendente", "Quarto", "Hóspedes", "Check-in", "Check-out", "Pagamento", "Valor Pagamento", "Pago"
             }
         ) {
             Class[] types = new Class [] {
@@ -234,8 +234,11 @@ public class JPReserva extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTableReserva);
         if (jTableReserva.getColumnModel().getColumnCount() > 0) {
-            jTableReserva.getColumnModel().getColumn(0).setMaxWidth(45);
-            jTableReserva.getColumnModel().getColumn(3).setMaxWidth(60);
+            jTableReserva.getColumnModel().getColumn(0).setMaxWidth(40);
+            jTableReserva.getColumnModel().getColumn(1).setMinWidth(100);
+            jTableReserva.getColumnModel().getColumn(3).setMaxWidth(47);
+            jTableReserva.getColumnModel().getColumn(4).setMaxWidth(68);
+            jTableReserva.getColumnModel().getColumn(7).setMaxWidth(75);
         }
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 570, 170));
@@ -282,6 +285,7 @@ public class JPReserva extends javax.swing.JPanel {
 
         jTFCodigo.setEditable(false);
         jTFCodigo.setToolTipText("");
+        jTFCodigo.setEnabled(false);
         jPanel2.add(jTFCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 210, 30));
 
         jBCancelar.setText("Cancelar");

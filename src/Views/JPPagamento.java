@@ -42,16 +42,14 @@ public class JPPagamento extends javax.swing.JPanel {
         this.clienteController = new ClienteController();
         this.atendenteController = new AtendenteController();
         this.pagamentoController = new PagamentoController();
-        
         this.formState = FormState.SEARCH;
-        //
         addListenerSelectionTable();
     }
     
     public void refresh() {
         atualizarTabela1();
         atualizarTabela2();        
-        updateButtons();        
+        updateButtons();
     }
     
     public void addListenerSelectionTable() {
@@ -86,9 +84,6 @@ public class JPPagamento extends javax.swing.JPanel {
         jTFNome.setText("");        
         jTFQuarto.setText("");
         //JCPago
-       
-        
-               
         Object cliente = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 1);
         Object quarto = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 2);
         Object pago = jTableReserva.getValueAt(jTableReserva.getSelectedRow(), 3);        
@@ -101,7 +96,12 @@ public class JPPagamento extends javax.swing.JPanel {
             jTFQuarto.setText(quarto.toString());
         }
         if (pago != null) {
-            JCPago.setSelectedItem(pago);
+            if (pago.equals(true)){
+                JCPago.setSelectedItem("Sim");
+            } else {
+                JCPago.setSelectedItem("Não");
+            }
+            //JCPago.setSelectedItem(pago);
         }                        
     }
 
@@ -142,7 +142,7 @@ public class JPPagamento extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Tela Pagamentos");
+        jLabel4.setText("Pagamentos");
         jPanel1.add(jLabel4);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
@@ -188,7 +188,7 @@ public class JPPagamento extends javax.swing.JPanel {
             jTableReserva.getColumnModel().getColumn(3).setMaxWidth(50);
         }
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 240, 150));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 250, 150));
 
         jBGravar.setText("Gravar");
         jBGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -260,7 +260,7 @@ public class JPPagamento extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -285,11 +285,11 @@ public class JPPagamento extends javax.swing.JPanel {
         jScrollPane2.setViewportView(jTableReserva2);
         if (jTableReserva2.getColumnModel().getColumnCount() > 0) {
             jTableReserva2.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTableReserva2.getColumnModel().getColumn(1).setMinWidth(110);
+            jTableReserva2.getColumnModel().getColumn(1).setMinWidth(100);
             jTableReserva2.getColumnModel().getColumn(2).setPreferredWidth(50);
-            jTableReserva2.getColumnModel().getColumn(3).setMinWidth(110);
-            jTableReserva2.getColumnModel().getColumn(4).setMaxWidth(55);
-            jTableReserva2.getColumnModel().getColumn(5).setMaxWidth(65);
+            jTableReserva2.getColumnModel().getColumn(3).setMinWidth(100);
+            jTableReserva2.getColumnModel().getColumn(4).setMaxWidth(50);
+            jTableReserva2.getColumnModel().getColumn(5).setMaxWidth(70);
         }
 
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 570, 150));
@@ -300,7 +300,7 @@ public class JPPagamento extends javax.swing.JPanel {
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, -1, -1));
 
         JCPago.setEditable(true);
-        JCPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "false", "true" }));
+        JCPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sim", "Não" }));
         JCPago.setToolTipText("");
         jPanel2.add(JCPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 110, 30));
 
@@ -313,12 +313,10 @@ public class JPPagamento extends javax.swing.JPanel {
            jTFCodigo.setEnabled(true);
            jTFQuarto.setEnabled(true);
            jTFNome.setEnabled(true);
-                      
-           
-           // Obtendo o valor do JComboBox e convertendo para booleano
-        boolean isPaid = Boolean.parseBoolean((String) JCPago.getSelectedItem());
         
-
+        // Obtendo o valor do JComboBox e averiguando se é uma afirmação
+        boolean isPaid = JCPago.getSelectedItem().equals("Sim");
+        
         // Verifica se o valor selecionado é "true" para marcar a reserva como paga
         if (isPaid) {
             pagamentoController.marcarReservaComoPaga(Integer.valueOf(jTFCodigo.getText()));
@@ -327,8 +325,6 @@ public class JPPagamento extends javax.swing.JPanel {
             jTFQuarto.setText("");
         }
         //
-       
-
         }
        
         //
@@ -337,16 +333,11 @@ public class JPPagamento extends javax.swing.JPanel {
         //
         formState = FormState.SEARCH;
         updateButtons();
-
-    
     }//GEN-LAST:event_jBGravarActionPerformed
 
     private void jBEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarActionPerformed
-        // TODO add your handling code here:    
         updateEdits();
-        //
         formState = FormState.EDIT;
-        //
         updateButtons();
     }//GEN-LAST:event_jBEditarActionPerformed
 
@@ -355,19 +346,14 @@ public class JPPagamento extends javax.swing.JPanel {
     }//GEN-LAST:event_jBNovoActionPerformed
 
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
-        // TODO add your handling code here:
-       
         formState = FormState.SEARCH;
-        //
         updateButtons();       
     }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void jTableReserva2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableReserva2MouseClicked
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTableReserva2MouseClicked
 
     private void jTableReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableReservaMouseClicked
-        // TODO add your handling code here:
         jBEditar.setEnabled(true);
     }//GEN-LAST:event_jTableReservaMouseClicked
 
@@ -375,10 +361,8 @@ public class JPPagamento extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTableReserva.getModel();
         model.setRowCount(0);
         ArrayList<Reserva> lista = reservasController.verPendencias();
-
         for (Reserva r : lista) {
             Cliente c = clienteController.acessarCliente(r.getIdCliente());
-            //       
             Object[] dados = {r.getNum(), 
                                 c.getNome(),
                                 r.getIdQuarto(),
@@ -391,17 +375,15 @@ public class JPPagamento extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTableReserva2.getModel();
         model.setRowCount(0);
         ArrayList<Reserva> lista = reservasController.acessarReservas();
-
         for (Reserva r : lista) {
             Cliente c = clienteController.acessarCliente(r.getIdCliente());
             Atendente a = atendenteController.acessarAtendente(r.getIdAtendente());            
-            //       
             Object[] dados = {r.getNum(), 
-                                c.getId().toString()+" - "+c.getNome(),
+                                c.getNome(),
                                 c.getCpf(),
-                                a.getId().toString()+" - "+a.getNome(),
+                                a.getNome(),
                                 r.getIdQuarto(),
-                                r.getValorPagamento()
+                                "R$ " + String.format("%.2f", r.getValorPagamento())
             };
             model.addRow(dados);
         }
